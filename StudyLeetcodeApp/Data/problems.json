@@ -1,0 +1,23 @@
+[
+    {
+      "name": "Two Pointer",
+      "problems": [
+          {
+            "name": "Two Sum",
+            "difficulty": "Easy",
+            "description": "Given [2, 7, 11, 15] and target 9, find two numbers that add up.",
+            "snippets": [
+              "hashmap = {}",
+              "for num in array:",
+              "if target - num in hashmap:",
+              "return [num, hashmap[target - num]]",
+              "hashmap[num] = num",
+            ],
+            "correct_order": [0, 1, 2, 3, 4],
+            "correct_indentation": [0, 0, 1, 2, 1],
+            "complexity_options": ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
+            "correct_complexity": 1
+          }
+      ]
+    }
+]
