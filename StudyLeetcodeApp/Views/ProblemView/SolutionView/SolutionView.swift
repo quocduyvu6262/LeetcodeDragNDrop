@@ -52,12 +52,17 @@ struct SolutionView: View {
                     droppedSnippets.remove(at: index)
                 }
             }
-                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
+            .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
+            Spacer()
             
             // Check Button
-            Button("Check") {
-                let result = checkSnippetsCorrectness()
-                print(result)
+            LCButton(title: "Submit") {
+                let result = isSnippetsCorrect()
+                let isOrderCorrect = result.0
+                let isIndentCorrect = result.1
+                if isOrderCorrect && isIndentCorrect {
+                    nextStep()
+                }
             }
         }
         
@@ -73,19 +78,18 @@ struct SolutionView: View {
         snippets: [
             "hashmap = {}",
             "for num in array:",
-            "for i in array: for j in array:",
-            "for i in array: for j in array:",
             "if target - num in hashmap:",
             "return [num, hashmap[target - num]]",
             "hashmap[num] = num",
             "for i in array: for j in array:",
-            "sort(array)",
-            "return [num, hashmap[target - num]]"
+            "sort(array)"
           ],
         correctOrder: [0, 1, 2, 3, 4],
         correctIndentation: [0, 0, 4, 8, 4],
-        complexityOptions: ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
-        correctComplexity: 1
+        timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+        spaceComplexityOptions: ["O(1)", "O(n)", "O(2\u{207F})", "O(n!)"],
+        correctTimeComplexity: "O(n)",
+        correctSpaceComplexity: "O(n)"
     )
     return NavigationStack {
         SolutionView(problem: sampleProblem, nextStep: { step = 2 })

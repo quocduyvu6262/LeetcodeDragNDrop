@@ -11,13 +11,59 @@ struct ComplexityView: View {
     let problem: Problem
     let nextStep: () -> Void
     
+    @State var selectedTimeComplexity: String?
+    @State var selectedSpaceComplexity: String?
+    
     var body: some View {
-        VStack {
-          Text("What’s the time/space complexity?")
-          ForEach(problem.complexityOptions, id: \.self) { option in
-            Button(option) { /* Check logic later */ }
-          }
-          Button("Submit") { nextStep() } // Placeholder
+        VStack(spacing: 30) {
+            // Time Complexity Section
+            VStack(spacing: 15) {
+                Text("What’s the Time Complexity?")
+                    .font(.headline)
+                
+                ForEach(problem.timeComplexityOptions, id: \.self) { option in
+                    Button(action: {
+                        selectedTimeComplexity = option
+                    }) {
+                        Text(option)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(selectedTimeComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .padding(.horizontal, 12)
+            
+            // Space Complexity Section
+            VStack(spacing: 15) {
+                Text("What’s the Space Complexity?")
+                    .font(.headline)
+                
+                ForEach(problem.spaceComplexityOptions, id: \.self) { option in
+                    Button(action: {
+                        selectedSpaceComplexity = option
+                    }) {
+                        Text(option)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(selectedSpaceComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
+                            .cornerRadius(8)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+            }
+            .padding(.horizontal, 12)
+            
+            // Submit Button
+            LCButton(title: "Submit") {
+                if isCorrectComplexity() {
+                    nextStep()
+                }
+            }
+            .disabled(selectedTimeComplexity == nil || selectedSpaceComplexity == nil)
+            .padding()
         }
     }
 }
@@ -39,8 +85,10 @@ struct ComplexityView: View {
           ],
         correctOrder: [0, 1, 2, 3, 4],
         correctIndentation: [0, 0, 4, 8, 4],
-        complexityOptions: ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
-        correctComplexity: 1
+        timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+        spaceComplexityOptions: ["O(1)", "O(n)", "O(2\u{207F})", "O(n!)"],
+        correctTimeComplexity: "O(n)",
+        correctSpaceComplexity: "O(n)"
     )
     return NavigationStack {
         ComplexityView(problem: sampleProblem, nextStep: { step = 2 })

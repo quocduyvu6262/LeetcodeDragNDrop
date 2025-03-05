@@ -8,7 +8,7 @@
 import Foundation
 
 extension SolutionView {
-    func checkSnippetsCorrectness() -> (orderCorrect: Bool, indentCorrect: Bool) {
+    func isSnippetsCorrect() -> (orderCorrect: Bool, indentCorrect: Bool) {
         // Check Order
         let sortedDroppedSnippets = droppedSnippets.sorted { $0.position.y < $1.position.y }
         let droppedSnippetTexts = sortedDroppedSnippets.map { $0.snippet }

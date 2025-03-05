@@ -5,7 +5,7 @@
           {
             "name": "Two Sum",
             "difficulty": "Easy",
-            "description": "Given [2, 7, 11, 15] and target 9, find two numbers that add up.",
+            "description": "Given an array of integers nums and an integer target, find two numbers that add up to the target and return their indices. Each input has exactly one solution, and you cannot use the same element twice. Order of indices doesn’t matter.\n\nExample\n nums = [2, 7, 11, 15], target = 9\n 2 + 7 = 9, so return [0, 1]\n\nApproaches\n1. Brute Force: Check all pairs. Time: O(n²), Space: O(1)\n2. Hash Table: Use a map for O(n) time, O(n) space.\n\nConstraints\n 2 ≤ nums.length ≤ 10⁴\n -10⁹ ≤ nums[i], target ≤ 10⁹\n\nCan you find the pair for [2, 7, 11, 15] and target 9?",
             "snippets": [
               "hashmap = {}",
               "for num in array:",
@@ -16,7 +16,10 @@
             "correct_order": [0, 1, 2, 3, 4],
             "correct_indentation": [0, 0, 1, 2, 1],
             "complexity_options": ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
-            "correct_complexity": 1
+            "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+            "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+            "correct_time_complexity": "O(n)",
+            "correct_space_complexity": "O(n)"
           }
       ]
     }

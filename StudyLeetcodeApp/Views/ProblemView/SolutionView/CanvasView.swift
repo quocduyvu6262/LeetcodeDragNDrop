@@ -79,6 +79,7 @@ struct CanvasView: View {
                 }
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
                 .background(Color.white)
+                .clipped()
                 .onDrop(of: [.text], delegate: CanvasDropDelegate(
                     highlightedDot: $highlightedDot,
                     currentSnippet: $currentSnippet,
@@ -89,6 +90,7 @@ struct CanvasView: View {
                     onDrop: onDrop
                 ))
             }
+            .clipped()
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
                     .stroke(Color.black.opacity(1.0), lineWidth: 2)
@@ -180,4 +182,26 @@ struct CanvasDropDelegate: DropDelegate {
             y: max(0, min(y, canvasHeight - dotSpacing))
         )
     }
+}
+
+#Preview {
+    // Sample state for the preview
+    @State var currentSnippet = "hashmap = {}"
+    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = [
+        ("for num in array:", CGPoint(x: 20, y: 20)),
+        ("if target - num in hashmap:", CGPoint(x: 20, y: 60))
+    ]
+    
+    // Define the onDrop closure for the preview
+    let onDrop: (String, CGPoint) -> Void = { snippet, position in
+        droppedSnippets.append((snippet, position))
+        print("Dropped \(snippet) at \(position)")
+    }
+    
+    return CanvasView(
+        minCanvasHeight: 300, // Minimum height for the canvas
+        droppedSnippets: droppedSnippets,
+        currentSnippet: $currentSnippet,
+        onDrop: onDrop
+    )
 }
