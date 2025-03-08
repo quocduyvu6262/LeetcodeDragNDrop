@@ -6,66 +6,80 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SolutionView: View {
     let problem: Problem
     let nextStep: () -> Void
     
-    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
-    @State private var availableSnippets: [String]
+    @Environment(\.modelContext) internal var modelContext
+    @Query internal var savedSnippets: [DroppedSnippet]
+    @State internal var droppedSnippets: [(snippet: String, position: CGPoint)] = []
+    @State internal var availableSnippets: [String]
     @State private var currentSnippet: String = ""
+    @State private var showModal: Bool = false
+    @State private var isCorrect: Bool = false
+    @State private var modalMessage: String = ""
     
     init(problem: Problem, nextStep: @escaping () -> Void) {
         self.problem = problem
         self.nextStep = nextStep
         _availableSnippets = State(initialValue: problem.snippets)
+        let problemName = problem.name
+        _savedSnippets = Query(filter: #Predicate<DroppedSnippet> { $0.problemName == problemName })
     }
     
     var body: some View {
-        VStack {
-            // Top Half: Canvas
-            CanvasView(
-                minCanvasHeight: UIScreen.main.bounds.height * 0.7,
-                droppedSnippets: droppedSnippets,
-                currentSnippet: $currentSnippet
-            ) { snippet, position in
-                if let index = droppedSnippets.firstIndex(where: {$0.snippet == snippet}) {
-                    droppedSnippets.remove(at: index)
+        ZStack {
+            VStack {
+                // Top Half: Canvas
+                CanvasView(
+                    minCanvasHeight: UIScreen.main.bounds.height * 0.7,
+                    droppedSnippets: droppedSnippets,
+                    currentSnippet: $currentSnippet
+                ) { snippet, position in
+                    updateDroppedSnippets(snippet: snippet, position: position)
                 }
-                droppedSnippets.append((snippet, position))
-                if let index = availableSnippets.firstIndex(of: snippet) {
-                    availableSnippets.remove(at: index)
+                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.50)
+                
+                // Bottom Half: Snippet List
+                SnippetsListView(
+                    availableSnippets: availableSnippets,
+                    currentSnippet: $currentSnippet
+                ) { snippet in
+                    returnSnippetToAvailable(snippet: snippet)
+                }
+                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
+                Spacer()
+                
+                // Check Button
+                LCButton(title: "Submit") {
+                    let result = isSnippetsCorrect()
+                    let isOrderCorrect = result.0
+                    let isIndentCorrect = result.1
+                    isCorrect = isOrderCorrect && isIndentCorrect
+                    modalMessage = isCorrect ? "Great job! Your solution is correct." : "Oops! Check the order or indentation."
+                    showModal = true
                 }
             }
-            .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.50)
             
-            // Bottom Half: Snippet List
-            SnippetsListView(
-                availableSnippets: availableSnippets,
-                currentSnippet: $currentSnippet
-            ) { snippet in
-                if let index = availableSnippets.firstIndex(of: snippet) {
-                    availableSnippets.remove(at: index)
-                }
-                availableSnippets.append(snippet)
-                if let index = droppedSnippets.firstIndex(where: { $0.snippet == snippet}) {
-                    droppedSnippets.remove(at: index)
-                }
-            }
-            .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
-            Spacer()
-            
-            // Check Button
-            LCButton(title: "Submit") {
-                let result = isSnippetsCorrect()
-                let isOrderCorrect = result.0
-                let isIndentCorrect = result.1
-                if isOrderCorrect && isIndentCorrect {
-                    nextStep()
+            if showModal {
+                VStack {
+                    AnswerFeedbackModal(
+                        isCorrect: isCorrect, 
+                        message: modalMessage
+                    ) {
+                        showModal = false
+                        if isCorrect {
+                            nextStep()
+                        }
+                    }
                 }
             }
         }
-        
+        .onAppear {
+            loadDroppedSnippets()
+        }
     }
 }
 

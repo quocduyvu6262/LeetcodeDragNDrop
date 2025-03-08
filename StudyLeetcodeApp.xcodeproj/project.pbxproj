@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */; };
 		7D4616352D74379100739617 /* SnippetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616342D74379100739617 /* SnippetsListView.swift */; };
 		7D4616382D74561D00739617 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616372D74561D00739617 /* Helpers.swift */; };
 		7D46163B2D74D6AD00739617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46163A2D74D6AD00739617 /* Constants.swift */; };
+		7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
 		7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EB02D70560D00B3F1EA /* ContentView.swift */; };
@@ -53,9 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedSnippet.swift; sourceTree = "<group>"; };
 		7D4616342D74379100739617 /* SnippetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsListView.swift; sourceTree = "<group>"; };
 		7D4616372D74561D00739617 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7D46163A2D74D6AD00739617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFeedbackModal.swift; sourceTree = "<group>"; };
 		7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		7DD23EAB2D70560D00B3F1EA /* StudyLeetcodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyLeetcodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeApp.swift; sourceTree = "<group>"; };
@@ -214,6 +218,7 @@
 			children = (
 				7DD23EE62D7059D200B3F1EA /* Category.swift */,
 				7DD23EE82D7059DB00B3F1EA /* Problem.swift */,
+				7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			children = (
 				7DD23EF32D7127E000B3F1EA /* CodeSnippet.swift */,
 				7DD6AF262D78261300AB1940 /* LCButton.swift */,
+				7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -404,9 +410,11 @@
 				7DD23EDE2D7058C000B3F1EA /* CategoryView.swift in Sources */,
 				7DD23EF42D7127E000B3F1EA /* CodeSnippet.swift in Sources */,
 				7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */,
+				7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */,
 				7DD23EF82D71489100B3F1EA /* FlowLayout.swift in Sources */,
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,
 				7DD23EEF2D710BAA00B3F1EA /* SolutionView.swift in Sources */,
+				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
 				7DD23EE12D7058DA00B3F1EA /* ProblemView.swift in Sources */,
 				7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */,
 				7DD23EF12D710E3400B3F1EA /* ComplexityView.swift in Sources */,
