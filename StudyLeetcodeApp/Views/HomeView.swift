@@ -10,23 +10,32 @@ import SwiftUI
 struct HomeView: View {
     let categories = DataManager.loadProblems()
     
+    @State private var searchText: String = ""
+    
+    private var filteredCategory: [Category] {
+        if searchText.isEmpty {
+            return categories
+        } else {
+            return categories.filter { category in
+                category.name.lowercased().contains(searchText.lowercased().trimmingCharacters(in: .whitespaces))
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
-            TextField("Type problem name...", text: .constant(""))
+            TextField("Search category...", text: $searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding()
+                .padding(.horizontal)
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(categories) { category in
-                        NavigationLink(destination: CategoryView(category: category)) {
-                            Text(category.name)
-                                .font(.headline)
-                                .padding(.vertical, 8)
+                    ForEach(filteredCategory) { category in
+                        NavigationLink(destination: ProblemsListView(category: category)) {
+                            CategoryCard(category: category)
                         }
-                        Divider()
                     }
                 }
-                .padding(.horizontal)
+                .padding()
             }
         }
         .navigationTitle("Leetcode Prep")

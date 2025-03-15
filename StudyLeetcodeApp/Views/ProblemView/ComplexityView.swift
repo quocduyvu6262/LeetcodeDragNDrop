@@ -13,57 +13,76 @@ struct ComplexityView: View {
     
     @State var selectedTimeComplexity: String?
     @State var selectedSpaceComplexity: String?
+    @State private var showModal: Bool = false
+    @State private var isCorrect: Bool = false
+    @State private var modalMessage: String = ""
     
     var body: some View {
-        VStack(spacing: 30) {
-            // Time Complexity Section
-            VStack(spacing: 15) {
-                Text("What’s the Time Complexity?")
-                    .font(.headline)
-                
-                ForEach(problem.timeComplexityOptions, id: \.self) { option in
-                    Button(action: {
-                        selectedTimeComplexity = option
-                    }) {
-                        Text(option)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(selectedTimeComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
-                            .cornerRadius(8)
+        ZStack {
+            VStack(spacing: 30) {
+                // Time Complexity Section
+                VStack(spacing: 15) {
+                    Text("What’s the Time Complexity?")
+                        .font(.headline)
+                    
+                    ForEach(problem.timeComplexityOptions, id: \.self) { option in
+                        Button(action: {
+                            selectedTimeComplexity = option
+                        }) {
+                            Text(option)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(selectedTimeComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
-            }
-            .padding(.horizontal, 12)
-            
-            // Space Complexity Section
-            VStack(spacing: 15) {
-                Text("What’s the Space Complexity?")
-                    .font(.headline)
+                .padding(.horizontal, 12)
                 
-                ForEach(problem.spaceComplexityOptions, id: \.self) { option in
-                    Button(action: {
-                        selectedSpaceComplexity = option
-                    }) {
-                        Text(option)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(selectedSpaceComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
-                            .cornerRadius(8)
+                // Space Complexity Section
+                VStack(spacing: 15) {
+                    Text("What’s the Space Complexity?")
+                        .font(.headline)
+                    
+                    ForEach(problem.spaceComplexityOptions, id: \.self) { option in
+                        Button(action: {
+                            selectedSpaceComplexity = option
+                        }) {
+                            Text(option)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(selectedSpaceComplexity == option ? Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
+                                .cornerRadius(8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
-                    .buttonStyle(PlainButtonStyle())
                 }
+                .padding(.horizontal, 12)
+                
+                // Submit Button
+                LCButton(title: "Submit") {
+                    isCorrect = isCorrectComplexity()
+                    modalMessage = isCorrect ? "Great job! Your solution is correct." : "Oops! Check the time or space complexity."
+                    showModal = true
+                }
+                .disabled(selectedTimeComplexity == nil || selectedSpaceComplexity == nil)
+                .padding()
             }
-            .padding(.horizontal, 12)
             
-            // Submit Button
-            LCButton(title: "Submit") {
-                if isCorrectComplexity() {
-                    nextStep()
+            if showModal {
+                VStack {
+                    AnswerFeedbackModal(
+                        isCorrect: isCorrect,
+                        message: modalMessage
+                    ) {
+                        showModal = false
+                        if isCorrect {
+                            nextStep()
+                        }
+                    }
                 }
             }
-            .disabled(selectedTimeComplexity == nil || selectedSpaceComplexity == nil)
-            .padding()
         }
     }
 }

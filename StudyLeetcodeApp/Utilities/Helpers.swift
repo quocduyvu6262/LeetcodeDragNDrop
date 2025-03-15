@@ -17,7 +17,7 @@ func calculateTextWidth(text: String, font: UIFont = Constants.snippetFont) -> C
 
 func calculateSnippetWidth(text: String, font: UIFont = Constants.snippetFont) -> CGFloat {
     let textWidth = calculateTextWidth(text: text)
-    let numberOfDotSpacing = round(textWidth / Constants.dotSpacing)
+    let numberOfDotSpacing = ceil(textWidth / Constants.dotSpacing)
     let evenNumberOfDotSpacing = numberOfDotSpacing.truncatingRemainder(dividingBy: 2) == 0 ? numberOfDotSpacing : numberOfDotSpacing + 1
     let width = evenNumberOfDotSpacing * Constants.dotSpacing
     return width
