@@ -52,14 +52,25 @@ struct SolutionView: View {
                 .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
                 Spacer()
                 
-                // Check Button
-                LCButton(title: "Submit") {
-                    let result = isSnippetsCorrect()
-                    let isOrderCorrect = result.0
-                    let isIndentCorrect = result.1
-                    isCorrect = isOrderCorrect && isIndentCorrect
-                    modalMessage = isCorrect ? "Great job! Your solution is correct." : "Oops! Check the order or indentation."
-                    showModal = true
+                
+                // Buttons
+                
+                HStack(spacing: 20) {
+                    
+                    LCButton(title: "Reset") {
+                        for snippet in droppedSnippets {
+                            returnSnippetToAvailable(snippet: snippet.snippet)
+                        }
+                    }
+                    
+                    LCButton(title: "Submit") {
+                        let result = isSnippetsCorrect()
+                        let isOrderCorrect = result.0
+                        let isIndentCorrect = result.1
+                        isCorrect = isOrderCorrect && isIndentCorrect
+                        modalMessage = isCorrect ? "Great job! Your solution is correct." : "Oops! Check the order or indentation."
+                        showModal = true
+                    }
                 }
             }
             
