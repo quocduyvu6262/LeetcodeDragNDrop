@@ -13,9 +13,9 @@ struct SolutionView: View {
     let nextStep: () -> Void
     
     @Environment(\.modelContext) internal var modelContext
-    @Query internal var savedSnippets: [DroppedSnippet]
-    @State internal var droppedSnippets: [(snippet: String, position: CGPoint)] = []
-    @State internal var availableSnippets: [String]
+    @Query var savedSnippets: [DroppedSnippet]
+    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
+    @State var availableSnippets: [String]
     @State private var currentSnippet: String = ""
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false

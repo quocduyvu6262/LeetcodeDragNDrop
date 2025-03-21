@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */; };
 		7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D32BC492D7E5BF20026F628 /* ProblemCard.swift */; };
+		7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */; };
+		7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D407FDD2D8BEBFC00CDE976 /* LCError.swift */; };
 		7D4616352D74379100739617 /* SnippetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616342D74379100739617 /* SnippetsListView.swift */; };
 		7D4616382D74561D00739617 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616372D74561D00739617 /* Helpers.swift */; };
 		7D46163B2D74D6AD00739617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46163A2D74D6AD00739617 /* Constants.swift */; };
@@ -34,6 +36,7 @@
 		7DD23EF12D710E3400B3F1EA /* ComplexityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */; };
 		7DD23EF42D7127E000B3F1EA /* CodeSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EF32D7127E000B3F1EA /* CodeSnippet.swift */; };
 		7DD23EF82D71489100B3F1EA /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EF72D71489100B3F1EA /* FlowLayout.swift */; };
+		7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */; };
 		7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */; };
 		7DD6AF272D78261300AB1940 /* LCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF262D78261300AB1940 /* LCButton.swift */; };
 		7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */; };
@@ -59,6 +62,8 @@
 /* Begin PBXFileReference section */
 		7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedSnippet.swift; sourceTree = "<group>"; };
 		7D32BC492D7E5BF20026F628 /* ProblemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemCard.swift; sourceTree = "<group>"; };
+		7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
+		7D407FDD2D8BEBFC00CDE976 /* LCError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCError.swift; sourceTree = "<group>"; };
 		7D4616342D74379100739617 /* SnippetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsListView.swift; sourceTree = "<group>"; };
 		7D4616372D74561D00739617 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7D46163A2D74D6AD00739617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -87,6 +92,7 @@
 		7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexityView.swift; sourceTree = "<group>"; };
 		7DD23EF32D7127E000B3F1EA /* CodeSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSnippet.swift; sourceTree = "<group>"; };
 		7DD23EF72D71489100B3F1EA /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemsListViewModel.swift; sourceTree = "<group>"; };
 		7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComplexityView+Logic.swift"; sourceTree = "<group>"; };
 		7DD6AF262D78261300AB1940 /* LCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCButton.swift; sourceTree = "<group>"; };
 		7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolutionView+Logic.swift"; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				7D4616372D74561D00739617 /* Helpers.swift */,
+				7D407FDD2D8BEBFC00CDE976 /* LCError.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -210,9 +217,9 @@
 		7DD23ED82D70574F00B3F1EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7DD25BF22D8BAC45002CDC8E /* ProblemsListView */,
 				7DD23EDF2D7058CB00B3F1EA /* ProblemView */,
 				7DD23EDB2D70589300B3F1EA /* HomeView.swift */,
-				7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -255,6 +262,7 @@
 				7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */,
 				7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */,
 				7D32BC492D7E5BF20026F628 /* ProblemCard.swift */,
+				7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -265,6 +273,15 @@
 				7DD23EF72D71489100B3F1EA /* FlowLayout.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		7DD25BF22D8BAC45002CDC8E /* ProblemsListView */ = {
+			isa = PBXGroup;
+			children = (
+				7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */,
+				7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */,
+			);
+			path = ProblemsListView;
 			sourceTree = "<group>";
 		};
 		7DE6B0212D779A5A005D3AE8 /* Extensions */ = {
@@ -412,16 +429,19 @@
 				7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */,
 				7DD23EE52D70599900B3F1EA /* DataManager.swift in Sources */,
 				7DD23EEB2D710B9300B3F1EA /* DescriptionView.swift in Sources */,
+				7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */,
 				7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */,
 				7DD23EDE2D7058C000B3F1EA /* ProblemsListView.swift in Sources */,
 				7DD23EF42D7127E000B3F1EA /* CodeSnippet.swift in Sources */,
 				7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */,
 				7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */,
+				7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */,
 				7DD23EF82D71489100B3F1EA /* FlowLayout.swift in Sources */,
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,
 				7DD23EEF2D710BAA00B3F1EA /* SolutionView.swift in Sources */,
 				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
 				7DD23EE12D7058DA00B3F1EA /* ProblemView.swift in Sources */,
+				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
 				7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */,
 				7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */,
 				7D52C6BB2D7CF37300CC732F /* CategoryCard.swift in Sources */,

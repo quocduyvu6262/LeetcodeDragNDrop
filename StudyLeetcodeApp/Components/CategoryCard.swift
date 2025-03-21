@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CategoryCard: View {
     let category: Category
+    let problemCount: Int
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(category.name)
@@ -16,7 +18,7 @@ struct CategoryCard: View {
                 .fontWeight(.bold)
                 .foregroundColor(.primary)
             
-            Text("100 problems")
+            Text("\(problemCount) problems")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
             
@@ -66,6 +68,6 @@ struct CategoryCard: View {
     let sampleCategory = Category(name: "Two Pointer", problems: [sampleProblem])
     
     return NavigationStack {
-        CategoryCard(category: sampleCategory)
+        CategoryCard(category: sampleCategory, problemCount: 0)
     }
 }

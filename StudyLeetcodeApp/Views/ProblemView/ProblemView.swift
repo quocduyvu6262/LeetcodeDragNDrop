@@ -35,7 +35,7 @@ struct ProblemView: View {
                     .navigationBarBackButtonHidden(true)
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
-                            Button("Back") {  currentStep = .solution }
+                            Button("Back") { currentStep = .solution }
                         }
                     }
             }

@@ -53,9 +53,9 @@ struct DescriptionView: View {
                 // Button Section (Pinned at Bottom)
                 LCButton(
                     title: "Craft Your Solution",
-                    action: nextStep,
                     backgroundColor: .blue.opacity(0.2),
-                    foregroundColor: .blue
+                    foregroundColor: .blue,
+                    action: nextStep
                 )
                 .frame(maxWidth: 300)
                 .padding()

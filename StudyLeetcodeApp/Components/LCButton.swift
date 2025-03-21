@@ -17,11 +17,11 @@ struct LCButton: View {
     
     init(
         title: String,
-        action: @escaping () -> Void,
         backgroundColor: Color = .gray.opacity(0.1),
         foregroundColor: Color = .primary,
         cornerRadius: CGFloat = 8,
-        font: Font = .headline
+        font: Font = .headline,
+        action: @escaping () -> Void
     ) {
         self.title = title
         self.action = action
@@ -54,16 +54,18 @@ struct LCButton: View {
         // Custom style
         LCButton(
             title: "Custom Button",
-            action: { print("Custom button tapped") },
             backgroundColor: .green,
             foregroundColor: .black,
             cornerRadius: 12,
-            font: .body
+            font: .body,
+            action: { print("Custom button tapped") }
         )
+        
         
         // Minimal style
         LCButton(
             title: "Minimal",
+            font: .subheadline,
             action: { print("Minimal tapped") }
         )
     }

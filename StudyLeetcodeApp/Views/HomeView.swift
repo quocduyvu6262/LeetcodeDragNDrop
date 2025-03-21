@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct HomeView: View {
-    let categories = DataManager.loadProblems()
     
-    @State private var searchText: String = ""
+    @State private var searchText: String
+    @State private var categories: [Category]
+    @State private var problemCounts: Dictionary<String, Int>
+    
+    init() {
+        _searchText = State(initialValue: "")
+        _categories = State(initialValue: DataManager.loadProblems())
+        _problemCounts = State(initialValue: [:])
+    }
     
     private var filteredCategory: [Category] {
         if searchText.isEmpty {
@@ -30,8 +37,10 @@ struct HomeView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(filteredCategory) { category in
-                        NavigationLink(destination: ProblemsListView(category: category)) {
-                            CategoryCard(category: category)
+                        NavigationLink(destination: ProblemsListView(category: category) { categoryName, count in
+                            problemCounts[categoryName] = count
+                        }) {
+                            CategoryCard(category: category, problemCount: problemCounts[category.name] ?? 0)
                         }
                     }
                 }
@@ -39,6 +48,11 @@ struct HomeView: View {
             }
         }
         .navigationTitle("Leetcode Prep")
+        .onAppear {
+            for category in self.categories {
+                _problemCounts.wrappedValue[category.name] = category.problems.count
+            }
+        }
     }
 }
 

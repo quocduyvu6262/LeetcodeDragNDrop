@@ -10,35 +10,54 @@ import SwiftUI
 struct ProblemsListView: View {
     let category: Category
     
-    @State private var searchText: String = ""
+    @StateObject private var viewModel: ProblemsListViewModel
+    let onUpdate: (String, Int) -> Void
     
-    private var filteredProblems: [Problem] {
-        if searchText.isEmpty {
-            return category.problems
-        } else {
-            return category.problems.filter { problem in
-                problem.name.lowercased().contains(searchText.lowercased().trimmingCharacters(in: .whitespaces))
-            }
-        }
+    init(category: Category, onUpdate: @escaping (String, Int) -> Void) {
+        self.category = category
+        _viewModel = StateObject(wrappedValue: ProblemsListViewModel(category: category))
+        self.onUpdate = onUpdate
     }
+    
     
     var body: some View {
         VStack {
-            TextField("Search problem name...", text: $searchText)
+            TextField("Search problem name...", text: $viewModel.searchText)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(.horizontal)
             
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(filteredProblems) { problem in
+                    ForEach(viewModel.filteredProblems) { problem in
                         NavigationLink(destination: ProblemView(problem: problem)) {
                             ProblemCard(problem: problem)
                         }
                     }
+                    
+                    HStack {
+                        Spacer()
+                        LCButton(
+                            title: "Download More Problems",
+                            font: .subheadline
+                        ) {
+                            viewModel.loadMoreProblems(for: category.name) { count in
+                                self.onUpdate(category.name, count)
+                            }
+                        }
+                        Spacer()
+                    }
+                    .padding()
                 }
                 .padding()
             }
             .navigationTitle(category.name)
+        }
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(
+                title: alertItem.title,
+                message: alertItem.message,
+                dismissButton: alertItem.dismissButton
+            )
         }
     }
 }
@@ -75,7 +94,9 @@ struct ProblemsListView: View {
     let sampleCategory = Category(name: "Two Pointer", problems: [sampleProblem])
     
     return NavigationStack {
-        ProblemsListView(category: sampleCategory)
+        ProblemsListView(category: sampleCategory) { name, count in
+            print("onUpdate")
+        }
     }
 }
 
