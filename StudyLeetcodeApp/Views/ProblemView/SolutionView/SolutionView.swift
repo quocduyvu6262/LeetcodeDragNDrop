@@ -14,9 +14,12 @@ struct SolutionView: View {
     
     @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
+    
     @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
     @State var availableSnippets: [String]
+    
     @State private var currentSnippet: String = ""
+    
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false
     @State private var modalMessage: String = ""
