@@ -59,6 +59,23 @@ func isDroppable(for text: String, at location: CGPoint, with droppedSnippets: [
         }
     }
     
-    
     return true
 }
+
+func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoint)]) -> String {
+    let sorted = snippets.sorted(by: { $0.position.y < $1.position.y })
+
+    return sorted.map { snippet, position in
+        let indentLevel = Int(position.x / Constants.dotSpacing)
+        let indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
+        return indent + snippet
+    }.joined(separator: "\n")
+}
+
+extension String {
+    func indented(by spaces: Int) -> String {
+        let prefix = String(repeating: " ", count: spaces)
+        return self.split(separator: "\n").map { prefix + $0 }.joined(separator: "\n")
+    }
+}
+

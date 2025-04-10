@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D113EC52DA6F1CA00AC078B /* pyodide_runner.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D113EC42DA6F1CA00AC078B /* pyodide_runner.html */; };
+		7D113EC72DA6FBB100AC078B /* PythonExecutorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D113EC62DA6FBB100AC078B /* PythonExecutorView.swift */; };
 		7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */; };
 		7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D32BC492D7E5BF20026F628 /* ProblemCard.swift */; };
 		7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */; };
@@ -60,6 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D113EC42DA6F1CA00AC078B /* pyodide_runner.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = pyodide_runner.html; sourceTree = "<group>"; };
+		7D113EC62DA6FBB100AC078B /* PythonExecutorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonExecutorView.swift; sourceTree = "<group>"; };
 		7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedSnippet.swift; sourceTree = "<group>"; };
 		7D32BC492D7E5BF20026F628 /* ProblemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemCard.swift; sourceTree = "<group>"; };
 		7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
@@ -123,6 +127,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D113EC32DA6F19900AC078B /* PythonRunner */ = {
+			isa = PBXGroup;
+			children = (
+				7D113EC42DA6F1CA00AC078B /* pyodide_runner.html */,
+				7D113EC62DA6FBB100AC078B /* PythonExecutorView.swift */,
+			);
+			path = PythonRunner;
+			sourceTree = "<group>";
+		};
 		7D4616332D73DB2B00739617 /* SolutionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +186,7 @@
 		7DD23EAD2D70560D00B3F1EA /* StudyLeetcodeApp */ = {
 			isa = PBXGroup;
 			children = (
+				7D113EC32DA6F19900AC078B /* PythonRunner */,
 				7DE6B0212D779A5A005D3AE8 /* Extensions */,
 				7D4616392D74D69400739617 /* Constants */,
 				7D4616362D74560400739617 /* Utilities */,
@@ -398,6 +412,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7DD23EB62D70560F00B3F1EA /* Preview Assets.xcassets in Resources */,
+				7D113EC52DA6F1CA00AC078B /* pyodide_runner.html in Resources */,
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
 				7DD23EE32D70595F00B3F1EA /* problems.json in Resources */,
 			);
@@ -435,6 +450,7 @@
 				7DD23EF42D7127E000B3F1EA /* CodeSnippet.swift in Sources */,
 				7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */,
 				7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */,
+				7D113EC72DA6FBB100AC078B /* PythonExecutorView.swift in Sources */,
 				7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */,
 				7DD23EF82D71489100B3F1EA /* FlowLayout.swift in Sources */,
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,

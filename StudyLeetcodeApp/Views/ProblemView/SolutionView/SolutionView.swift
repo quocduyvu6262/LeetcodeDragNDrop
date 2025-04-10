@@ -24,6 +24,9 @@ struct SolutionView: View {
     @State private var isCorrect: Bool = false
     @State private var modalMessage: String = ""
     
+    @State private var pythonExecutorCode: String = ""
+    @State private var runPython: Bool = false
+    
     init(problem: Problem, nextStep: @escaping () -> Void) {
         self.problem = problem
         self.nextStep = nextStep
@@ -67,12 +70,7 @@ struct SolutionView: View {
                     }
                     
                     LCButton(title: "Submit") {
-                        let result = isSnippetsCorrect()
-                        let isOrderCorrect = result.0
-                        let isIndentCorrect = result.1
-                        isCorrect = isOrderCorrect && isIndentCorrect
-                        modalMessage = isCorrect ? "Great job! Your solution is correct." : "Oops! Check the order or indentation."
-                        showModal = true
+                        submit()
                     }
                 }
             }
@@ -91,9 +89,36 @@ struct SolutionView: View {
                 }
             }
         }
+        .sheet(isPresented: $runPython) {
+            PythonExecutorView(codeToRun: pythonExecutorCode) { success, output in
+                isCorrect = success
+                modalMessage = success ? "Great job! Your solution is correct." : "Logic error: \(output)"
+                showModal = true
+                runPython = false
+            }
+        }
         .onAppear {
             loadDroppedSnippets()
         }
+    }
+    
+    func submit() {
+        let userCode = buildCodeFromDroppedSnippets(droppedSnippets)
+        let wrappedCode = 
+"""
+def user_function():
+\(userCode.indented(by: Constants.indentDefault))
+
+assert user_function() == 2
+'passed'
+"""
+        
+        DispatchQueue.main.async {
+            pythonExecutorCode = wrappedCode
+            runPython = true
+        }
+        
+        
     }
 }
 
