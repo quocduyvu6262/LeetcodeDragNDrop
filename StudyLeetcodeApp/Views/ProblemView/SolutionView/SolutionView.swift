@@ -88,13 +88,14 @@ struct SolutionView: View {
                     }
                 }
             }
-        }
-        .sheet(isPresented: $runPython) {
-            PythonExecutorView(codeToRun: pythonExecutorCode) { success, output in
-                isCorrect = success
-                modalMessage = success ? "Great job! Your solution is correct." : "Logic error: \(output)"
-                showModal = true
-                runPython = false
+            
+            if runPython {
+                PythonExecutorView(codeToRun: pythonExecutorCode) { success, output in
+                    isCorrect = success
+                    modalMessage = success ? "Great job! Your solution is correct." : "Logic error: \(output)"
+                    showModal = true
+                    runPython = false
+                }
             }
         }
         .onAppear {
@@ -106,11 +107,18 @@ struct SolutionView: View {
         let userCode = buildCodeFromDroppedSnippets(droppedSnippets)
         let wrappedCode = 
 """
-def user_function():
-\(userCode.indented(by: Constants.indentDefault))
+def user_function(array, target):
+\(userCode)
 
-assert user_function() == 2
-'passed'
+array = [2, 7, 11, 15]
+target = 9
+
+result = user_function(array, target)
+
+assert result == [0, 1]
+
+import json
+print(json.dumps({"success": True, "output": result}))
 """
         
         DispatchQueue.main.async {

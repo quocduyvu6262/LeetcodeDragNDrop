@@ -66,7 +66,9 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoi
     let sorted = snippets.sorted(by: { $0.position.y < $1.position.y })
 
     return sorted.map { snippet, position in
-        let indentLevel = Int(position.x / Constants.dotSpacing)
+        let snippetWidth = calculateSnippetWidth(text: snippet)
+        let leftPosition = position.x - snippetWidth / 2        
+        let indentLevel = Int(ceil(leftPosition / Constants.dotSpacing))
         let indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
         return indent + snippet
     }.joined(separator: "\n")
