@@ -14,22 +14,30 @@ struct PythonExecutorView: UIViewRepresentable {
     let onResult: (Bool, String) -> Void
 
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
+        let cfg = WKWebViewConfiguration()
+        cfg.userContentController.add(context.coordinator as WKScriptMessageHandler, name: "pyResult")
+        cfg.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+//        cfg.preferences.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
+        
+        let webView = WKWebView(frame: .zero, configuration: cfg)
         webView.navigationDelegate = context.coordinator
         context.coordinator.webView = webView
         context.coordinator.codeToRun = codeToRun
         context.coordinator.onResult = onResult
 
-        if let htmlPath = Bundle.main.path(forResource: "pyodide_runner", ofType: "html"),
-           let html = try? String(contentsOfFile: htmlPath, encoding: .utf8) {
-            webView.loadHTMLString(html, baseURL: Bundle.main.bundleURL)
+        if let url = Bundle.main.url(forResource: "index",
+                                     withExtension: "html") {
+            print("Found index at", url)
+            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+        } else {
+            print("Did not find index")
         }
 
         return webView
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-
+        
     }
     
 
@@ -37,55 +45,55 @@ struct PythonExecutorView: UIViewRepresentable {
         Coordinator()
     }
 
-    class Coordinator: NSObject, WKNavigationDelegate {
+    class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
         var webView: WKWebView?
         var codeToRun: String = ""
         var onResult: ((Bool, String) -> Void)?
 
-        private func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) async {
-            await self.runPythonCode()
+        func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+            runPythonCode()
         }
         
-        func runPythonCode() async {
-            guard let webView = webView else { return }
-
-            let escapedCode = codeToRun
-                .replacingOccurrences(of: "\\", with: "\\\\")
-                .replacingOccurrences(of: "`", with: "\\`")
-
-            let js =
+        private func runPythonCode() {
+            guard let webView else { return }
+            let js = 
 """
-
-"""
-            do {
-                let result = try await webView.evaluateJavaScriptAsync("runPython(`\(escapedCode)`)")
-                
-                if let dict = result as? [String: Any] {
-                    if dict["success"] as? Bool == true {
-                        onResult?(true, dict["result"] as? String ?? "")
-                    } else {
-                        onResult?(false, dict["error"] as? String ?? "Unknown error")
-                    }
-                }
-            } catch {
-                onResult?(false, error.localizedDescription)
-            }
-        }
+(async () => {
+    try {
+        const pyodide = await window.pyReady;
+        window.webkit.messageHandlers.pyResult.postMessage({
+            ok: true,
+            value: "Run pyodide here"
+        });
+    } catch (e) {
+        window.webkit.messageHandlers.pyResult.postMessage({
+            ok: false,
+            value: "hello"
+        });
     }
-}
+})();
+"""
 
-extension WKWebView {
-    func evaluateJavaScriptAsync(_ script: String) async throws -> Any {
-        return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue.main.async {
-                self.evaluateJavaScript(script) { result, error in
-                    if let error = error {
-                        continuation.resume(throwing: error)
-                    } else {
-                        continuation.resume(returning: result ?? "")
+            webView.evaluateJavaScript("setTimeout(function() {\(js)}, 500);") { result, error in
+                if let error = error as? WKError {
+                    print("[JS] \(error.code): \(error.localizedDescription)")
+                    if let details = error.userInfo[NSLocalizedFailureReasonErrorKey] as? String {
+                        print("[JS‑stack] \(details)")
                     }
                 }
             }
         }
+        
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            print("jere")
+            print(message)
+            guard message.name == "pyResult",
+                  let dict  = message.body as? [String: Any],
+                  let ok    = dict["ok"]   as? Bool,
+                  let value = dict["value"] as? String
+            else { return }
+            onResult?(ok, value)
+        }
+        
     }
 }
