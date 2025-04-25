@@ -15,8 +15,16 @@
 		7D4616352D74379100739617 /* SnippetsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616342D74379100739617 /* SnippetsListView.swift */; };
 		7D4616382D74561D00739617 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616372D74561D00739617 /* Helpers.swift */; };
 		7D46163B2D74D6AD00739617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46163A2D74D6AD00739617 /* Constants.swift */; };
+		7D4F6AFE2DBC118200DCB647 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D4F6AFD2DBC117E00DCB647 /* index.html */; };
 		7D52C6BB2D7CF37300CC732F /* CategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */; };
 		7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */; };
+		7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C052DBC4CFB00476393 /* pyodide.mjs */; };
+		7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */; };
+		7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C042DBC4CFB00476393 /* pyodide.js */; };
+		7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C072DBC4CFB00476393 /* pyodide.asm.js */; };
+		7D689C102DBC4CFB00476393 /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C0A2DBC4CFB00476393 /* python_stdlib.zip */; };
+		7D689C112DBC4CFB00476393 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C032DBC4CFB00476393 /* package.json */; };
+		7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
 		7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EB02D70560D00B3F1EA /* ContentView.swift */; };
@@ -40,10 +48,6 @@
 		7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */; };
 		7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */; };
 		7DD6AF272D78261300AB1940 /* LCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF262D78261300AB1940 /* LCButton.swift */; };
-		7DE27B4A2DB0D69200B69C09 /* pyodide.js in Resources */ = {isa = PBXBuildFile; fileRef = 7DE27B492DB0D69200B69C09 /* pyodide.js */; };
-		7DE27B4C2DB0D71600B69C09 /* pyodide.asm.js in Resources */ = {isa = PBXBuildFile; fileRef = 7DE27B4B2DB0D71600B69C09 /* pyodide.asm.js */; };
-		7DE27B4F2DB0D73900B69C09 /* pyodide.mjs in Resources */ = {isa = PBXBuildFile; fileRef = 7DE27B4E2DB0D73900B69C09 /* pyodide.mjs */; };
-		7DE27B532DB0D7E000B69C09 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7DE27B522DB0D7E000B69C09 /* index.html */; };
 		7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,8 +77,18 @@
 		7D4616342D74379100739617 /* SnippetsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetsListView.swift; sourceTree = "<group>"; };
 		7D4616372D74561D00739617 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		7D46163A2D74D6AD00739617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		7D4F6AFD2DBC117E00DCB647 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCard.swift; sourceTree = "<group>"; };
 		7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFeedbackModal.swift; sourceTree = "<group>"; };
+		7D689C022DBC4CFB00476393 /* ffi.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = ffi.d.ts; sourceTree = "<group>"; };
+		7D689C032DBC4CFB00476393 /* package.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
+		7D689C042DBC4CFB00476393 /* pyodide.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = pyodide.js; sourceTree = "<group>"; };
+		7D689C052DBC4CFB00476393 /* pyodide.mjs */ = {isa = PBXFileReference; lastKnownFileType = text; path = pyodide.mjs; sourceTree = "<group>"; };
+		7D689C062DBC4CFB00476393 /* pyodide-lock.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "pyodide-lock.json"; sourceTree = "<group>"; };
+		7D689C072DBC4CFB00476393 /* pyodide.asm.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = pyodide.asm.js; sourceTree = "<group>"; };
+		7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; path = pyodide.asm.wasm; sourceTree = "<group>"; };
+		7D689C092DBC4CFB00476393 /* pyodide.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = pyodide.d.ts; sourceTree = "<group>"; };
+		7D689C0A2DBC4CFB00476393 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 		7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		7DD23EAB2D70560D00B3F1EA /* StudyLeetcodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyLeetcodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeApp.swift; sourceTree = "<group>"; };
@@ -101,12 +115,6 @@
 		7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemsListViewModel.swift; sourceTree = "<group>"; };
 		7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComplexityView+Logic.swift"; sourceTree = "<group>"; };
 		7DD6AF262D78261300AB1940 /* LCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCButton.swift; sourceTree = "<group>"; };
-		7DE27B492DB0D69200B69C09 /* pyodide.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = pyodide.js; path = ../../../../../../Downloads/pyodide/pyodide.js; sourceTree = "<group>"; };
-		7DE27B4B2DB0D71600B69C09 /* pyodide.asm.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = pyodide.asm.js; path = ../../../../../../Downloads/pyodide/pyodide.asm.js; sourceTree = "<group>"; };
-		7DE27B4D2DB0D72000B69C09 /* pyodide.asm.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; name = pyodide.asm.wasm; path = ../../../../../../Downloads/pyodide/pyodide.asm.wasm; sourceTree = "<group>"; };
-		7DE27B4E2DB0D73900B69C09 /* pyodide.mjs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pyodide.mjs; path = ../../../../../../Downloads/pyodide/pyodide.mjs; sourceTree = "<group>"; };
-		7DE27B502DB0D74E00B69C09 /* pyodide.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; name = pyodide.d.ts; path = ../../../../../../Downloads/pyodide/pyodide.d.ts; sourceTree = "<group>"; };
-		7DE27B522DB0D7E000B69C09 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolutionView+Logic.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,6 +178,31 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		7D5DF2AC2DBBFA82003E79A5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7D689C0B2DBC4CFB00476393 /* pyodide */,
+				7D4F6AFD2DBC117E00DCB647 /* index.html */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7D689C0B2DBC4CFB00476393 /* pyodide */ = {
+			isa = PBXGroup;
+			children = (
+				7D689C022DBC4CFB00476393 /* ffi.d.ts */,
+				7D689C032DBC4CFB00476393 /* package.json */,
+				7D689C042DBC4CFB00476393 /* pyodide.js */,
+				7D689C052DBC4CFB00476393 /* pyodide.mjs */,
+				7D689C062DBC4CFB00476393 /* pyodide-lock.json */,
+				7D689C072DBC4CFB00476393 /* pyodide.asm.js */,
+				7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */,
+				7D689C092DBC4CFB00476393 /* pyodide.d.ts */,
+				7D689C0A2DBC4CFB00476393 /* python_stdlib.zip */,
+			);
+			path = pyodide;
+			sourceTree = "<group>";
+		};
 		7DD23EA22D70560D00B3F1EA = {
 			isa = PBXGroup;
 			children = (
@@ -193,7 +226,7 @@
 		7DD23EAD2D70560D00B3F1EA /* StudyLeetcodeApp */ = {
 			isa = PBXGroup;
 			children = (
-				7DE27B472DB0D5E900B69C09 /* Resources */,
+				7D5DF2AC2DBBFA82003E79A5 /* Resources */,
 				7D113EC32DA6F19900AC078B /* PythonRunner */,
 				7DE6B0212D779A5A005D3AE8 /* Extensions */,
 				7D4616392D74D69400739617 /* Constants */,
@@ -304,35 +337,6 @@
 				7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */,
 			);
 			path = ProblemsListView;
-			sourceTree = "<group>";
-		};
-		7DE27B472DB0D5E900B69C09 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				7DE27B482DB0D5F400B69C09 /* pyodide */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		7DE27B482DB0D5F400B69C09 /* pyodide */ = {
-			isa = PBXGroup;
-			children = (
-				7DE27B512DB0D76400B69C09 /* packages */,
-				7DE27B502DB0D74E00B69C09 /* pyodide.d.ts */,
-				7DE27B4E2DB0D73900B69C09 /* pyodide.mjs */,
-				7DE27B4D2DB0D72000B69C09 /* pyodide.asm.wasm */,
-				7DE27B4B2DB0D71600B69C09 /* pyodide.asm.js */,
-				7DE27B492DB0D69200B69C09 /* pyodide.js */,
-				7DE27B522DB0D7E000B69C09 /* index.html */,
-			);
-			path = pyodide;
-			sourceTree = "<group>";
-		};
-		7DE27B512DB0D76400B69C09 /* packages */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = packages;
 			sourceTree = "<group>";
 		};
 		7DE6B0212D779A5A005D3AE8 /* Extensions */ = {
@@ -448,12 +452,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */,
+				7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */,
+				7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */,
+				7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */,
+				7D689C102DBC4CFB00476393 /* python_stdlib.zip in Resources */,
+				7D689C112DBC4CFB00476393 /* package.json in Resources */,
+				7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */,
 				7DD23EB62D70560F00B3F1EA /* Preview Assets.xcassets in Resources */,
-				7DE27B4C2DB0D71600B69C09 /* pyodide.asm.js in Resources */,
-				7DE27B4A2DB0D69200B69C09 /* pyodide.js in Resources */,
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
-				7DE27B532DB0D7E000B69C09 /* index.html in Resources */,
-				7DE27B4F2DB0D73900B69C09 /* pyodide.mjs in Resources */,
+				7D4F6AFE2DBC118200DCB647 /* index.html in Resources */,
 				7DD23EE32D70595F00B3F1EA /* problems.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

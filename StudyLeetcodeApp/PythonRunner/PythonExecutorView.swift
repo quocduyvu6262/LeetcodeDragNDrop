@@ -11,19 +11,23 @@ import WebKit
 
 struct PythonExecutorView: UIViewRepresentable {
     let codeToRun: String
+    @Binding var webViewRef: WKWebView?
     let onResult: (Bool, String) -> Void
 
     func makeUIView(context: Context) -> WKWebView {
         let cfg = WKWebViewConfiguration()
         cfg.userContentController.add(context.coordinator as WKScriptMessageHandler, name: "pyResult")
         cfg.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+
 //        cfg.preferences.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
         
         let webView = WKWebView(frame: .zero, configuration: cfg)
         webView.navigationDelegate = context.coordinator
+        webView.isInspectable = true
         context.coordinator.webView = webView
         context.coordinator.codeToRun = codeToRun
         context.coordinator.onResult = onResult
+        
 
         if let url = Bundle.main.url(forResource: "index",
                                      withExtension: "html") {
@@ -31,6 +35,10 @@ struct PythonExecutorView: UIViewRepresentable {
             webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
         } else {
             print("Did not find index")
+        }
+        
+        DispatchQueue.main.async {
+            self.webViewRef = webView
         }
 
         return webView
@@ -56,37 +64,25 @@ struct PythonExecutorView: UIViewRepresentable {
         
         private func runPythonCode() {
             guard let webView else { return }
-            let js = 
-"""
-(async () => {
+            let js =
+    """
+    (async () => {
     try {
-        const pyodide = await window.pyReady;
-        window.webkit.messageHandlers.pyResult.postMessage({
-            ok: true,
-            value: "Run pyodide here"
-        });
+        const result = await runPython(`sum([1,2,3])`)
+        window.webkit.messageHandlers.pyResult.postMessage(result);
     } catch (e) {
         window.webkit.messageHandlers.pyResult.postMessage({
             ok: false,
             value: "hello"
         });
     }
-})();
-"""
+    })();
+    """
 
-            webView.evaluateJavaScript("setTimeout(function() {\(js)}, 500);") { result, error in
-                if let error = error as? WKError {
-                    print("[JS] \(error.code): \(error.localizedDescription)")
-                    if let details = error.userInfo[NSLocalizedFailureReasonErrorKey] as? String {
-                        print("[JS‑stack] \(details)")
-                    }
-                }
-            }
+            webView.evaluateJavaScript(js)
         }
         
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-            print("jere")
-            print(message)
             guard message.name == "pyResult",
                   let dict  = message.body as? [String: Any],
                   let ok    = dict["ok"]   as? Bool,

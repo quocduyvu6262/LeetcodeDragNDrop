@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import WebKit
 
 struct SolutionView: View {
     let problem: Problem
@@ -14,6 +15,8 @@ struct SolutionView: View {
     
     @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
+    
+    @State private var webView: WKWebView? = nil
     
     @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
     @State var availableSnippets: [String]
@@ -90,11 +93,14 @@ struct SolutionView: View {
             }
             
             if runPython {
-                PythonExecutorView(codeToRun: pythonExecutorCode) { success, output in
-                    isCorrect = success
-                    modalMessage = success ? "Great job! Your solution is correct." : "Logic error: \(output)"
-                    showModal = true
-                    runPython = false
+                ZStack {
+                    PythonExecutorView(codeToRun: pythonExecutorCode, webViewRef: $webView) { success, output in
+                        isCorrect = success
+                        modalMessage = success ? "Success: \(output)" : "Logic error: \(output)"
+                        showModal = true
+                        runPython = false
+                    }
+                    .frame(width: 0, height: 0)
                 }
             }
         }
