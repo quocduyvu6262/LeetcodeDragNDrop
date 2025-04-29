@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8" />
+<script>
+async function fetch(filename) {
+  const promise = new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", filename);
+    xhr.responseType = "arraybuffer";
+    xhr.onload = () => resolve(xhr.response);
+    xhr.onerror = () => reject(new Error("Failed to fetch " + filename));
+    xhr.send();
+  });
+
+  return new Response(await promise, {
+    headers: new Headers([["Content-Type", "application/wasm"]])
+  });
+}
+</script>
+<script src="pyodide.js"></script>
+<script>
+    let py = null;
+
+    window.pyReady = loadPyodide({ indexURL: "./" })
+      .then((loaded) => {
+        console.log("Pyodide loaded");
+        py = loaded
+        return py
+      })
+      .catch(err => {
+        console.error("Failed to load Pyodide:", err)
+      });
+    
+    async function runPython(code) {
+    try {
+      const py = await window.pyReady;
+      const result = py.runPython(code);
+      return { ok: true,  value: String(result) };
+    } catch (err) {
+      return { ok: false, value: err.toString() };
+    }
+}
+</script>
+<body></body>
+</html>

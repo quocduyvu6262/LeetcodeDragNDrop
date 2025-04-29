@@ -9,6 +9,7 @@ import Foundation
 
 class ProblemsListViewModel: ObservableObject {
     @Published var problems: [Problem] = []
+    
     @Published var alertItem: AlertItem?
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false

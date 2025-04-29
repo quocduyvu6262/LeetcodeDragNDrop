@@ -1,0 +1,51 @@
+# === Xcode & macOS ===
+*.xcuserdata
+*.xccheckout
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcuserstate
+*.moved-aside
+*.swp
+.DS_Store
+.idea/
+*.hmap
+
+# === Derived Data & Build ===
+build/
+DerivedData/
+*.xcarchive
+
+# === SwiftPM ===
+.build/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/
+
+# === Cocoapods ===
+Pods/
+Podfile.lock
+
+# === Carthage ===
+Carthage/
+Carthage/Build
+
+# === Fastlane ===
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# === Firebase / GoogleService ===
+GoogleService-Info.plist
+
+# === Node / Web (you’re using pyodide via npm) ===
+node_modules/
+package-lock.json
+
+# === Logs ===
+*.log
+
+# === Python (if needed) ===
+__pycache__/
+*.pyc
+
+# === Misc ===
+*.zip
+*.orig

@@ -11,6 +11,7 @@ import SwiftUI
 public enum Constants {
     // Canvas
     public static let dotSpacing: CGFloat = 15
+    public static let indentDefault: Int = 2
     
     // Snippet
     public static let snippetFont: UIFont = UIFont.systemFont(ofSize: 14, weight: .regular)
