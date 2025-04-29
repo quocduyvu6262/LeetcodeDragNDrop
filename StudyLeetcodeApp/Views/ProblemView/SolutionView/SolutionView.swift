@@ -111,20 +111,26 @@ struct SolutionView: View {
     
     func submit() {
         let userCode = buildCodeFromDroppedSnippets(droppedSnippets)
-        let wrappedCode = 
+        let fullFunction = problem.function
+        let functionName: String
+        if let nameMatch = fullFunction.split(separator: " ").dropFirst().first?.split(separator: "(").first {
+            functionName = String(nameMatch)
+        } else {
+            functionName = "user_function" // fallback
+        }
+        let inputs = problem.inputs[0]
+        let expectedOutput = problem.outputs[0]
+        
+        let args = inputs
+        
+        let wrappedCode =
 """
-def user_function(array, target):
+\(fullFunction)
 \(userCode)
 
-array = [2, 7, 11, 15]
-target = 9
+result = \(functionName)(\(args))
 
-result = user_function(array, target)
-
-assert result == [0, 1]
-
-import json
-print(json.dumps({"success": True, "output": result}))
+assert result == \(expectedOutput)
 """
         
         DispatchQueue.main.async {
@@ -151,14 +157,15 @@ print(json.dumps({"success": True, "output": result}))
             "for i in array: for j in array:",
             "sort(array)"
           ],
-        correctOrder: [0, 1, 2, 3, 4],
-        correctIndentation: [0, 0, 4, 8, 4],
+        function: "def twoSum(array, target)",
+        inputs: ["[2,7,11,15,19], 9"],
+        outputs: ["[7, 2]"],
         timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
         spaceComplexityOptions: ["O(1)", "O(n)", "O(2\u{207F})", "O(n!)"],
         correctTimeComplexity: "O(n)",
         correctSpaceComplexity: "O(n)"
     )
-    return NavigationStack {
+    NavigationStack {
         SolutionView(problem: sampleProblem, nextStep: { step = 2 })
     }
 }

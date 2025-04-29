@@ -74,6 +74,8 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoi
     }.joined(separator: "\n")
 }
 
+
+
 extension String {
     func indented(by spaces: Int) -> String {
         let prefix = String(repeating: " ", count: spaces)

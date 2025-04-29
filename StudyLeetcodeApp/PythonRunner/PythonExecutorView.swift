@@ -68,7 +68,7 @@ struct PythonExecutorView: UIViewRepresentable {
     """
     (async () => {
     try {
-        const result = await runPython(`sum([1,2,3])`)
+        const result = await runPython(`\(codeToRun)`)
         window.webkit.messageHandlers.pyResult.postMessage(result);
     } catch (e) {
         window.webkit.messageHandlers.pyResult.postMessage({
@@ -88,6 +88,7 @@ struct PythonExecutorView: UIViewRepresentable {
                   let ok    = dict["ok"]   as? Bool,
                   let value = dict["value"] as? String
             else { return }
+            print(value)
             onResult?(ok, value)
         }
         

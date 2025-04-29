@@ -14,17 +14,16 @@ struct Problem: Codable, Identifiable {
     let difficulty: String
     let description: String
     let snippets: [String]
-    let correctOrder: [Int]
-    let correctIndentation: [Int]
+    let function: String
+    let inputs: [String]
+    let outputs: [String]
     let timeComplexityOptions: [String]
     let spaceComplexityOptions: [String]
     let correctTimeComplexity: String
     let correctSpaceComplexity: String
     
     enum CodingKeys: String, CodingKey {
-        case name, difficulty, description, snippets
-        case correctOrder = "correct_order"
-        case correctIndentation = "correct_indentation"
+        case name, difficulty, description, snippets, function, inputs, outputs
         case timeComplexityOptions = "time_complexity_options"
         case spaceComplexityOptions = "space_complexity_options"
         case correctTimeComplexity = "correct_time_complexity"
