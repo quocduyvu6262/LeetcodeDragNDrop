@@ -8,9 +8,9 @@
 import Foundation
 
 class DataManager {
-    
+
     private static let problemsKey = "cached_problems"
-    
+
     static func loadProblems() -> [Category] {
         guard let url = Bundle.main.url(forResource: "problems", withExtension: "json"),
               let data = try? Data(contentsOf: url) else {
@@ -31,7 +31,7 @@ class DataManager {
             return []
         }
     }
-    
+
     static func saveProblems(_ problems: [Problem], for category: String) {
         let encoder = JSONEncoder()
         if let encoded = try? encoder.encode(problems) {

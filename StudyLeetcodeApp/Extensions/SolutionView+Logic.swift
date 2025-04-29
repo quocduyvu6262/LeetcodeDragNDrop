@@ -9,37 +9,6 @@ import Foundation
 import SwiftData
 
 extension SolutionView {
-    func isSnippetsCorrect() -> (orderCorrect: Bool, indentCorrect: Bool) {
-        // Check Order
-        let sortedDroppedSnippets = droppedSnippets.sorted { $0.position.y < $1.position.y }
-        let droppedSnippetTexts = sortedDroppedSnippets.map { $0.snippet }
-        let correctSnippetTexts = problem.correctOrder.map { problem.snippets[$0] }
-        let isOrderCorrect = droppedSnippetTexts == correctSnippetTexts
-        
-        // Check Indentation
-        var isIndentCorrect = true
-        var firstIndent: Int = 0
-        if sortedDroppedSnippets.count == problem.correctIndentation.count {
-            for (index, droppedSnippet) in sortedDroppedSnippets.enumerated() {
-                let snippetWidth = calculateSnippetWidth(text: droppedSnippet.snippet)
-                let leftPosition = droppedSnippet.position.x - snippetWidth / 2
-                
-                if index == 0 {
-                    firstIndent = Int(leftPosition / Constants.dotSpacing) - 1
-                }
-                
-                let currentStep = Int(leftPosition / Constants.dotSpacing) - (1 + firstIndent)
-                let correctStep = problem.correctIndentation[index]
-                
-                if currentStep != correctStep {
-                    isIndentCorrect = false
-                    break
-                }
-            }
-        }
-        
-        return (isOrderCorrect, isIndentCorrect)
-    }
     
     func updateDroppedSnippets(snippet: String, position: CGPoint) {
         if let index = droppedSnippets.firstIndex(where: { $0.snippet == snippet }) {
@@ -84,6 +53,20 @@ extension SolutionView {
         availableSnippets = problem.snippets.filter { snippet in
             !droppedSnippets.contains { $0.snippet == snippet }
         }
+    }
+    
+    func buildWrappedCode(code: String) -> String {
+        let wrappedCode =
+"""
+def user_function(array, target):
+\(code)
+
+array = [2, 7, 11, 15]
+target = 9
+result = user_function(array, target)
+assert result == [7, 2]
+"""
+        return wrappedCode
     }
     
 }
