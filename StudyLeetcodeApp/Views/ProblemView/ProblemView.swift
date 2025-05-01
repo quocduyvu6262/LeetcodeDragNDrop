@@ -23,7 +23,7 @@ struct ProblemView: View {
             case .description:
                 DescriptionView(problem: problem, nextStep: { currentStep = .solution })
             case .solution:
-                SolutionView(problem: problem, nextStep: { currentStep = .complexity })
+                SolutionView(problem: problem, nextStep: { currentStep = .description })
                     .navigationBarBackButtonHidden(true)
                     .toolbar {
                         ToolbarItem(placement: .topBarLeading) {
