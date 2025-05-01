@@ -26,7 +26,7 @@ struct CodeSnippet: View {
         .frame(width: self.width, height: Constants.snippetHeight)
         .overlay {
             RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.black.opacity(0.1), lineWidth: 0.5)
+                .stroke(Color.primary.opacity(0.45), lineWidth: 0.8)
         }
 
     }

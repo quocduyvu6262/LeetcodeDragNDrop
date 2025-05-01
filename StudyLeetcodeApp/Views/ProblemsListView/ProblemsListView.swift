@@ -22,9 +22,7 @@ struct ProblemsListView: View {
     
     var body: some View {
         VStack {
-            TextField("Search problem name...", text: $viewModel.searchText)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(.horizontal)
+            LCSearch(searchText: $viewModel.searchText, title: "Search problems")
             
             ScrollView {
                 VStack(alignment: .leading) {

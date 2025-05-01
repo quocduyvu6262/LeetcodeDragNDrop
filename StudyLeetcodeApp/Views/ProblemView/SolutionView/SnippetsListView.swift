@@ -32,7 +32,7 @@ struct SnippetsListView: View {
             .frame(width: geometry.size.width, height: geometry.size.height)
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.black.opacity(1.0), lineWidth: 2)
+                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
             }
             .onDrop(of: [.text], delegate: SnippetsListDropDelegate (
                 onDrop: onDrop

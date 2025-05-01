@@ -32,7 +32,7 @@ struct ProblemCard: View {
         .cornerRadius(12)
         .overlay {
             RoundedRectangle(cornerRadius: 12.0)
-                .stroke(Color.black.opacity(1.0), lineWidth: 2)
+                .stroke(Color.primary.opacity(1.0), lineWidth: 2)
         }
     }
     

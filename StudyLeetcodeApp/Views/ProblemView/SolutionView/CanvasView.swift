@@ -41,7 +41,7 @@ struct CanvasView: View {
                         ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
                             Circle()
                                 .frame(width: 3, height: 3)
-                                .opacity(0.25)
+                                .opacity(0.45)
                                 .foregroundColor(highlightedDot == CGPoint(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing) ? .blue : .gray)
                                 .position(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing)
                         }
@@ -78,7 +78,6 @@ struct CanvasView: View {
                     }
                 }
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
-                .background(Color.white)
                 .clipped()
                 .onDrop(of: [.text], delegate: CanvasDropDelegate(
                     highlightedDot: $highlightedDot,
@@ -93,7 +92,7 @@ struct CanvasView: View {
             .clipped()
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.black.opacity(1.0), lineWidth: 2)
+                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
             }
         }
     }

@@ -31,9 +31,13 @@ struct HomeView: View {
     
     var body: some View {
         NavigationStack {
-            TextField("Search category...", text: $searchText)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Text("Leetcode Prep")
+                .font(.largeTitle)
+                .fontWeight(.bold)
                 .padding(.horizontal)
+            
+            LCSearch(searchText: $searchText)
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(filteredCategory) { category in

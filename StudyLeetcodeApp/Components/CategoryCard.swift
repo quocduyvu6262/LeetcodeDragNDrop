@@ -30,7 +30,7 @@ struct CategoryCard: View {
         .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
         .overlay {
             RoundedRectangle(cornerRadius: 12.0)
-                .stroke(Color.black.opacity(1.0), lineWidth: 2)
+                .stroke(Color.primary.opacity(1.0), lineWidth: 2)
         }
 
     }
