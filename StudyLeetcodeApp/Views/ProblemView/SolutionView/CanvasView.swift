@@ -78,6 +78,7 @@ struct CanvasView: View {
                     }
                 }
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
+                .background(Color.clear.contentShape(Rectangle()))
                 .clipped()
                 .onDrop(of: [.text], delegate: CanvasDropDelegate(
                     highlightedDot: $highlightedDot,
@@ -132,6 +133,7 @@ struct CanvasDropDelegate: DropDelegate {
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         let fingerLocation = info.location
+        print(fingerLocation)
         let snippetWidth = calculateSnippetWidth(text: currentSnippet)
         let snippetCenter = CGPoint(
             x: fingerLocation.x - snippetWidth / 3,
