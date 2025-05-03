@@ -51,13 +51,19 @@ struct CanvasView: View {
                     // Display dropped snippets
                     ForEach(droppedSnippets.indices, id: \.self) { index in
                         let snippet = droppedSnippets[index]
+                        let textWidth = calculateTextWidth(text: snippet.snippet)
                         CodeSnippet(code: snippet.snippet)
                             .position(snippet.position)
-                            .onDrag {
+                            .onDrag({
                                 currentSnippet = snippet.0
-                                let dragItem = NSItemProvider(object: snippet.0 as NSString)
-                                return dragItem
-                            }
+                                return NSItemProvider(object: snippet.0 as NSString)
+                            }, preview: {
+                                CodeSnippet(code: snippet.snippet)
+                                    .frame(width: textWidth, height: Constants.snippetHeight)
+                                    .background(Color(.systemBackground))
+                                    .cornerRadius(8)
+                                    .shadow(radius: 2)
+                            })
                     }
                     
                     // Highlighted drop zone
