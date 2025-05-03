@@ -82,12 +82,10 @@ struct SolutionView: View {
                 VStack {
                     AnswerFeedbackModal(
                         isCorrect: isCorrect, 
-                        message: modalMessage
+                        message: modalMessage,
+                        showModal: $showModal
                     ) {
-                        showModal = false
-                        if isCorrect {
-                            nextStep()
-                        }
+                        nextStep()
                     }
                 }
             }

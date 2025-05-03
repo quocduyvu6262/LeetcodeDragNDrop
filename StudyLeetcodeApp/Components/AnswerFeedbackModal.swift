@@ -10,11 +10,13 @@ import SwiftUI
 struct AnswerFeedbackModal: View {
     let isCorrect: Bool
     let message: String
+    @Binding var showModal: Bool
     let onDismiss: () -> Void
     
     @State private var isVisible = false
     @State private var offset: CGFloat = -300
     @State private var timer: Timer?
+    @State private var showErrorDetails = false
     
     private let visibleOffset: CGFloat = -250
     
@@ -25,7 +27,7 @@ struct AnswerFeedbackModal: View {
             
             ZStack(alignment: .topTrailing) {
                 Button(action: {
-                    dismiss()
+                    showModal = false
                 }) {
                     Image(systemName: "xmark")
                         .foregroundColor(.primary)
@@ -51,17 +53,44 @@ struct AnswerFeedbackModal: View {
                     
                     HStack {
                         Spacer()
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Text(isCorrect ? "Next problem" : "Error details")
-                                .fontWeight(.semibold)
-                                .padding()
-                                .frame(height: 30)
-                                .foregroundColor(.primary)
-                                .cornerRadius(8)
+                        if isCorrect {
+                            Button(action: {
+                                onDismiss()
+                            }) {
+                                Text("Next problem")
+                                    .fontWeight(.semibold)
+                                    .padding(.top, 8)
+                                    .frame(height: 30)
+                                    .foregroundColor(.primary)
+                            }
+                        } else {
+                            Button(action: {
+                                withAnimation {
+                                    showErrorDetails.toggle()
+                                }
+                            }) {
+                                VStack {
+                                    Text(showErrorDetails ? "Collapse details" : "Error details")
+                                        .fontWeight(.semibold)
+                                        .padding(.top, 8)
+                                        .frame(height: 30)
+                                        .foregroundColor(.primary)
+                                    if showErrorDetails {
+                                        ScrollView {
+                                            Text(message)
+                                                .font(.system(.body, design: .monospaced))
+                                                .foregroundColor(.red)
+                                                .padding(8)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .background(Color(.systemGray6))
+                                                .cornerRadius(8)
+                                        }
+                                        .frame(maxHeight: 100)
+                                        .transition(.opacity.combined(with: .move(edge: .top)))
+                                    }
+                                }
+                            }
                         }
-                        .padding(.top, 8)
                     }
                 }
             }
@@ -84,10 +113,6 @@ struct AnswerFeedbackModal: View {
 
     }
     
-    private func dismiss() {
-        onDismiss()
-    }
-    
     private func feedbackMessage(when isCorrect: Bool, for message: String) -> String {
     switch isCorrect {
     case true:
@@ -100,11 +125,14 @@ struct AnswerFeedbackModal: View {
 }
 
 #Preview {
+    @State var showModal = true
+
     VStack(spacing: 50) {
         // Correct Answer Modal
         AnswerFeedbackModal(
             isCorrect: true,
             message: "Great job! Your solution is correct.",
+            showModal: $showModal,
             onDismiss: { print("Dismissed correct modal") }
         )
         
@@ -112,6 +140,7 @@ struct AnswerFeedbackModal: View {
         AnswerFeedbackModal(
             isCorrect: false,
             message: "Oops! Check your errors and try again.",
+            showModal: $showModal,
             onDismiss: { print("Dismissed wrong modal") }
         )
     }
@@ -119,11 +148,13 @@ struct AnswerFeedbackModal: View {
 }
 
 #Preview {
+    @State var showModal = true
     VStack(spacing: 50) {
         // Correct Answer Modal
         AnswerFeedbackModal(
             isCorrect: true,
             message: "Great job! You selected the correct time and space complexity.",
+            showModal: $showModal,
             onDismiss: { print("Dismissed correct modal") }
         )
     }
