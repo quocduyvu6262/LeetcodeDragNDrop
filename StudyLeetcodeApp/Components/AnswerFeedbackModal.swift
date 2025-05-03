@@ -19,69 +19,84 @@ struct AnswerFeedbackModal: View {
     private let visibleOffset: CGFloat = -250
     
     var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
-                .font(.system(size: 40))
-                .foregroundColor(isCorrect ? .green : .red)
+        ZStack {
+            Color.black.opacity(0.3)
+                .edgesIgnoringSafeArea(.all)
             
-            Text(isCorrect ? "Correct!" : "Wrong!")
-                .font(.title2)
-                .fontWeight(.bold)
-                .foregroundColor(.primary)
-            
-            Text(message)
-                .font(.body)
-                .foregroundColor(.secondary)
-                .multilineTextAlignment(.center)
-        }
-        .padding()
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 2)
-        .frame(maxWidth: 300)
-        .offset(y: offset)
-        .gesture(
-            DragGesture()
-                .onChanged { value in
-                    offset = visibleOffset + value.translation.height
+            ZStack(alignment: .topTrailing) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.primary)
+                        .font(.subheadline)
+                        .padding(-3)
                 }
-                .onEnded { value in
-                    if value.translation.height < -50 {
-                        dismiss()
-                    } else {
-                        withAnimation(.spring()) {
-                            offset = visibleOffset
+                VStack(spacing: 16) {
+                    HStack {
+                        Image(systemName: isCorrect ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(isCorrect ? .green : .red)
+                        
+                        Text(isCorrect ? "Correct!" : "Wrong!")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.primary)
+                    }
+                    
+                    Text(feedbackMessage(when: isCorrect, for: message))
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .multilineTextAlignment(.center)
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Text(isCorrect ? "Next problem" : "Error details")
+                                .fontWeight(.semibold)
+                                .padding()
+                                .frame(height: 30)
+                                .foregroundColor(.primary)
+                                .cornerRadius(8)
                         }
+                        .padding(.top, 8)
                     }
                 }
-        )
-        .onAppear {
-            withAnimation(.spring()) {
-                isVisible = true
-                offset = -250
             }
-            startAutoDismissTimer()
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .overlay(content: {
+                RoundedRectangle(cornerRadius: 12.0)
+                    .stroke(Color.primary.opacity(0.2), lineWidth: 1)
+            })
+            .onAppear {
+                withAnimation(.spring()) {
+                    isVisible = true
+                    offset = -250
+                }
+            }
+            .edgesIgnoringSafeArea(.top)
+            .frame(width: UIScreen.main.bounds.width - 100)
         }
-        .edgesIgnoringSafeArea(.top)
-    }
-    
-    private func startAutoDismissTimer(seconds: TimeInterval = 3.0) {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: seconds, repeats: false) { _ in
-            dismiss()
-        }
+
     }
     
     private func dismiss() {
-        withAnimation(.spring(response: 0.8, dampingFraction: 0.8, blendDuration: 0)) {
-            isVisible = false
-            offset = visibleOffset * 3
-        }
-        timer?.invalidate()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            onDismiss()
-        }
+        onDismiss()
     }
+    
+    private func feedbackMessage(when isCorrect: Bool, for message: String) -> String {
+    switch isCorrect {
+    case true:
+        return "Great job! Your solution is correct."
+    case false:
+        return "Oops! Check your solution again."
+    }
+    }
+    
 }
 
 #Preview {
@@ -89,19 +104,18 @@ struct AnswerFeedbackModal: View {
         // Correct Answer Modal
         AnswerFeedbackModal(
             isCorrect: true,
-            message: "Great job! You selected the correct time and space complexity.",
+            message: "Great job! Your solution is correct.",
             onDismiss: { print("Dismissed correct modal") }
         )
         
         // Wrong Answer Modal
         AnswerFeedbackModal(
             isCorrect: false,
-            message: "Oops! Check your selections and try again.",
+            message: "Oops! Check your errors and try again.",
             onDismiss: { print("Dismissed wrong modal") }
         )
     }
     .padding()
-    .background(Color(.systemGray6)) // Light background for contrast
 }
 
 #Preview {

@@ -27,6 +27,7 @@
 		7D689C112DBC4CFB00476393 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C032DBC4CFB00476393 /* package.json */; };
 		7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
+		7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
 		7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EB02D70560D00B3F1EA /* ContentView.swift */; };
 		7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DD23EB22D70560F00B3F1EA /* Assets.xcassets */; };
@@ -93,6 +94,7 @@
 		7D689C092DBC4CFB00476393 /* pyodide.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = pyodide.d.ts; sourceTree = "<group>"; };
 		7D689C0A2DBC4CFB00476393 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 		7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModal.swift; sourceTree = "<group>"; };
 		7DD23EAB2D70560D00B3F1EA /* StudyLeetcodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyLeetcodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeApp.swift; sourceTree = "<group>"; };
 		7DD23EB02D70560D00B3F1EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -324,6 +326,7 @@
 				7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */,
 				7D32BC492D7E5BF20026F628 /* ProblemCard.swift */,
 				7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */,
+				7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 				7D4616352D74379100739617 /* SnippetsListView.swift in Sources */,
 				7DD6AF272D78261300AB1940 /* LCButton.swift in Sources */,
 				7DD23EE72D7059D200B3F1EA /* Category.swift in Sources */,
+				7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */,
 				7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */,
 				7D46163B2D74D6AD00739617 /* Constants.swift in Sources */,
 				7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */,

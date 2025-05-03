@@ -101,6 +101,8 @@ struct SolutionView: View {
                         runPython = false
                     }
                     .frame(width: 0, height: 0)
+                    
+                    LoadingModal()
                 }
             }
         }

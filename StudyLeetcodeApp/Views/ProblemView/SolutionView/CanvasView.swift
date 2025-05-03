@@ -133,7 +133,6 @@ struct CanvasDropDelegate: DropDelegate {
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         let fingerLocation = info.location
-        print(fingerLocation)
         let snippetWidth = calculateSnippetWidth(text: currentSnippet)
         let snippetCenter = CGPoint(
             x: fingerLocation.x - snippetWidth / 3,
