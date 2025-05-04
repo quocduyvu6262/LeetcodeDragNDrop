@@ -59,6 +59,7 @@ struct DescriptionView: View {
                 )
                 .frame(maxWidth: 300)
                 .padding()
+                .padding(.top, 10)
                 .background(Color(.systemBackground))
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
