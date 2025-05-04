@@ -19,11 +19,14 @@ struct SnippetsListView: View {
                 FlowLayout {
                     ForEach(availableSnippets, id: \.self) { snippet in
                         CodeSnippet(code: snippet)
-                        .onDrag {
+                        .onDrag({
                             currentSnippet = snippet
                             let dragItem = NSItemProvider(object: snippet as NSString)
                             return dragItem
-                        }
+                        },
+                        preview: {
+                            CodeSnippet(code: snippet)
+                        })
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width - 20)

@@ -59,10 +59,6 @@ struct CanvasView: View {
                                 return NSItemProvider(object: snippet.0 as NSString)
                             }, preview: {
                                 CodeSnippet(code: snippet.snippet)
-                                    .frame(width: textWidth, height: Constants.snippetHeight)
-                                    .background(Color(.systemBackground))
-                                    .cornerRadius(8)
-                                    .shadow(radius: 2)
                             })
                     }
                     
@@ -132,7 +128,7 @@ struct CanvasDropDelegate: DropDelegate {
             x: fingerLocation.x - snippetWidth / 3,
             y: fingerLocation.y - snippetHeight / 3
         )
-        self.highlightedDot = self.nearestDot(to: snippetCenter)
+        self.highlightedDot = self.nearestDot(to: fingerLocation)
         if self.highlightedDot == nil { return }
         self.updateHeight(snippetCenter)
     }
@@ -144,10 +140,9 @@ struct CanvasDropDelegate: DropDelegate {
             x: fingerLocation.x - snippetWidth / 3,
             y: fingerLocation.y - snippetHeight / 3
         )
-        self.highlightedDot = self.nearestDot(to: snippetCenter)
+        self.highlightedDot = self.nearestDot(to: fingerLocation)
         if self.highlightedDot == nil { return nil }
         self.updateHeight(snippetCenter)
-        
         return DropProposal(operation: .move)
     }
     
