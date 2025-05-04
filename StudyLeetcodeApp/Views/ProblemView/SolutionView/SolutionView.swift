@@ -45,7 +45,7 @@ struct SolutionView: View {
                     
                     // 60% CanvasView
                     CanvasView(
-                        minCanvasHeight: geometry.size.height * 0.6,
+                        minCanvasHeight: geometry.size.height * 0.8,
                         droppedSnippets: droppedSnippets,
                         currentSnippet: $currentSnippet
                     ) { snippet, position in

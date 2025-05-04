@@ -14,7 +14,7 @@ struct DescriptionView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                // Header Section (Pinned at Top)
+                // Header
                 HStack(spacing: 12) {
                     Text(problem.name)
                         .font(.title2)
@@ -33,24 +33,24 @@ struct DescriptionView: View {
                 }
                 .padding()
                 .background(Color(.systemBackground))
-                .zIndex(1) // Ensures it stays above the scroll view
-                
-                // Scrollable Description Section
+
+                // Scrollable Middle Section
                 ScrollView {
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text(problem.description)
                             .font(.body)
                             .multilineTextAlignment(.leading)
                             .padding()
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .frame(minHeight: 0, maxHeight: .infinity)
                 }
-                .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.05))
                 .cornerRadius(8)
                 .padding(.horizontal)
-                
-                // Button Section (Pinned at Bottom)
+                .frame(maxHeight: .infinity)
+
+                // Bottom Button
                 LCButton(
                     title: "Craft Your Solution",
                     backgroundColor: .blue.opacity(0.2),
@@ -60,11 +60,10 @@ struct DescriptionView: View {
                 .frame(maxWidth: 300)
                 .padding()
                 .background(Color(.systemBackground))
-                .zIndex(1) // Ensures it stays above the scroll view
             }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(Color(.systemBackground))
         }
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
     }
     
     private var difficultyColor: Color {
