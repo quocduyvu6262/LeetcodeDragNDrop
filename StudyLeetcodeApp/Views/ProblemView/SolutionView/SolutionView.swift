@@ -40,43 +40,47 @@ struct SolutionView: View {
     
     var body: some View {
         ZStack {
-            VStack {
-                // Top Half: Canvas
-                CanvasView(
-                    minCanvasHeight: UIScreen.main.bounds.height * 0.7,
-                    droppedSnippets: droppedSnippets,
-                    currentSnippet: $currentSnippet
-                ) { snippet, position in
-                    updateDroppedSnippets(snippet: snippet, position: position)
-                }
-                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.50)
-                
-                // Bottom Half: Snippet List
-                SnippetsListView(
-                    availableSnippets: availableSnippets,
-                    currentSnippet: $currentSnippet
-                ) { snippet in
-                    returnSnippetToAvailable(snippet: snippet)
-                }
-                .frame(width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.height * 0.30)
-                Spacer()
-                
-                
-                // Buttons
-                
-                HStack(spacing: 20) {
+            GeometryReader { geometry in
+                VStack(spacing: 10) {
                     
-                    LCButton(title: "Reset") {
-                        for snippet in droppedSnippets {
-                            returnSnippetToAvailable(snippet: snippet.snippet)
+                    // 60% CanvasView
+                    CanvasView(
+                        minCanvasHeight: geometry.size.height * 0.6,
+                        droppedSnippets: droppedSnippets,
+                        currentSnippet: $currentSnippet
+                    ) { snippet, position in
+                        updateDroppedSnippets(snippet: snippet, position: position)
+                    }
+                    .frame(height: geometry.size.height * 0.68)
+                    .padding(.horizontal, 10)
+                    
+                    // 25% Snippet List
+                    SnippetsListView(
+                        availableSnippets: availableSnippets,
+                        currentSnippet: $currentSnippet
+                    ) { snippet in
+                        returnSnippetToAvailable(snippet: snippet)
+                    }
+                    .frame(height: geometry.size.height * 0.25)
+                    .padding(.horizontal, 10)
+
+                    // 15% Buttons
+                    HStack(spacing: 20) {
+                        LCButton(title: "Reset") {
+                            for snippet in droppedSnippets {
+                                returnSnippetToAvailable(snippet: snippet.snippet)
+                            }
+                        }
+                        
+                        LCButton(title: "Submit") {
+                            submit()
                         }
                     }
-                    
-                    LCButton(title: "Submit") {
-                        submit()
-                    }
+                    .frame(height: geometry.size.height * 0.065)
+                    .padding(.horizontal, 10)
                 }
             }
+
             
             if showModal {
                 VStack {
@@ -107,6 +111,7 @@ struct SolutionView: View {
         .onAppear {
             loadDroppedSnippets()
         }
+
     }
     
     func submit() {
@@ -167,5 +172,13 @@ assert result == \(expectedOutput)
     )
     NavigationStack {
         SolutionView(problem: sampleProblem, nextStep: { step = 2 })
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack {
+                        Button("Back") { }
+                    }
+                }
+                
+            }
     }
 }
