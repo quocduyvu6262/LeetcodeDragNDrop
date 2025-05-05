@@ -277,8 +277,10 @@
 		7DD23ED82D70574F00B3F1EA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7D4616332D73DB2B00739617 /* SolutionView */,
+				7DD23EEA2D710B9300B3F1EA /* DescriptionView.swift */,
+				7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */,
 				7DD25BF22D8BAC45002CDC8E /* ProblemsListView */,
-				7DD23EDF2D7058CB00B3F1EA /* ProblemView */,
 				7DD23EDB2D70589300B3F1EA /* HomeView.swift */,
 			);
 			path = Views;
@@ -301,16 +303,6 @@
 				7DD23EE42D70599900B3F1EA /* DataManager.swift */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		7DD23EDF2D7058CB00B3F1EA /* ProblemView */ = {
-			isa = PBXGroup;
-			children = (
-				7D4616332D73DB2B00739617 /* SolutionView */,
-				7DD23EEA2D710B9300B3F1EA /* DescriptionView.swift */,
-				7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */,
-			);
-			path = ProblemView;
 			sourceTree = "<group>";
 		};
 		7DD23EF22D7127CD00B3F1EA /* Components */ = {
