@@ -37,7 +37,6 @@
 		7DD23ECC2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23ECB2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift */; };
 		7DD23EDC2D70589300B3F1EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EDB2D70589300B3F1EA /* HomeView.swift */; };
 		7DD23EDE2D7058C000B3F1EA /* ProblemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */; };
-		7DD23EE12D7058DA00B3F1EA /* ProblemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE02D7058DA00B3F1EA /* ProblemView.swift */; };
 		7DD23EE32D70595F00B3F1EA /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DD23EE22D70595F00B3F1EA /* problems.json */; };
 		7DD23EE52D70599900B3F1EA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE42D70599900B3F1EA /* DataManager.swift */; };
 		7DD23EE72D7059D200B3F1EA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE62D7059D200B3F1EA /* Category.swift */; };
@@ -107,7 +106,6 @@
 		7DD23ECB2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7DD23EDB2D70589300B3F1EA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemsListView.swift; sourceTree = "<group>"; };
-		7DD23EE02D7058DA00B3F1EA /* ProblemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemView.swift; sourceTree = "<group>"; };
 		7DD23EE22D70595F00B3F1EA /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
 		7DD23EE42D70599900B3F1EA /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7DD23EE62D7059D200B3F1EA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 			isa = PBXGroup;
 			children = (
 				7D4616332D73DB2B00739617 /* SolutionView */,
-				7DD23EE02D7058DA00B3F1EA /* ProblemView.swift */,
 				7DD23EEA2D710B9300B3F1EA /* DescriptionView.swift */,
 				7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */,
 			);
@@ -514,7 +511,6 @@
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,
 				7DD23EEF2D710BAA00B3F1EA /* SolutionView.swift in Sources */,
 				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
-				7DD23EE12D7058DA00B3F1EA /* ProblemView.swift in Sources */,
 				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
 				7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */,
 				7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */,
