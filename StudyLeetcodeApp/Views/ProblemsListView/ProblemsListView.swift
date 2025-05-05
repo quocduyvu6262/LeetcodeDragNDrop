@@ -27,7 +27,7 @@ struct ProblemsListView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     ForEach(viewModel.filteredProblems) { problem in
-                        NavigationLink(destination: ProblemView(problem: problem)) {
+                        NavigationLink(destination: DescriptionView(problem: problem, nextStep: {})) {
                             ProblemCard(problem: problem)
                         }
                     }

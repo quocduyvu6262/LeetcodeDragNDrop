@@ -51,7 +51,6 @@ struct CanvasView: View {
                     // Display dropped snippets
                     ForEach(droppedSnippets.indices, id: \.self) { index in
                         let snippet = droppedSnippets[index]
-                        let textWidth = calculateTextWidth(text: snippet.snippet)
                         CodeSnippet(code: snippet.snippet)
                             .position(snippet.position)
                             .onDrag({
@@ -82,6 +81,9 @@ struct CanvasView: View {
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
                 .background(Color.clear.contentShape(Rectangle()))
                 .clipped()
+                .onAppear {
+                    canvasHeight = max(canvasHeight, minCanvasHeight)
+                }
                 .onDrop(of: [.text], delegate: CanvasDropDelegate(
                     highlightedDot: $highlightedDot,
                     currentSnippet: $currentSnippet,

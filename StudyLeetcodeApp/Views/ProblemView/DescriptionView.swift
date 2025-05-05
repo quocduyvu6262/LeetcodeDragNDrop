@@ -51,16 +51,19 @@ struct DescriptionView: View {
                 .frame(maxHeight: .infinity)
 
                 // Bottom Button
-                LCButton(
-                    title: "Craft Your Solution",
-                    backgroundColor: .blue.opacity(0.2),
-                    foregroundColor: .blue,
-                    action: nextStep
-                )
-                .frame(maxWidth: 300)
-                .padding()
+                NavigationLink(
+                    destination:
+                        SolutionView(problem: problem, nextStep: {})
+                ) {
+                    Text("Craft Your Solution")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 20)
+                        .background(.blue.opacity(0.2))
+                        .cornerRadius(12)
+                }
                 .padding(.top, 10)
-                .background(Color(.systemBackground))
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
             .background(Color(.systemBackground))
