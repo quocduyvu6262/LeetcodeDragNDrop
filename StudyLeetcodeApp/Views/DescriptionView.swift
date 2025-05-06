@@ -50,7 +50,6 @@ struct DescriptionView: View {
                 .padding(.horizontal)
                 .frame(maxHeight: .infinity)
 
-                // Bottom Button
                 NavigationLink(
                     destination:
                         SolutionView(problem: problem, nextStep: {})

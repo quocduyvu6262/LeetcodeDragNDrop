@@ -13,6 +13,9 @@ struct SolutionView: View {
     let problem: Problem
     let nextStep: () -> Void
     
+    @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
+    var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
+    
     @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
     
@@ -27,8 +30,8 @@ struct SolutionView: View {
     @State private var isCorrect: Bool = false
     @State private var modalMessage: String = ""
     
-    @State private var pythonExecutorCode: String = ""
-    @State private var runPython: Bool = false
+    @State var pythonExecutorCode: String = ""
+    @State var runPython: Bool = false
     
     init(problem: Problem, nextStep: @escaping () -> Void) {
         self.problem = problem
@@ -49,6 +52,10 @@ struct SolutionView: View {
                         droppedSnippets: droppedSnippets,
                         currentSnippet: $currentSnippet
                     ) { snippet, position in
+                        // Snippet on SnippetHistory
+                        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                        snippetHistory.push(snapshot)
+                        // Snippet on SwiftData
                         updateDroppedSnippets(snippet: snippet, position: position)
                     }
                     .frame(height: geometry.size.height * 0.68)
@@ -59,19 +66,17 @@ struct SolutionView: View {
                         availableSnippets: availableSnippets,
                         currentSnippet: $currentSnippet
                     ) { snippet in
+                        // Snippet on SnippetHistory
+                        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                        snippetHistory.push(snapshot)
+                        // Snippet on SwiftData
                         returnSnippetToAvailable(snippet: snippet)
                     }
                     .frame(height: geometry.size.height * 0.25)
                     .padding(.horizontal, 10)
 
                     // 15% Buttons
-                    HStack(spacing: 20) {
-                        LCButton(title: "Reset") {
-                            for snippet in droppedSnippets {
-                                returnSnippetToAvailable(snippet: snippet.snippet)
-                            }
-                        }
-                        
+                    HStack {
                         LCButton(title: "Submit") {
                             submit()
                         }
@@ -111,44 +116,43 @@ struct SolutionView: View {
         .onAppear {
             loadDroppedSnippets()
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack(spacing: 10) {
+                    HStack(spacing: 5) {
+                        Button {
+                            undo()
+                        } label: {
+                            Image(systemName: "arrow.uturn.backward")
+                        }
 
-    }
-    
-    func submit() {
-        let userCode = buildCodeFromDroppedSnippets(droppedSnippets)
-        let fullFunction = problem.function
-        let functionName: String
-        if let nameMatch = fullFunction.split(separator: " ").dropFirst().first?.split(separator: "(").first {
-            functionName = String(nameMatch)
-        } else {
-            functionName = "user_function" // fallback
+                        Button {
+                            redo()
+                        } label: {
+                            Image(systemName: "arrow.uturn.forward")
+                        }
+                    }
+                    Menu {
+                        Button("Show Hint") {
+                        }
+                        Button("Show Solution") {
+                            
+                        }
+                        Divider()
+                        Button("Reset All", role: .destructive, action: resetAll)
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+
+                }
+            }
         }
-        let inputs = problem.inputs[0]
-        let expectedOutput = problem.outputs[0]
-        
-        let args = inputs
-        
-        let wrappedCode =
-"""
-\(fullFunction)
-\(userCode)
 
-result = \(functionName)(\(args))
-
-assert result == \(expectedOutput)
-"""
-        
-        DispatchQueue.main.async {
-            pythonExecutorCode = wrappedCode
-            runPython = true
-        }
-        
-        
     }
 }
 
 #Preview {
-    @State var step: Int = 0
+    @Previewable @State var step: Int = 0
     let sampleProblem = Problem(
         name: "Two Sum",
         difficulty: "Easy",

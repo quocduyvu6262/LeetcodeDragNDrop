@@ -49,6 +49,8 @@
 		7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */; };
 		7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */; };
 		7DD6AF272D78261300AB1940 /* LCButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6AF262D78261300AB1940 /* LCButton.swift */; };
+		7DDCBAE72DC940DC00137D33 /* SnippetHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */; };
+		7DDCBAE92DC9438200137D33 /* SnippetHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */; };
 		7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */; };
 		7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF573322DC31E3E003E68CD /* LCSearch.swift */; };
 /* End PBXBuildFile section */
@@ -118,6 +120,8 @@
 		7DD25BF32D8BAC62002CDC8E /* ProblemsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemsListViewModel.swift; sourceTree = "<group>"; };
 		7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComplexityView+Logic.swift"; sourceTree = "<group>"; };
 		7DD6AF262D78261300AB1940 /* LCButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCButton.swift; sourceTree = "<group>"; };
+		7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistory.swift; sourceTree = "<group>"; };
+		7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistoryManager.swift; sourceTree = "<group>"; };
 		7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolutionView+Logic.swift"; sourceTree = "<group>"; };
 		7DF573322DC31E3E003E68CD /* LCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,6 +165,8 @@
 				7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */,
 				7DD23EEE2D710BAA00B3F1EA /* SolutionView.swift */,
 				7D4616342D74379100739617 /* SnippetsListView.swift */,
+				7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */,
+				7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */,
 			);
 			path = SolutionView;
 			sourceTree = "<group>";
@@ -494,6 +500,7 @@
 				7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */,
 				7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */,
 				7DD23EDE2D7058C000B3F1EA /* ProblemsListView.swift in Sources */,
+				7DDCBAE92DC9438200137D33 /* SnippetHistoryManager.swift in Sources */,
 				7DD23EF42D7127E000B3F1EA /* CodeSnippet.swift in Sources */,
 				7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */,
 				7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */,
@@ -512,6 +519,7 @@
 				7DD6AF272D78261300AB1940 /* LCButton.swift in Sources */,
 				7DD23EE72D7059D200B3F1EA /* Category.swift in Sources */,
 				7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */,
+				7DDCBAE72DC940DC00137D33 /* SnippetHistory.swift in Sources */,
 				7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */,
 				7D46163B2D74D6AD00739617 /* Constants.swift in Sources */,
 				7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */,

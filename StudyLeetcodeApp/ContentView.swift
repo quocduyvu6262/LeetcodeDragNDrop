@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var snippetHistoryManager = SnippetHistoryManager()
+    
     var body: some View {
         HomeView()
+            .environmentObject(snippetHistoryManager)
     }
 }
 
