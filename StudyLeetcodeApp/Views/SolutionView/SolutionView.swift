@@ -152,7 +152,6 @@ struct SolutionView: View {
 }
 
 #Preview {
-    @Previewable @State var step: Int = 0
     let sampleProblem = Problem(
         name: "Two Sum",
         difficulty: "Easy",
@@ -165,24 +164,19 @@ struct SolutionView: View {
             "hashmap[num] = num",
             "for i in array: for j in array:",
             "sort(array)"
-          ],
+        ],
         function: "def twoSum(array, target)",
         inputs: ["[2,7,11,15,19], 9"],
         outputs: ["[7, 2]"],
         timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
-        spaceComplexityOptions: ["O(1)", "O(n)", "O(2\u{207F})", "O(n!)"],
+        spaceComplexityOptions: ["O(1)", "O(n)", "O(2ⁿ)", "O(n!)"],
         correctTimeComplexity: "O(n)",
         correctSpaceComplexity: "O(n)"
     )
-    NavigationStack {
-        SolutionView(problem: sampleProblem, nextStep: { step = 2 })
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    HStack {
-                        Button("Back") { }
-                    }
-                }
-                
-            }
+
+    return NavigationStack {
+        SolutionView(problem: sampleProblem, nextStep: {})
+            .environmentObject(SnippetHistoryManager()) // provide required environment objects
     }
 }
+

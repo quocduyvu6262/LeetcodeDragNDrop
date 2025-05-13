@@ -37,7 +37,7 @@ struct CategoryCard: View {
 }
 
 #Preview {
-    @State var step: Int = 0
+    var step: Int = 0
     let sampleProblem = Problem(
         name: "Two Sum",
         difficulty: "Easy",
@@ -62,7 +62,7 @@ struct CategoryCard: View {
     
     let sampleCategory = Category(name: "Two Pointer", problems: [sampleProblem])
     
-    NavigationStack {
+    return NavigationStack {
         CategoryCard(category: sampleCategory, problemCount: 0)
     }
 }

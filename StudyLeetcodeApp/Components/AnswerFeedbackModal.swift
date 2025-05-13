@@ -126,38 +126,30 @@ struct AnswerFeedbackModal: View {
     
 }
 
-#Preview {
-    @State var showModal = true
+struct AnswerFeedbackModalPreviewContainer: View {
+    @State private var showModal = true
 
-    VStack(spacing: 50) {
-        // Correct Answer Modal
-        AnswerFeedbackModal(
-            isCorrect: true,
-            message: "Great job! Your solution is correct.",
-            showModal: $showModal,
-            onDismiss: { print("Dismissed correct modal") }
-        )
-        
-        // Wrong Answer Modal
-        AnswerFeedbackModal(
-            isCorrect: false,
-            message: "Oops! Check your errors and try again.",
-            showModal: $showModal,
-            onDismiss: { print("Dismissed wrong modal") }
-        )
+    var body: some View {
+        VStack(spacing: 50) {
+            // Correct Answer Modal
+            AnswerFeedbackModal(
+                isCorrect: true,
+                message: "Great job! Your solution is correct.",
+                showModal: $showModal,
+                onDismiss: { print("Dismissed correct modal") }
+            )
+            // Wrong Answer Modal
+            AnswerFeedbackModal(
+                isCorrect: false,
+                message: "Oops! Check your errors and try again.",
+                showModal: $showModal,
+                onDismiss: { print("Dismissed wrong modal") }
+            )
+        }
+        .padding()
     }
-    .padding()
 }
 
 #Preview {
-    @State var showModal = true
-    VStack(spacing: 50) {
-        // Correct Answer Modal
-        AnswerFeedbackModal(
-            isCorrect: true,
-            message: "Great job! You selected the correct time and space complexity.",
-            showModal: $showModal,
-            onDismiss: { print("Dismissed correct modal") }
-        )
-    }
+    AnswerFeedbackModalPreviewContainer()
 }
