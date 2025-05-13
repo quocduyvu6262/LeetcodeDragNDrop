@@ -25,8 +25,8 @@
 		7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C072DBC4CFB00476393 /* pyodide.asm.js */; };
 		7D689C112DBC4CFB00476393 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C032DBC4CFB00476393 /* package.json */; };
 		7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
-		7D7C91CC2DD2822E00D31595 /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7D7C91CB2DD2822E00D31595 /* python_stdlib.zip */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
+		7DA64EFC2DD374C200911C4A /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7DA64EFB2DD374C200911C4A /* python_stdlib.zip */; };
 		7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
 		7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EB02D70560D00B3F1EA /* ContentView.swift */; };
@@ -93,8 +93,8 @@
 		7D689C072DBC4CFB00476393 /* pyodide.asm.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = pyodide.asm.js; sourceTree = "<group>"; };
 		7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; path = pyodide.asm.wasm; sourceTree = "<group>"; };
 		7D689C092DBC4CFB00476393 /* pyodide.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = pyodide.d.ts; sourceTree = "<group>"; };
-		7D7C91CB2DD2822E00D31595 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; name = python_stdlib.zip; path = ../../../../../../Downloads/python_stdlib.zip; sourceTree = "<group>"; };
 		7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		7DA64EFB2DD374C200911C4A /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 		7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModal.swift; sourceTree = "<group>"; };
 		7DD23EAB2D70560D00B3F1EA /* StudyLeetcodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyLeetcodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeApp.swift; sourceTree = "<group>"; };
@@ -200,7 +200,7 @@
 		7D689C0B2DBC4CFB00476393 /* pyodide */ = {
 			isa = PBXGroup;
 			children = (
-				7D7C91CB2DD2822E00D31595 /* python_stdlib.zip */,
+				7DA64EFB2DD374C200911C4A /* python_stdlib.zip */,
 				7D689C022DBC4CFB00476393 /* ffi.d.ts */,
 				7D689C032DBC4CFB00476393 /* package.json */,
 				7D689C042DBC4CFB00476393 /* pyodide.js */,
@@ -457,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */,
+				7DA64EFC2DD374C200911C4A /* python_stdlib.zip in Resources */,
 				7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */,
 				7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */,
 				7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */,
@@ -465,7 +466,6 @@
 				7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */,
 				7DD23EB62D70560F00B3F1EA /* Preview Assets.xcassets in Resources */,
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
-				7D7C91CC2DD2822E00D31595 /* python_stdlib.zip in Resources */,
 				7D4F6AFE2DBC118200DCB647 /* index.html in Resources */,
 				7DD23EE32D70595F00B3F1EA /* problems.json in Resources */,
 			);
