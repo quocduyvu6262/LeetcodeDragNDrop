@@ -62,6 +62,21 @@ func isDroppable(for text: String, at location: CGPoint, with droppedSnippets: [
     return true
 }
 
+func isSnippetInBounds(for text: String, at location: CGPoint) -> Bool {
+    let snippetWidth = calculateSnippetWidth(text: text)
+    let snippetHeight = Constants.snippetHeight
+    
+    // Calculate snippet boundaries
+    let leftEdge = location.x - snippetWidth / 2
+    let topEdge = location.y - snippetHeight / 2
+    
+    // Check boundaries
+    let isLeftInBounds = leftEdge >= Constants.dotSpacing
+    let isTopInBounds = topEdge >= 0
+    
+    return isLeftInBounds && isTopInBounds
+}
+
 func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoint)]) -> String {
     let sorted = snippets.sorted(by: { $0.position.y < $1.position.y })
 
@@ -73,8 +88,6 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoi
         return indent + snippet
     }.joined(separator: "\n")
 }
-
-
 
 extension String {
     func indented(by spaces: Int) -> String {
