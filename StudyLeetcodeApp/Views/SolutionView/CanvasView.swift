@@ -19,7 +19,11 @@ struct CanvasView: View {
     
     let onDrop: (String, CGPoint) -> Void
 
-    
+    // Add computed property for sorted snippets
+    private var sortedDroppedSnippets: [(snippet: String, position: CGPoint)] {
+        droppedSnippets.sorted { $0.position.y < $1.position.y }
+    }
+
     init(minCanvasHeight: CGFloat, 
          droppedSnippets: [(String, CGPoint)],
          currentSnippet: Binding<String>,
@@ -45,7 +49,6 @@ struct CanvasView: View {
                                 .foregroundColor(highlightedDot == CGPoint(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing) ? .blue : .gray)
                                 .position(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing)
                         }
-                        
                     }
                     
                     // Display dropped snippets
@@ -63,7 +66,7 @@ struct CanvasView: View {
                     
                     // Highlighted drop zone
                     if let dot = highlightedDot {
-                        if isDroppable(for: currentSnippet, at: dot, with: droppedSnippets) {
+                        if isSnippetInBounds(for: currentSnippet, at: dot) {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.3))
                                 .frame(width: calculateSnippetWidth(text: currentSnippet), height: Constants.snippetHeight)
@@ -123,28 +126,26 @@ struct CanvasDropDelegate: DropDelegate {
     let snippetHeight: CGFloat = Constants.snippetHeight
     let dotSpacing: CGFloat = Constants.dotSpacing
     
+    private var sortedDroppedSnippets: [(String, CGPoint)] {
+        droppedSnippets.sorted { $0.1.y < $1.1.y }
+    }
+    
+    
     func dropEntered(info: DropInfo) {
         let fingerLocation = info.location
-        let snippetWidth = calculateSnippetWidth(text: currentSnippet)
-        let snippetCenter = CGPoint(
-            x: fingerLocation.x - snippetWidth / 3,
-            y: fingerLocation.y - snippetHeight / 3
-        )
+        
+        // Find the nearest grid dot
         self.highlightedDot = self.nearestDot(to: fingerLocation)
-        if self.highlightedDot == nil { return }
-        self.updateHeight(snippetCenter)
+        self.updateHeight(fingerLocation)
     }
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         let fingerLocation = info.location
-        let snippetWidth = calculateSnippetWidth(text: currentSnippet)
-        let snippetCenter = CGPoint(
-            x: fingerLocation.x - snippetWidth / 3,
-            y: fingerLocation.y - snippetHeight / 3
-        )
+        
+        // Update highlighted dot and insertion index
         self.highlightedDot = self.nearestDot(to: fingerLocation)
-        if self.highlightedDot == nil { return nil }
-        self.updateHeight(snippetCenter)
+        
+        self.updateHeight(fingerLocation)
         return DropProposal(operation: .move)
     }
     
@@ -159,7 +160,7 @@ struct CanvasDropDelegate: DropDelegate {
             return false
         }
         
-        if !isDroppable(for: currentSnippet, at: dot, with: droppedSnippets) {
+        if !isSnippetInBounds(for: currentSnippet, at: dot) {
             highlightedDot = nil
             return false
         }
@@ -197,11 +198,10 @@ struct CanvasDropDelegate: DropDelegate {
     
     // Define the onDrop closure for the preview
     let onDrop: (String, CGPoint) -> Void = { snippet, position in
-        droppedSnippets.append((snippet, position))
         print("Dropped \(snippet) at \(position)")
     }
     
-    return CanvasView(
+    CanvasView(
         minCanvasHeight: 300, // Minimum height for the canvas
         droppedSnippets: droppedSnippets,
         currentSnippet: $currentSnippet,

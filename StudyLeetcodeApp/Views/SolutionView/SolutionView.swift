@@ -51,12 +51,17 @@ struct SolutionView: View {
                         minCanvasHeight: geometry.size.height * 0.8,
                         droppedSnippets: droppedSnippets,
                         currentSnippet: $currentSnippet
-                    ) { snippet, position in
+                    ) { snippet, position  in
+                        // Update SwiftData
+                        updateDroppedSnippets(snippet: snippet, position: position)
+                        
+                        // Update dropped snippets with reflowing
+                        let reflowedSnippets = reflowSnippets(droppedSnippets)
+                        droppedSnippets = reflowedSnippets
+                        
                         // Snippet on SnippetHistory
                         let snapshot = SnippetSnapshot(dropped: droppedSnippets)
                         snippetHistory.push(snapshot)
-                        // Snippet on SwiftData
-                        updateDroppedSnippets(snippet: snippet, position: position)
                     }
                     .frame(height: geometry.size.height * 0.68)
                     .padding(.horizontal, 10)
@@ -66,11 +71,12 @@ struct SolutionView: View {
                         availableSnippets: availableSnippets,
                         currentSnippet: $currentSnippet
                     ) { snippet in
+                        // Snippet on SwiftData
+                        returnSnippetToAvailable(snippet: snippet)
+                        
                         // Snippet on SnippetHistory
                         let snapshot = SnippetSnapshot(dropped: droppedSnippets)
                         snippetHistory.push(snapshot)
-                        // Snippet on SwiftData
-                        returnSnippetToAvailable(snippet: snippet)
                     }
                     .frame(height: geometry.size.height * 0.25)
                     .padding(.horizontal, 10)
