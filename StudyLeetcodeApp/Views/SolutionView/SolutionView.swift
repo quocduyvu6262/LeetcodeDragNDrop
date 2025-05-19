@@ -12,6 +12,7 @@ import WebKit
 struct SolutionView: View {
     let problem: Problem
     let nextStep: () -> Void
+    private let solutionCoordinateSpace = "solution"
     
     @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
@@ -48,28 +49,32 @@ struct SolutionView: View {
                     
                     // 60% CanvasView
                     CanvasView(
-                        minCanvasHeight: geometry.size.height * 0.8,
+                        minCanvasHeight: geometry.size.height * Constants.minCanvasHeightFactor,
                         droppedSnippets: droppedSnippets,
-                        currentSnippet: $currentSnippet
-                    ) { snippet, position  in
-                        // Update SwiftData
-                        updateDroppedSnippets(snippet: snippet, position: position)
-                        
-                        // Update dropped snippets with reflowing
-                        let reflowedSnippets = reflowSnippets(droppedSnippets)
-                        droppedSnippets = reflowedSnippets
-                        
-                        // Snippet on SnippetHistory
-                        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                        snippetHistory.push(snapshot)
-                    }
-                    .frame(height: geometry.size.height * 0.68)
+                        currentSnippet: $currentSnippet,
+                        onDrop: { snippet, position in
+                            // Update SwiftData
+                            updateDroppedSnippets(snippet: snippet, position: position)
+                            
+                            // Update dropped snippets with reflowing
+                            let reflowedSnippets = reflowSnippets(droppedSnippets)
+                            droppedSnippets = reflowedSnippets
+                            
+                            // Snippet on SnippetHistory
+                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                            snippetHistory.push(snapshot)
+                        },
+                        onDragToList: { snippet in
+                           
+                        }
+                    )
+                    .frame(height: geometry.size.height * Constants.canvasHeightFactor)
                     .padding(.horizontal, 10)
                     
                     // 25% Snippet List
                     SnippetsListView(
                         availableSnippets: availableSnippets,
-                        currentSnippet: $currentSnippet
+                        currentSnippet: $currentSnippet,
                     ) { snippet in
                         // Snippet on SwiftData
                         returnSnippetToAvailable(snippet: snippet)

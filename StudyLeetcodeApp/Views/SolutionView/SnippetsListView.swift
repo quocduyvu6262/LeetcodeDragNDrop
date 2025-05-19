@@ -10,8 +10,10 @@ import SwiftUI
 struct SnippetsListView: View {
     let availableSnippets: [String]
     @Binding var currentSnippet: String
-    
+
     let onDrop: (String) -> Void
+    
+    @State private var dragOffset: CGSize = .zero
     
     var body: some View {
         GeometryReader { geometry in
@@ -19,14 +21,17 @@ struct SnippetsListView: View {
                 FlowLayout {
                     ForEach(availableSnippets, id: \.self) { snippet in
                         CodeSnippet(code: snippet)
-                        .onDrag({
-                            currentSnippet = snippet
-                            let dragItem = NSItemProvider(object: snippet as NSString)
-                            return dragItem
-                        },
-                        preview: {
-                            CodeSnippet(code: snippet)
-                        })
+                            .offset(currentSnippet == snippet ? dragOffset : .zero)
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        currentSnippet = snippet
+                                        dragOffset = value.translation
+                                    }
+                                    .onEnded { _ in
+                                        dragOffset = .zero
+                                    }
+                            )
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width - 20)
@@ -35,11 +40,8 @@ struct SnippetsListView: View {
             .frame(width: geometry.size.width, height: geometry.size.height)
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
+                    .stroke(true ? Color.blue : Color.primary.opacity(1.0), lineWidth: 2)
             }
-            .onDrop(of: [.text], delegate: SnippetsListDropDelegate (
-                onDrop: onDrop
-            ))
         }
     }
 }

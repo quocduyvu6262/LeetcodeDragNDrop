@@ -16,8 +16,14 @@ struct CanvasView: View {
     @State private var highlightedDot: CGPoint?
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
+    @State private var dragOffset: CGSize = .zero
+    @State private var scrollOffset: CGFloat = 0
+    
+    // Add coordinate space name
+    private let canvasCoordinateSpace = "canvas"
     
     let onDrop: (String, CGPoint) -> Void
+    let onDragToList: (String) -> Void
 
     // Add computed property for sorted snippets
     private var sortedDroppedSnippets: [(snippet: String, position: CGPoint)] {
@@ -27,19 +33,22 @@ struct CanvasView: View {
     init(minCanvasHeight: CGFloat, 
          droppedSnippets: [(String, CGPoint)],
          currentSnippet: Binding<String>,
-         onDrop: @escaping (String, CGPoint) -> Void
+         onDrop: @escaping (String, CGPoint) -> Void,
+         onDragToList: @escaping (String) -> Void
     ) {
         self.minCanvasHeight = minCanvasHeight
         self._canvasHeight = State(initialValue: minCanvasHeight)
         self._currentSnippet = currentSnippet
         self.droppedSnippets = droppedSnippets
         self.onDrop = onDrop
+        self.onDragToList = onDragToList
     }
     
     var body: some View {
         GeometryReader { geometry in
             ScrollView(.vertical, showsIndicators: true) {
                 ZStack(alignment: .topLeading) {
+                    ScrollViewOffsetTracker()
                     // Grid of dots
                     ForEach(0..<Int(canvasHeight / dotSpacing), id: \.self) { row in
                         ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
@@ -56,12 +65,36 @@ struct CanvasView: View {
                         let snippet = droppedSnippets[index]
                         CodeSnippet(code: snippet.snippet)
                             .position(snippet.position)
-                            .onDrag({
-                                currentSnippet = snippet.0
-                                return NSItemProvider(object: snippet.0 as NSString)
-                            }, preview: {
-                                CodeSnippet(code: snippet.snippet)
-                            })
+                            .offset(currentSnippet == snippet.snippet ? dragOffset : .zero)
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        currentSnippet = snippet.snippet
+                                        dragOffset = value.translation
+                                        
+                                        // Convert local position to global position
+                                        let localPosition = CGPoint(
+                                            x: snippet.position.x + value.translation.width,
+                                            y: snippet.position.y + value.translation.height
+                                        )
+                                        // Calculate the global position
+                                        let globalPosition = CGPoint(
+                                            x: localPosition.x,
+                                            y: localPosition.y + self.scrollOffset
+                                        )
+                                        
+                                        let listViewY = (self.minCanvasHeight / Constants.minCanvasHeightFactor) * Constants.canvasHeightFactor
+                                        highlightedDot = nearestDot(to: localPosition, in: geometry.size)
+                                        updateCanvasHeight(for: localPosition)
+                                    }
+                                    .onEnded { value in
+                                        if let dot = highlightedDot {
+                                            onDrop(snippet.snippet, dot)
+                                        }
+                                        dragOffset = .zero
+                                        highlightedDot = nil
+                                    }
+                            )
                     }
                     
                     // Highlighted drop zone
@@ -87,20 +120,15 @@ struct CanvasView: View {
                 .onAppear {
                     canvasHeight = max(canvasHeight, minCanvasHeight)
                 }
-                .onDrop(of: [.text], delegate: CanvasDropDelegate(
-                    highlightedDot: $highlightedDot,
-                    currentSnippet: $currentSnippet,
-                    droppedSnippets: droppedSnippets,
-                    canvasSize: geometry.size,
-                    canvasHeight: canvasHeight,
-                    updateHeight: updateCanvasHeight,
-                    onDrop: onDrop
-                ))
             }
             .clipped()
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
                     .stroke(Color.primary.opacity(1.0), lineWidth: 2)
+            }
+            .coordinateSpace(name: "scrollView")
+            .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
+                self.scrollOffset = offset.y
             }
         }
     }
@@ -110,6 +138,16 @@ struct CanvasView: View {
         if requiredHeight > canvasHeight {
             canvasHeight = requiredHeight
         }
+    }
+    
+    private func nearestDot(to location: CGPoint, in size: CGSize) -> CGPoint? {
+        let x = round(location.x / dotSpacing) * dotSpacing
+        let y = round(location.y / dotSpacing) * dotSpacing
+        
+        return CGPoint(
+            x: max(0, min(x, size.width - dotSpacing)),
+            y: max(0, min(y, canvasHeight - dotSpacing))
+        )
     }
 }
 
@@ -135,7 +173,7 @@ struct CanvasDropDelegate: DropDelegate {
         let fingerLocation = info.location
         
         // Find the nearest grid dot
-        self.highlightedDot = self.nearestDot(to: fingerLocation)
+        self.highlightedDot = self.nearestDot(to: fingerLocation, in: canvasSize)
         self.updateHeight(fingerLocation)
     }
     
@@ -143,7 +181,7 @@ struct CanvasDropDelegate: DropDelegate {
         let fingerLocation = info.location
         
         // Update highlighted dot and insertion index
-        self.highlightedDot = self.nearestDot(to: fingerLocation)
+        self.highlightedDot = self.nearestDot(to: fingerLocation, in: canvasSize)
         
         self.updateHeight(fingerLocation)
         return DropProposal(operation: .move)
@@ -177,12 +215,12 @@ struct CanvasDropDelegate: DropDelegate {
         return true
     }
     
-    private func nearestDot(to location: CGPoint) -> CGPoint? {
+    private func nearestDot(to location: CGPoint, in size: CGSize) -> CGPoint? {
         let x = round(location.x / dotSpacing) * dotSpacing
         let y = round(location.y / dotSpacing) * dotSpacing
         
         return CGPoint(
-            x: max(0, min(x, canvasSize.width - dotSpacing)),
+            x: max(0, min(x, size.width - dotSpacing)),
             y: max(0, min(y, canvasHeight - dotSpacing))
         )
     }
@@ -205,6 +243,9 @@ struct CanvasDropDelegate: DropDelegate {
         minCanvasHeight: 300, // Minimum height for the canvas
         droppedSnippets: droppedSnippets,
         currentSnippet: $currentSnippet,
-        onDrop: onDrop
+        onDrop: onDrop,
+        onDragToList: { snippet in
+            print("Dragged \(snippet) to list")
+        }
     )
 }
