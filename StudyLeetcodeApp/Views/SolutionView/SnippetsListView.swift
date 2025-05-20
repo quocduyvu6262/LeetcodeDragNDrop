@@ -45,24 +45,3 @@ struct SnippetsListView: View {
         }
     }
 }
-
-struct SnippetsListDropDelegate: DropDelegate {
-    let onDrop: (String) -> Void
-    
-    func performDrop(info: DropInfo) -> Bool {
-        guard let itemProvider = info.itemProviders(for: [.text]).first else {
-            return false
-        }
-        
-        itemProvider.loadObject(ofClass: NSString.self) { (object, error) in
-            if let snippet = object as? String {
-                DispatchQueue.main.async {
-                    onDrop(snippet)
-                }
-            }
-        }
-        
-        return true
-    }
-    
-}

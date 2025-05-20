@@ -12,8 +12,8 @@ import WebKit
 struct SolutionView: View {
     let problem: Problem
     let nextStep: () -> Void
-    private let solutionCoordinateSpace = "solution"
     
+    @StateObject var dragCoordinator: DragDropCoordinator = DragDropCoordinator()
     @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
     
@@ -51,7 +51,7 @@ struct SolutionView: View {
                     CanvasView(
                         minCanvasHeight: geometry.size.height * Constants.minCanvasHeightFactor,
                         droppedSnippets: droppedSnippets,
-                        currentSnippet: $currentSnippet,
+                        coordinator: dragCoordinator,
                         onDrop: { snippet, position in
                             // Update SwiftData
                             updateDroppedSnippets(snippet: snippet, position: position)
@@ -96,6 +96,14 @@ struct SolutionView: View {
                     .padding(.horizontal, 10)
                 }
             }
+            
+            if dragCoordinator.isDragging {
+               DraggedSnippetOverlay(
+                   snippet: dragCoordinator.currentSnippet,
+                   position: dragCoordinator.dragPosition ?? .zero
+               )
+               .ignoresSafeArea()
+           }
 
             
             if showModal {
