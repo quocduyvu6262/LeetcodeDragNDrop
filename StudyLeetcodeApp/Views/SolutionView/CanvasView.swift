@@ -104,7 +104,7 @@ struct CanvasView: View {
                     }
                     
                     // Highlighted drop zone
-                    if let dot = highlightedDot {
+                    if let dot = highlightedDot, coordinator.isDragging {
                         if isSnippetInBounds(for: coordinator.currentSnippet, at: dot) {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.3))

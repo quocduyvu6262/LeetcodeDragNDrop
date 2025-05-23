@@ -86,7 +86,16 @@ struct SolutionView: View {
                             snippetHistory.push(snapshot)
                         },
                         onDragToCanvas: { snippet, position in
+                            // Update SwiftData
+                            updateDroppedSnippets(snippet: snippet, position: position)
                             
+                            // Update dropped snippets with reflowing
+                            let reflowedSnippets = reflowSnippets(droppedSnippets)
+                            droppedSnippets = reflowedSnippets
+                            
+                            // Snippet on SnippetHistory
+                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                            snippetHistory.push(snapshot)
                         }
                     )
                     .frame(height: geometry.size.height * 0.25)

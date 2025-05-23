@@ -48,12 +48,15 @@ struct SnippetsListView: View {
                                         }
                                         let snippetStartPosition = snippetStartPositions[snippet] ?? .zero
                                         let snippetLocation = CGPoint(
-                                            x: snippetStartPosition.x + value.translation.width,
+                                            x: value.location.x,
                                             y: value.location.y
                                         )
                                         coordinator.updateDragPosition(snippetLocation)
                                     }
-                                    .onEnded { _ in
+                                    .onEnded { value in
+                                        if coordinator.isOverCanvas, let position = coordinator.dragPosition {
+                                            onDragToCanvas(snippet, position)
+                                        }
                                         coordinator.endDrag()
                                     }
                             )
