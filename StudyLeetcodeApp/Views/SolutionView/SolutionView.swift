@@ -50,6 +50,7 @@ struct SolutionView: View {
                     // 60% CanvasView
                     CanvasView(
                         minCanvasHeight: calculatedCanvasHeight(for: geometry),
+                        canvasFrameHeight: geometry.size.height * Constants.canvasHeightFactor,
                         droppedSnippets: droppedSnippets,
                         coordinator: dragCoordinator,
                         onDrop: { snippet, position in

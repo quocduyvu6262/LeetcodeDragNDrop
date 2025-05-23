@@ -18,7 +18,7 @@ struct CanvasView: View {
     @State private var draggedSnippetWidth: CGFloat = 0
     @State private var scrollOffset: CGFloat = 0
     
-    private var canvasFrameHeight: CGFloat = 0
+    private var canvasFrameHeight: CGFloat
     private let canvasCoordinateSpace = "canvas"
     
     let onDrop: (String, CGPoint) -> Void
@@ -29,7 +29,8 @@ struct CanvasView: View {
         droppedSnippets.sorted { $0.position.y < $1.position.y }
     }
 
-    init(minCanvasHeight: CGFloat, 
+    init(minCanvasHeight: CGFloat,
+         canvasFrameHeight: CGFloat,
          droppedSnippets: [(String, CGPoint)],
          coordinator: DragDropCoordinator,
          onDrop: @escaping (String, CGPoint) -> Void,
@@ -37,7 +38,7 @@ struct CanvasView: View {
     ) {
         self.minCanvasHeight = minCanvasHeight
         self._canvasHeight = State(initialValue: self.minCanvasHeight)
-        self.canvasFrameHeight = (self.minCanvasHeight / Constants.minCanvasHeightFactor) * Constants.canvasHeightFactor
+        self.canvasFrameHeight = canvasFrameHeight
         self.coordinator = coordinator
         self.droppedSnippets = droppedSnippets
         self.onDrop = onDrop
@@ -50,7 +51,7 @@ struct CanvasView: View {
                 ZStack(alignment: .topLeading) {
                     ScrollViewOffsetTracker()
                     // Grid of dots
-                    ForEach(0..<Int(max(minCanvasHeight, canvasHeight) / dotSpacing), id: \.self) { row in
+                    ForEach(0..<Int(canvasHeight / dotSpacing), id: \.self) { row in
                         ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
                             Circle()
                                 .frame(width: 3, height: 3)
@@ -72,11 +73,7 @@ struct CanvasView: View {
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet.snippet, source: .canvas)
                                         }
-                                        let canvasFrameInSolutionView = geometry.frame(in: .named("solutionView"))
-                                        let snippetInSolutionView = CGPoint(
-                                            x: canvasFrameInSolutionView.minX + snippet.position.x,
-                                            y: canvasFrameInSolutionView.minY + snippet.position.y + scrollOffset
-                                        )
+                                        let snippetInSolutionView = getGlobalPosition(for: snippet, in: geometry)
                                         let localPosition = CGPoint(
                                            x: snippet.position.x + value.translation.width,
                                            y: snippet.position.y + value.translation.height
@@ -89,13 +86,17 @@ struct CanvasView: View {
                                         coordinator.updateDragPosition(globalPosition)
                                     }
                                     .onEnded { value in
-                                        let globalY = value.location.y + self.scrollOffset
-                                        if globalY > self.canvasFrameHeight {
+                                        let snippetInSolutionView = getGlobalPosition(for: snippet, in: geometry)
+                                        let globalPosition = CGPoint(
+                                            x: snippetInSolutionView.x + value.translation.width,
+                                            y: snippetInSolutionView.y + value.translation.height
+                                        )
+                                        if globalPosition.y > self.canvasFrameHeight {
                                             onDragToList(snippet.snippet)
                                         }
-//                                        else if let dot = highlightedDot {
-//                                            onDrop(snippet.snippet, dot)
-//                                        }
+                                        else if let dot = highlightedDot {
+                                            onDrop(snippet.snippet, dot)
+                                        }
                                         coordinator.endDrag()
                                         highlightedDot = nil
                                     }
@@ -122,8 +123,8 @@ struct CanvasView: View {
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
                 .background(Color.clear.contentShape(Rectangle()))
                 .clipped()
-                .onAppear {
-                    canvasHeight = max(canvasHeight, minCanvasHeight)
+                .onChange(of: minCanvasHeight) { oldValue, newValue in
+                    canvasHeight = max(canvasHeight, newValue)
                 }
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
                     if let position = newPosition, coordinator.isDragging && coordinator.dragSource == .snippetList {
@@ -155,7 +156,7 @@ struct CanvasView: View {
         }
     }
     
-    func updateCanvasHeight(for point: CGPoint) {
+    private func updateCanvasHeight(for point: CGPoint) {
         let requiredHeight = point.y + 100 // Add buffer for snippet height
         if requiredHeight > canvasHeight {
             canvasHeight = requiredHeight
@@ -170,5 +171,14 @@ struct CanvasView: View {
             x: max(0, min(x, size.width - dotSpacing)),
             y: max(0, min(y, canvasHeight - dotSpacing))
         )
+    }
+    
+    private func getGlobalPosition(for snippet: (String, CGPoint), in geometry: GeometryProxy) -> CGPoint {
+        let canvasFrameInSolutionView = geometry.frame(in: .named("solutionView"))
+        let snippetInSolutionView = CGPoint(
+            x: canvasFrameInSolutionView.minX + snippet.1.x,
+            y: canvasFrameInSolutionView.minY + snippet.1.y + scrollOffset
+        )
+        return snippetInSolutionView
     }
 }
