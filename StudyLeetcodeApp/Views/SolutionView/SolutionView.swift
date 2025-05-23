@@ -34,6 +34,7 @@ struct SolutionView: View {
     @State var pythonExecutorCode: String = ""
     @State var runPython: Bool = false
     
+    
     init(problem: Problem, nextStep: @escaping () -> Void) {
         self.problem = problem
         self.nextStep = nextStep
@@ -46,10 +47,9 @@ struct SolutionView: View {
         ZStack {
             GeometryReader { geometry in
                 VStack(spacing: 10) {
-                    
                     // 60% CanvasView
                     CanvasView(
-                        minCanvasHeight: geometry.size.height * Constants.minCanvasHeightFactor,
+                        minCanvasHeight: calculatedCanvasHeight(for: geometry),
                         droppedSnippets: droppedSnippets,
                         coordinator: dragCoordinator,
                         onDrop: { snippet, position in
@@ -65,7 +65,7 @@ struct SolutionView: View {
                             snippetHistory.push(snapshot)
                         },
                         onDragToList: { snippet in
-                           
+                           print("Canvas to SnippetList")
                         }
                     )
                     .frame(height: geometry.size.height * Constants.canvasHeightFactor)
@@ -75,14 +75,19 @@ struct SolutionView: View {
                     SnippetsListView(
                         availableSnippets: availableSnippets,
                         currentSnippet: $currentSnippet,
-                    ) { snippet in
-                        // Snippet on SwiftData
-                        returnSnippetToAvailable(snippet: snippet)
-                        
-                        // Snippet on SnippetHistory
-                        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                        snippetHistory.push(snapshot)
-                    }
+                        coordinator: dragCoordinator,
+                        onDrop: { snippet in
+                            // Snippet on SwiftData
+                            returnSnippetToAvailable(snippet: snippet)
+                            
+                            // Snippet on SnippetHistory
+                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                            snippetHistory.push(snapshot)
+                        },
+                        onDragToCanvas: { snippet, position in
+                            
+                        }
+                    )
                     .frame(height: geometry.size.height * 0.25)
                     .padding(.horizontal, 10)
 
@@ -95,16 +100,19 @@ struct SolutionView: View {
                     .frame(height: geometry.size.height * 0.065)
                     .padding(.horizontal, 10)
                 }
+                
+                if dragCoordinator.isDragging {
+                   DraggedSnippetOverlay(
+                       snippet: dragCoordinator.currentSnippet,
+                       position: CGPoint(
+                        x: dragCoordinator.dragPosition?.x ?? 0,
+                        y: (dragCoordinator.dragPosition?.y ?? 0) + geometry.safeAreaInsets.top
+                    )
+                   )
+                   .ignoresSafeArea()
+               }
             }
-            
-            if dragCoordinator.isDragging {
-               DraggedSnippetOverlay(
-                   snippet: dragCoordinator.currentSnippet,
-                   position: dragCoordinator.dragPosition ?? .zero
-               )
-               .ignoresSafeArea()
-           }
-
+            .coordinateSpace(name: "solutionView")
             
             if showModal {
                 VStack {
@@ -167,6 +175,11 @@ struct SolutionView: View {
             }
         }
 
+    }
+    
+    private func calculatedCanvasHeight(for geometry: GeometryProxy) -> CGFloat {
+        let maxY = droppedSnippets.map { $0.position.y }.max() ?? 0
+        return max(geometry.size.height * Constants.minCanvasHeightFactor, maxY + Constants.snippetHeight)
     }
 }
 

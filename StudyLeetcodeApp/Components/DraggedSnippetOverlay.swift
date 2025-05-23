@@ -14,6 +14,5 @@ struct DraggedSnippetOverlay: View {
     var body: some View {
         CodeSnippet(code: snippet)
             .position(position)
-            .allowsHitTesting(false)
     }
 }
