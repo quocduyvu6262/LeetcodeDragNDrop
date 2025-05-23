@@ -73,17 +73,17 @@ struct CanvasView: View {
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet.snippet, source: .canvas)
                                         }
-                                        let snippetInSolutionView = getGlobalPosition(for: snippet, in: geometry)
                                         let localPosition = CGPoint(
                                            x: snippet.position.x + value.translation.width,
                                            y: snippet.position.y + value.translation.height
                                         )
-                                        let globalPosition = CGPoint(
-                                            x: snippetInSolutionView.x + value.translation.width,
-                                            y: snippetInSolutionView.y + value.translation.height
-                                        )
                                         highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                                        coordinator.updateDragPosition(globalPosition)
+                                        if let dot = highlightedDot {
+                                            coordinator.updateDragPosition(CGPoint(
+                                                x: dot.x,
+                                                y: dot.y + self.scrollOffset
+                                            ))
+                                        }
                                     }
                                     .onEnded { value in
                                         let snippetInSolutionView = getGlobalPosition(for: snippet, in: geometry)

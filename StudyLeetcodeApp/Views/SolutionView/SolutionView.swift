@@ -120,6 +120,7 @@ struct SolutionView: View {
                     )
                    )
                    .ignoresSafeArea()
+                   .padding(.horizontal, 10)
                }
             }
             .coordinateSpace(name: "solutionView")
