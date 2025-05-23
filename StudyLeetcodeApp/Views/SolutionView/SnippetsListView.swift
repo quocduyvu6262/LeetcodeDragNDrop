@@ -27,7 +27,6 @@ struct SnippetsListView: View {
                     ForEach(availableSnippets, id: \.self) { snippet in
                         CodeSnippet(code: snippet)
                             .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet ? 0.5 : 1.0)
-//                                .offset(coordinator.currentSnippet == snippet ? dragOffset : .zero)
                             .background(
                                 GeometryReader { snippetGeometry in
                                     Color.clear
@@ -42,7 +41,7 @@ struct SnippetsListView: View {
                                 }
                             )
                             .gesture(
-                                DragGesture(minimumDistance: 0)
+                                DragGesture(minimumDistance: 0, coordinateSpace: .named("solutionView"))
                                     .onChanged { value in
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet, source: .snippetList)
@@ -50,14 +49,9 @@ struct SnippetsListView: View {
                                         let snippetStartPosition = snippetStartPositions[snippet] ?? .zero
                                         let snippetLocation = CGPoint(
                                             x: snippetStartPosition.x + value.translation.width,
-                                            y: snippetStartPosition.y + value.translation.height
+                                            y: value.location.y
                                         )
-//                                        coordinator.updateDragPosition(snippetLocation)
-//                                        coordinator.updateDragPosition(CGPoint(
-//                                            x: 0,
-//                                            y: 0
-//                                        ))
-
+                                        coordinator.updateDragPosition(snippetLocation)
                                     }
                                     .onEnded { _ in
                                         coordinator.endDrag()
@@ -78,5 +72,14 @@ struct SnippetsListView: View {
                 self.scrollOffset = offset.y
             }
         }
+    }
+    
+    private func getGlobalPosition(for snippet: (String, CGPoint), in geometry: GeometryProxy) -> CGPoint {
+        let canvasFrameInSolutionView = geometry.frame(in: .named("solutionView"))
+        let snippetInSolutionView = CGPoint(
+            x: canvasFrameInSolutionView.minX + snippet.1.x,
+            y: canvasFrameInSolutionView.minY + snippet.1.y + scrollOffset
+        )
+        return snippetInSolutionView
     }
 }
