@@ -125,6 +125,7 @@ struct CanvasView: View {
                 .onChange(of: minCanvasHeight) { oldValue, newValue in
                     canvasHeight = max(canvasHeight, newValue)
                 }
+                // Drop detection from when dragging from SnippetListView
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
                     if let position = newPosition, coordinator.isDragging && coordinator.dragSource == .snippetList {
                         // Convert global position to local position for the canvas
@@ -135,6 +136,9 @@ struct CanvasView: View {
                         if localY >= 0 && localY <= canvasFrameHeight {
                             coordinator.isOverCanvas = true
                             highlightedDot = nearestDot(to: localPosition, in: geometry.size)
+                            if let dot = highlightedDot {
+                                coordinator.updateDragPosition(dot)
+                            }
                             updateCanvasHeight(for: localPosition)
                         } else {
                             coordinator.isOverCanvas = false
