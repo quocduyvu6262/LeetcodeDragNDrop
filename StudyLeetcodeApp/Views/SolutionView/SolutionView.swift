@@ -13,26 +13,27 @@ struct SolutionView: View {
     let problem: Problem
     let nextStep: () -> Void
     
-    @StateObject var dragCoordinator: DragDropCoordinator = DragDropCoordinator()
     @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
-    
     @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
-    
     @State private var webView: WKWebView? = nil
-    
-    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
-    @State var availableSnippets: [String]
-    
-    @State private var currentSnippet: String = ""
-    
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false
     @State private var modalMessage: String = ""
     
     @State var pythonExecutorCode: String = ""
     @State var runPython: Bool = false
+    
+    // Canvas Variables
+    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
+    @StateObject var dragCoordinator: DragDropCoordinator = DragDropCoordinator()
+    @State var canvasScrollOffset: CGFloat = 0
+    
+    // SnippetList Variables
+    @State var availableSnippets: [String]
+    @State private var currentSnippet: String = ""
+    
     
     
     init(problem: Problem, nextStep: @escaping () -> Void) {
@@ -51,27 +52,14 @@ struct SolutionView: View {
                     CanvasView(
                         minCanvasHeight: calculatedCanvasHeight(for: geometry),
                         canvasFrameHeight: geometry.size.height * Constants.canvasHeightFactor,
+                        scrollOffset: $canvasScrollOffset,
                         droppedSnippets: droppedSnippets,
                         coordinator: dragCoordinator,
                         onDrop: { snippet, position in
-                            // Update SwiftData
-                            updateDroppedSnippets(snippet: snippet, position: position)
-                            
-                            // Update dropped snippets with reflowing
-                            let reflowedSnippets = reflowSnippets(droppedSnippets)
-                            droppedSnippets = reflowedSnippets
-                            
-                            // Snippet on SnippetHistory
-                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                            snippetHistory.push(snapshot)
+                            dropOnCanvas(snippet: snippet, position: position)
                         },
                         onDragToList: { snippet in
-                            // Snippet on SwiftData
-                            returnSnippetToAvailable(snippet: snippet)
-                            
-                            // Snippet on SnippetHistory
-                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                            snippetHistory.push(snapshot)
+                            dropOnList(snippet: snippet)
                         }
                     )
                     .frame(height: geometry.size.height * Constants.canvasHeightFactor)
@@ -79,28 +67,15 @@ struct SolutionView: View {
                     
                     // 25% Snippet List
                     SnippetsListView(
+                        canvasScrollOffset: canvasScrollOffset,
                         availableSnippets: availableSnippets,
                         currentSnippet: $currentSnippet,
                         coordinator: dragCoordinator,
                         onDrop: { snippet in
-                            // Snippet on SwiftData
-                            returnSnippetToAvailable(snippet: snippet)
-                            
-                            // Snippet on SnippetHistory
-                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                            snippetHistory.push(snapshot)
+                            dropOnList(snippet: snippet)
                         },
                         onDragToCanvas: { snippet, position in
-                            // Update SwiftData
-                            updateDroppedSnippets(snippet: snippet, position: position)
-                            
-                            // Update dropped snippets with reflowing
-                            let reflowedSnippets = reflowSnippets(droppedSnippets)
-                            droppedSnippets = reflowedSnippets
-                            
-                            // Snippet on SnippetHistory
-                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-                            snippetHistory.push(snapshot)
+                            dropOnCanvas(snippet: snippet, position: position)
                         }
                     )
                     .frame(height: geometry.size.height * 0.25)
@@ -190,6 +165,28 @@ struct SolutionView: View {
                 }
             }
         }
+    }
+    
+    private func dropOnCanvas(snippet: String, position: CGPoint) {
+        // Update SwiftData
+        updateDroppedSnippets(snippet: snippet, position: position)
+        
+        // Update dropped snippets with reflowing
+        let reflowedSnippets = reflowSnippets(droppedSnippets)
+        droppedSnippets = reflowedSnippets
+        
+        // Snippet on SnippetHistory
+        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+        snippetHistory.push(snapshot)
+    }
+    
+    private func dropOnList(snippet: String) {
+        // Snippet on SwiftData
+        returnSnippetToAvailable(snippet: snippet)
+        
+        // Snippet on SnippetHistory
+        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+        snippetHistory.push(snapshot)
     }
     
     private func calculatedCanvasHeight(for geometry: GeometryProxy) -> CGFloat {

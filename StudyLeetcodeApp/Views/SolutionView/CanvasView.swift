@@ -16,7 +16,7 @@ struct CanvasView: View {
     @State private var highlightedDot: CGPoint?
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
-    @State private var scrollOffset: CGFloat = 0
+    @Binding var scrollOffset: CGFloat
     
     private var canvasFrameHeight: CGFloat
     private let canvasCoordinateSpace = "canvas"
@@ -31,6 +31,7 @@ struct CanvasView: View {
 
     init(minCanvasHeight: CGFloat,
          canvasFrameHeight: CGFloat,
+         scrollOffset: Binding<CGFloat>,
          droppedSnippets: [(String, CGPoint)],
          coordinator: DragDropCoordinator,
          onDrop: @escaping (String, CGPoint) -> Void,
@@ -39,6 +40,7 @@ struct CanvasView: View {
         self.minCanvasHeight = minCanvasHeight
         self._canvasHeight = State(initialValue: self.minCanvasHeight)
         self.canvasFrameHeight = canvasFrameHeight
+        self._scrollOffset = scrollOffset
         self.coordinator = coordinator
         self.droppedSnippets = droppedSnippets
         self.onDrop = onDrop
@@ -103,7 +105,7 @@ struct CanvasView: View {
                     }
                     
                     // Highlighted drop zone
-                    if let dot = highlightedDot, coordinator.isDragging {
+                    if let dot = highlightedDot, coordinator.isDragging, coordinator.isOverCanvas {
                         if isSnippetInBounds(for: coordinator.currentSnippet, at: dot) {
                             Rectangle()
                                 .fill(Color.gray.opacity(0.3))
@@ -128,15 +130,14 @@ struct CanvasView: View {
                 // Drop detection from when dragging from SnippetListView
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
                     if let position = newPosition, coordinator.isDragging && coordinator.dragSource == .snippetList {
-                        // Convert global position to local position for the canvas
-                        let localY = position.y + self.scrollOffset
+                        let globalY = position.y
+                        let localY = position.y - scrollOffset
                         let localPosition = CGPoint(x: position.x, y: localY)
                         
-                        // Check if position is within canvas bounds
-                        if localY >= 0 && localY <= canvasFrameHeight {
+                        if globalY >= 0 && globalY <= canvasFrameHeight {
                             coordinator.isOverCanvas = true
                             highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                            if let dot = highlightedDot {
+                            if let dot = nearestDot(to: position, in: geometry.size) {
                                 coordinator.updateDragPosition(dot)
                             }
                             updateCanvasHeight(for: localPosition)

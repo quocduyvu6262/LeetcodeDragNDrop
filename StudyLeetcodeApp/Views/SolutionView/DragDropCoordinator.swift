@@ -26,6 +26,14 @@ class DragDropCoordinator: ObservableObject {
         currentSnippet = snippet
         isDragging = true
         dragSource = source
+        switch source {
+        case .canvas:
+            isOverCanvas = true
+        case .snippetList:
+            isOverSnippetList = true
+        default:
+            break
+        }
     }
     
     func updateDragPosition(_ position: CGPoint) {
