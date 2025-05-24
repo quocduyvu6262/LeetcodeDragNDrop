@@ -185,7 +185,6 @@ struct SolutionView: View {
                 }
             }
         }
-
     }
     
     private func calculatedCanvasHeight(for geometry: GeometryProxy) -> CGFloat {

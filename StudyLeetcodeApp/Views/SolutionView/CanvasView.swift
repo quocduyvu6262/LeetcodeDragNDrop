@@ -60,7 +60,6 @@ struct CanvasView: View {
                                 .position(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing)
                         }
                     }
-                    
                     // Display dropped snippets
                     ForEach(droppedSnippets.indices, id: \.self) { index in
                         let snippet = droppedSnippets[index]
@@ -129,7 +128,7 @@ struct CanvasView: View {
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
                     if let position = newPosition, coordinator.isDragging && coordinator.dragSource == .snippetList {
                         // Convert global position to local position for the canvas
-                        let localY = position.y - self.scrollOffset
+                        let localY = position.y + self.scrollOffset
                         let localPosition = CGPoint(x: position.x, y: localY)
                         
                         // Check if position is within canvas bounds
