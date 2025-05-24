@@ -66,7 +66,12 @@ struct SolutionView: View {
                             snippetHistory.push(snapshot)
                         },
                         onDragToList: { snippet in
-                           print("Canvas to SnippetList")
+                            // Snippet on SwiftData
+                            returnSnippetToAvailable(snippet: snippet)
+                            
+                            // Snippet on SnippetHistory
+                            let snapshot = SnippetSnapshot(dropped: droppedSnippets)
+                            snippetHistory.push(snapshot)
                         }
                     )
                     .frame(height: geometry.size.height * Constants.canvasHeightFactor)
