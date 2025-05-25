@@ -81,9 +81,8 @@ struct CanvasView: View {
                                            y: snippet.position.y + value.translation.height
                                         )
                                         highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                                        
                                         // Update Drag Position Over Canvas
-                                        if let dot = highlightedDot, coordinator.isOverCanvas {
+                                        if let dot = highlightedDot {
                                             coordinator.updateDragPosition(CGPoint(
                                                 x: dot.x,
                                                 y: dot.y + self.scrollOffset
@@ -155,8 +154,12 @@ struct CanvasView: View {
                             if coordinator.dragSource == .snippetList {
                                 highlightedDot = nearestDot(to: localPosition, in: geometry.size)
                                 // Make snippet consistent with highlighted dot
-                                if let dot = nearestDot(to: position, in: geometry.size) {
-                                    coordinator.updateDragPosition(dot)
+                                if let dot = highlightedDot {
+                                    let consistentGlobalPosition = CGPoint(
+                                        x: dot.x,
+                                        y: dot.y + scrollOffset
+                                    )
+                                    coordinator.updateDragPosition(consistentGlobalPosition)
                                 }
                             }
                             updateCanvasHeight(for: localPosition)

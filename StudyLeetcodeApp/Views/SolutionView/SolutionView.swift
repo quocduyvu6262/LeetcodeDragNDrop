@@ -166,6 +166,10 @@ struct SolutionView: View {
     }
     
     private func dropOnCanvas(snippet: String, position: CGPoint) {
+        if !isSnippetInBounds(for: snippet, at: position) {
+            return
+        }
+        
         // Update SwiftData
         updateDroppedSnippets(snippet: snippet, position: position)
         
