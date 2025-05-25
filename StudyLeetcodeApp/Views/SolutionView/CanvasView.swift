@@ -11,15 +11,17 @@ struct CanvasView: View {
     let minCanvasHeight: CGFloat
     let droppedSnippets: [(snippet: String, position: CGPoint)]
     @ObservedObject var coordinator: DragDropCoordinator
+    @Binding var highlightedDot: CGPoint?
+
     
     private let dotSpacing: CGFloat = Constants.dotSpacing
-    @State private var highlightedDot: CGPoint?
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
-    @Binding var scrollOffset: CGFloat
+    @State var scrollOffset: CGFloat = 0
     
     private var canvasFrameHeight: CGFloat
     private let canvasCoordinateSpace = "canvas"
+
     
     let onDrop: (String, CGPoint) -> Void
     let onDragToList: (String) -> Void
@@ -31,17 +33,17 @@ struct CanvasView: View {
 
     init(minCanvasHeight: CGFloat,
          canvasFrameHeight: CGFloat,
-         scrollOffset: Binding<CGFloat>,
          droppedSnippets: [(String, CGPoint)],
          coordinator: DragDropCoordinator,
+         highlightedDot: Binding<CGPoint?>,
          onDrop: @escaping (String, CGPoint) -> Void,
          onDragToList: @escaping (String) -> Void
     ) {
         self.minCanvasHeight = minCanvasHeight
         self._canvasHeight = State(initialValue: self.minCanvasHeight)
         self.canvasFrameHeight = canvasFrameHeight
-        self._scrollOffset = scrollOffset
         self.coordinator = coordinator
+        self._highlightedDot = highlightedDot
         self.droppedSnippets = droppedSnippets
         self.onDrop = onDrop
         self.onDragToList = onDragToList
@@ -79,11 +81,20 @@ struct CanvasView: View {
                                            y: snippet.position.y + value.translation.height
                                         )
                                         highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                                        if let dot = highlightedDot {
+                                        
+                                        // Update Drag Position Over Canvas
+                                        if let dot = highlightedDot, coordinator.isOverCanvas {
                                             coordinator.updateDragPosition(CGPoint(
                                                 x: dot.x,
                                                 y: dot.y + self.scrollOffset
                                             ))
+                                        // Update Drag Position Over SnippetList
+                                        } else if coordinator.isOverSnippetList {
+                                            let globalPosition = CGPoint(
+                                                x: localPosition.x,
+                                                y: localPosition.y + self.scrollOffset
+                                            )
+                                            coordinator.updateDragPosition(globalPosition)
                                         }
                                     }
                                     .onEnded { value in
@@ -92,9 +103,12 @@ struct CanvasView: View {
                                             x: snippetInSolutionView.x + value.translation.width,
                                             y: snippetInSolutionView.y + value.translation.height
                                         )
+                                        
+                                        // Drop On Snippet List
                                         if globalPosition.y > self.canvasFrameHeight {
                                             onDragToList(snippet.snippet)
                                         }
+                                        // Drop On Canvas
                                         else if let dot = highlightedDot {
                                             onDrop(snippet.snippet, dot)
                                         }
@@ -127,22 +141,29 @@ struct CanvasView: View {
                 .onChange(of: minCanvasHeight) { oldValue, newValue in
                     canvasHeight = max(canvasHeight, newValue)
                 }
-                // Drop detection from when dragging from SnippetListView
+                // Drop detection from when dragging from SnippetList
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
-                    if let position = newPosition, coordinator.isDragging && coordinator.dragSource == .snippetList {
+                    if let position = newPosition, coordinator.isDragging {
                         let globalY = position.y
                         let localY = position.y - scrollOffset
                         let localPosition = CGPoint(x: position.x, y: localY)
                         
+                        // Drag is over Canvas
                         if globalY >= 0 && globalY <= canvasFrameHeight {
                             coordinator.isOverCanvas = true
-                            highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                            if let dot = nearestDot(to: position, in: geometry.size) {
-                                coordinator.updateDragPosition(dot)
+                            coordinator.isOverSnippetList = false
+                            if coordinator.dragSource == .snippetList {
+                                highlightedDot = nearestDot(to: localPosition, in: geometry.size)
+                                // Make snippet consistent with highlighted dot
+                                if let dot = nearestDot(to: position, in: geometry.size) {
+                                    coordinator.updateDragPosition(dot)
+                                }
                             }
                             updateCanvasHeight(for: localPosition)
+                        // Drag is over SnippetList
                         } else {
                             coordinator.isOverCanvas = false
+                            coordinator.isOverSnippetList = true
                             highlightedDot = nil
                         }
                     }

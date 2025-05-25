@@ -16,17 +16,15 @@ struct SnippetPositionPreferenceKey: PreferenceKey {
 }
 
 struct SnippetsListView: View {
-    let canvasScrollOffset: CGFloat
     let availableSnippets: [String]
-    @Binding var currentSnippet: String
     @ObservedObject var coordinator: DragDropCoordinator
+    @Binding var highlightedDot: CGPoint?
 
     let onDrop: (String) -> Void
     let onDragToCanvas: (String, CGPoint) -> Void
     
     private let dotSpacing: CGFloat = Constants.dotSpacing
     @State private var dragOffset: CGSize = .zero
-    @State private var scrollOffset: CGFloat = 0
     @State private var snippetPositions: [String: CGRect] = [:]
     
     var body: some View {
@@ -51,27 +49,21 @@ struct SnippetsListView: View {
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet, source: .snippetList)
                                         }
-                                        //TODO: Get snippet global position relative to SolutionView
                                         if let snippetFrame = snippetPositions[snippet] {
                                             let globalPosition = CGPoint(
                                                 x: snippetFrame.midX + value.translation.width - 10,
                                                 y: snippetFrame.midY + value.translation.height
                                             )
-                                            if !coordinator.isOverCanvas {
-                                                coordinator.updateDragPosition(globalPosition)
-                                            }
-                                            else if let dot = consistentDot(to: globalPosition), coordinator.isOverCanvas {
-                                                coordinator.updateDragPosition(dot)
-                                            }
+                                            /**
+                                             Drag on Canvas and SnippetList. Especially when dragging on Canvas, the onChange() also used coordinator.updateDragPosition with consistent dot so that the snippet stays consistent with highlighted dot.
+                                             */
+                                            coordinator.updateDragPosition(globalPosition)
                                         }
                                     }
                                     .onEnded { value in
-                                        if coordinator.isOverCanvas, let position = coordinator.dragPosition {
-                                            let localPosition = CGPoint(
-                                                x: position.x,
-                                                y: position.y - canvasScrollOffset
-                                            )
-                                            onDragToCanvas(snippet, localPosition)
+                                        if coordinator.isOverCanvas, let dot = highlightedDot {
+                                            // Drop on Canvas. Otherwise do nothing
+                                            onDragToCanvas(snippet, dot)
                                         }
                                         coordinator.endDrag()
                                     }
@@ -86,9 +78,6 @@ struct SnippetsListView: View {
                     .stroke(true ? Color.blue : Color.primary.opacity(1.0), lineWidth: 2)
             }
             .coordinateSpace(name: "scrollView")
-            .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
-                self.scrollOffset = offset.y
-            }
             .onPreferenceChange(SnippetPositionPreferenceKey.self) { positions in
                 self.snippetPositions = positions
             }
