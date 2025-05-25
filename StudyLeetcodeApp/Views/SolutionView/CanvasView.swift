@@ -84,15 +84,17 @@ struct CanvasView: View {
                                            x: snippet.position.x + value.translation.width,
                                            y: snippet.position.y + value.translation.height
                                         )
-                                        highlightedDot = nearestDot(to: localPosition, in: geometry.size)
                                         // Update Drag Position Over Canvas
-                                        if let dot = highlightedDot {
-                                            coordinator.updateDragPosition(CGPoint(
-                                                x: dot.x,
-                                                y: dot.y + self.scrollOffset
-                                            ))
+                                        if coordinator.isOverCanvas {
+                                            if let dot = nearestDot(to: localPosition, in: geometry.size) {
+                                                coordinator.updateDragPosition(CGPoint(
+                                                    x: dot.x,
+                                                    y: dot.y + self.scrollOffset
+                                                ))
+                                            }
                                         // Update Drag Position Over SnippetList
-                                        } else if coordinator.isOverSnippetList {
+                                        }
+                                        else if coordinator.isOverSnippetList {
                                             let globalPosition = CGPoint(
                                                 x: localPosition.x,
                                                 y: localPosition.y + self.scrollOffset
@@ -155,23 +157,20 @@ struct CanvasView: View {
                         if globalY >= 0 && globalY <= canvasFrameHeight {
                             coordinator.isOverCanvas = true
                             coordinator.isOverSnippetList = false
-                            if coordinator.dragSource == .snippetList {
-                                highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                                // Make snippet consistent with highlighted dot
-                                if let dot = highlightedDot {
-                                    let consistentGlobalPosition = CGPoint(
-                                        x: dot.x,
-                                        y: dot.y + scrollOffset
-                                    )
-                                    coordinator.updateDragPosition(consistentGlobalPosition)
-                                }
+                            highlightedDot = nearestDot(to: localPosition, in: geometry.size)
+                            // Make snippet consistent with highlighted dot
+                            if let dot = highlightedDot, coordinator.dragSource == .snippetList {
+                                let consistentGlobalPosition = CGPoint(
+                                    x: dot.x,
+                                    y: dot.y + scrollOffset
+                                )
+                                coordinator.updateDragPosition(consistentGlobalPosition)
                             }
                             updateCanvasHeight(for: localPosition)
                         // Drag is over SnippetList
                         } else {
                             coordinator.isOverCanvas = false
                             coordinator.isOverSnippetList = true
-                            highlightedDot = nil
                         }
                     }
                 }
