@@ -16,16 +16,21 @@ struct SnippetPositionPreferenceKey: PreferenceKey {
 }
 
 struct SnippetsListView: View {
+    // Parameters
     let availableSnippets: [String]
     @ObservedObject var coordinator: DragDropCoordinator
     @Binding var highlightedDot: CGPoint?
-
-    let onDrop: (String) -> Void
-    let onDragToCanvas: (String, CGPoint) -> Void
     
+    // Variables
     private let dotSpacing: CGFloat = Constants.dotSpacing
     @State private var dragOffset: CGSize = .zero
     @State private var snippetPositions: [String: CGRect] = [:]
+    @State private var isScrolling = false
+    @State private var scrollEndTimer: Timer?
+    
+    // Closure
+    let onDrop: (String) -> Void
+    let onDragToCanvas: (String, CGPoint) -> Void
     
     var body: some View {
         GeometryReader { geometry in
@@ -44,8 +49,10 @@ struct SnippetsListView: View {
                             )
                             .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet ? 0.5 : 1.0)
                             .gesture(
-                                DragGesture(minimumDistance: 0, coordinateSpace: .named("solutionView"))
+                                DragGesture(minimumDistance: 0)
                                     .onChanged { value in
+                                        guard !isScrolling else { return }
+                                        
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet, source: .snippetList)
                                         }
@@ -75,11 +82,20 @@ struct SnippetsListView: View {
             .frame(width: UIScreen.main.bounds.width - 20)
             .overlay {
                 RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(true ? Color.blue : Color.primary.opacity(1.0), lineWidth: 2)
+                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
             }
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(SnippetPositionPreferenceKey.self) { positions in
                 self.snippetPositions = positions
+            }
+            .onPreferenceChange(ScrollOffsetPreferenceKey.self) { _ in
+                self.isScrolling = true
+                
+                // Reset scrolling state after a brief delay
+                scrollEndTimer?.invalidate()
+                scrollEndTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { _ in
+                    self.isScrolling = false
+                }
             }
         }
     }

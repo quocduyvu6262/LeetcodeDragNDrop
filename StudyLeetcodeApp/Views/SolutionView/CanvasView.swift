@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct CanvasView: View {
+    // Parameters
     let minCanvasHeight: CGFloat
+    private var canvasFrameHeight: CGFloat
     let droppedSnippets: [(snippet: String, position: CGPoint)]
     @ObservedObject var coordinator: DragDropCoordinator
     @Binding var highlightedDot: CGPoint?
 
-    
+    // Variables
+    private let canvasCoordinateSpace = "canvas"
     private let dotSpacing: CGFloat = Constants.dotSpacing
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
     @State var scrollOffset: CGFloat = 0
-    
-    private var canvasFrameHeight: CGFloat
-    private let canvasCoordinateSpace = "canvas"
+    @State private var isScrolling = false
+    @State private var scrollEndTimer: Timer?
 
-    
+    // Closure
     let onDrop: (String, CGPoint) -> Void
     let onDragToList: (String) -> Void
 
@@ -73,6 +75,8 @@ struct CanvasView: View {
                             .gesture(
                                 DragGesture(minimumDistance: 0)
                                     .onChanged { value in
+                                        guard !isScrolling else { return }
+                                        
                                         if !coordinator.isDragging {
                                             coordinator.startDrag(snippet: snippet.snippet, source: .canvas)
                                         }
@@ -180,6 +184,13 @@ struct CanvasView: View {
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
                 self.scrollOffset = offset.y
+                self.isScrolling = true
+                
+                // Reset scrolling state after a brief delay
+                scrollEndTimer?.invalidate()
+                scrollEndTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { _ in
+                    self.isScrolling = false
+                }
             }
         }
     }
