@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		7D0DF84F2DC17B6300520360 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7D0DF84E2DC17B6300520360 /* .gitignore */; };
 		7D113EC72DA6FBB100AC078B /* PythonExecutorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D113EC62DA6FBB100AC078B /* PythonExecutorView.swift */; };
+		7D12FC322DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12FC312DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift */; };
+		7D12FC342DDC0EB5000BDE57 /* DragDropCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12FC332DDC0EB5000BDE57 /* DragDropCoordinator.swift */; };
+		7D12FC362DDC2180000BDE57 /* DraggedSnippetOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D12FC352DDC2177000BDE57 /* DraggedSnippetOverlay.swift */; };
 		7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */; };
 		7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D32BC492D7E5BF20026F628 /* ProblemCard.swift */; };
 		7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */; };
@@ -75,6 +78,9 @@
 /* Begin PBXFileReference section */
 		7D0DF84E2DC17B6300520360 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7D113EC62DA6FBB100AC078B /* PythonExecutorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PythonExecutorView.swift; sourceTree = "<group>"; };
+		7D12FC312DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewOffsetTracker.swift; sourceTree = "<group>"; };
+		7D12FC332DDC0EB5000BDE57 /* DragDropCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragDropCoordinator.swift; sourceTree = "<group>"; };
+		7D12FC352DDC2177000BDE57 /* DraggedSnippetOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggedSnippetOverlay.swift; sourceTree = "<group>"; };
 		7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DroppedSnippet.swift; sourceTree = "<group>"; };
 		7D32BC492D7E5BF20026F628 /* ProblemCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemCard.swift; sourceTree = "<group>"; };
 		7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertItem.swift; sourceTree = "<group>"; };
@@ -167,6 +173,8 @@
 				7D4616342D74379100739617 /* SnippetsListView.swift */,
 				7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */,
 				7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */,
+				7D12FC312DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift */,
+				7D12FC332DDC0EB5000BDE57 /* DragDropCoordinator.swift */,
 			);
 			path = SolutionView;
 			sourceTree = "<group>";
@@ -314,6 +322,7 @@
 		7DD23EF22D7127CD00B3F1EA /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				7D12FC352DDC2177000BDE57 /* DraggedSnippetOverlay.swift */,
 				7DF573322DC31E3E003E68CD /* LCSearch.swift */,
 				7DD23EF32D7127E000B3F1EA /* CodeSnippet.swift */,
 				7DD6AF262D78261300AB1940 /* LCButton.swift */,
@@ -513,6 +522,8 @@
 				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
 				7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */,
 				7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */,
+				7D12FC322DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift in Sources */,
+				7D12FC342DDC0EB5000BDE57 /* DragDropCoordinator.swift in Sources */,
 				7D52C6BB2D7CF37300CC732F /* CategoryCard.swift in Sources */,
 				7DD23EF12D710E3400B3F1EA /* ComplexityView.swift in Sources */,
 				7D4616352D74379100739617 /* SnippetsListView.swift in Sources */,
@@ -523,6 +534,7 @@
 				7DD6AF252D78244D00AB1940 /* ComplexityView+Logic.swift in Sources */,
 				7D46163B2D74D6AD00739617 /* Constants.swift in Sources */,
 				7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */,
+				7D12FC362DDC2180000BDE57 /* DraggedSnippetOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,8 @@ public enum Constants {
     // Canvas
     public static let dotSpacing: CGFloat = 15
     public static let indentDefault: Int = 2
+    public static let canvasHeightFactor: CGFloat = 0.68
+    public static let minCanvasHeightFactor: CGFloat = 0.8
     
     // Snippet
     public static let snippetFont: UIFont = UIFont.systemFont(ofSize: 14, weight: .regular)
