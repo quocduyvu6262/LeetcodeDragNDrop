@@ -16,6 +16,6 @@ public enum Constants {
     public static let minCanvasHeightFactor: CGFloat = 0.8
     
     // Snippet
-    public static let snippetFont: UIFont = UIFont.systemFont(ofSize: 14, weight: .regular)
-    public static let snippetHeight: CGFloat = 25
+    public static let snippetFont: UIFont = UIFont(name: "JetBrainsMono-Regular", size: 12) ?? UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
+    public static let snippetHeight: CGFloat = 24
 }
