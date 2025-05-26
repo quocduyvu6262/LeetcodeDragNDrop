@@ -21,7 +21,6 @@ struct SolutionView: View {
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false
     @State private var modalMessage: String = ""
-    
     @State var pythonExecutorCode: String = ""
     @State var runPython: Bool = false
     
