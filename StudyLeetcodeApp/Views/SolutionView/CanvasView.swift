@@ -61,8 +61,8 @@ struct CanvasView: View {
                         ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
                             Circle()
                                 .frame(width: 3, height: 3)
-                                .opacity(0.45)
-                                .foregroundColor(highlightedDot == CGPoint(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing) ? .blue : .gray)
+                                .opacity(0.3)
+                                .foregroundColor(.gray)
                                 .position(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing)
                         }
                     }
@@ -121,23 +121,6 @@ struct CanvasView: View {
                                         highlightedDot = nil
                                     }
                             )
-                    }
-                    
-                    // Highlighted drop zone
-                    if let dot = highlightedDot, coordinator.isDragging, coordinator.isOverCanvas {
-                        if isSnippetInBounds(for: coordinator.currentSnippet, at: dot) {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: calculateSnippetWidth(text: coordinator.currentSnippet), height: Constants.snippetHeight)
-                                .cornerRadius(8)
-                                .position(dot)
-                        } else {
-                            Rectangle()
-                                .fill(Color.red.opacity(0.3))
-                                .frame(width: calculateSnippetWidth(text: coordinator.currentSnippet), height: Constants.snippetHeight)
-                                .cornerRadius(8)
-                                .position(dot)
-                        }
                     }
                 }
                 .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))

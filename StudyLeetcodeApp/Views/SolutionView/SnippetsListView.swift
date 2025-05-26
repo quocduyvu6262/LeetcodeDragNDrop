@@ -34,7 +34,7 @@ struct SnippetsListView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView([.vertical], showsIndicators: true) {
                 FlowLayout {
                     ScrollViewOffsetTracker()
                     ForEach(availableSnippets, id: \.self) { snippet in
@@ -79,24 +79,24 @@ struct SnippetsListView: View {
                 }
                 .padding(10)
             }
-            .frame(width: UIScreen.main.bounds.width - 20)
-            .overlay {
-                RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(SnippetPositionPreferenceKey.self) { positions in
                 self.snippetPositions = positions
             }
             .onPreferenceChange(ScrollOffsetPreferenceKey.self) { _ in
                 self.isScrolling = true
-                
                 // Reset scrolling state after a brief delay
                 scrollEndTimer?.invalidate()
                 scrollEndTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: false) { _ in
                     self.isScrolling = false
                 }
             }
+        }
+        .clipped()
+        .overlay {
+            RoundedRectangle(cornerRadius: 12.0)
+                .stroke(Color.primary.opacity(1.0), lineWidth: 2)
         }
     }
     
