@@ -10,9 +10,10 @@ import SwiftUI
 struct CanvasView: View {
     // Parameters
     let minCanvasHeight: CGFloat
-    private var canvasFrameHeight: CGFloat
+    var canvasFrameHeight: CGFloat
     let droppedSnippets: [(snippet: String, position: CGPoint)]
     @ObservedObject var coordinator: DragDropCoordinator
+    @ObservedObject var scrollManager: ScrollOffsetManager
     @Binding var highlightedDot: CGPoint?
 
     // Variables
@@ -20,7 +21,6 @@ struct CanvasView: View {
     private let dotSpacing: CGFloat = Constants.dotSpacing
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
-    @State var scrollOffset: CGFloat = 0
     @State private var isScrolling = false
     @State private var scrollEndTimer: Timer?
 
@@ -28,41 +28,27 @@ struct CanvasView: View {
     let onDrop: (String, CGPoint) -> Void
     let onDragToList: (String) -> Void
 
-    // Add computed property for sorted snippets
+    // Computed Property
     private var sortedDroppedSnippets: [(snippet: String, position: CGPoint)] {
         droppedSnippets.sorted { $0.position.y < $1.position.y }
     }
-
-    init(minCanvasHeight: CGFloat,
-         canvasFrameHeight: CGFloat,
-         droppedSnippets: [(String, CGPoint)],
-         coordinator: DragDropCoordinator,
-         highlightedDot: Binding<CGPoint?>,
-         onDrop: @escaping (String, CGPoint) -> Void,
-         onDragToList: @escaping (String) -> Void
-    ) {
-        self.minCanvasHeight = minCanvasHeight
-        self._canvasHeight = State(initialValue: self.minCanvasHeight)
-        self.canvasFrameHeight = canvasFrameHeight
-        self.coordinator = coordinator
-        self._highlightedDot = highlightedDot
-        self.droppedSnippets = droppedSnippets
-        self.onDrop = onDrop
-        self.onDragToList = onDragToList
+    
+    private var scrollOffset: CGFloat {
+        return scrollManager.dragScrollOffset
     }
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView([.vertical, .horizontal], showsIndicators: true) {
                 ZStack(alignment: .topLeading) {
                     ScrollViewOffsetTracker()
                     // Grid of dots
                     ForEach(0..<Int(canvasHeight / dotSpacing), id: \.self) { row in
-                        ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
+                        ForEach(0..<2 * Int(geometry.size.width / dotSpacing), id: \.self) { col in
                             Circle()
                                 .frame(width: 3, height: 3)
-                                .opacity(0.45)
-                                .foregroundColor(highlightedDot == CGPoint(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing) ? .blue : .gray)
+                                .opacity(0.3)
+                                .foregroundColor(.gray)
                                 .position(x: CGFloat(col) * dotSpacing, y: CGFloat(row) * dotSpacing)
                         }
                     }
@@ -89,7 +75,7 @@ struct CanvasView: View {
                                             if let dot = nearestDot(to: localPosition, in: geometry.size) {
                                                 coordinator.updateDragPosition(CGPoint(
                                                     x: dot.x,
-                                                    y: dot.y + self.scrollOffset
+                                                    y: dot.y + scrollOffset
                                                 ))
                                             }
                                         // Update Drag Position Over SnippetList
@@ -97,7 +83,7 @@ struct CanvasView: View {
                                         else if coordinator.isOverSnippetList {
                                             let globalPosition = CGPoint(
                                                 x: localPosition.x,
-                                                y: localPosition.y + self.scrollOffset
+                                                y: localPosition.y + scrollOffset
                                             )
                                             coordinator.updateDragPosition(globalPosition)
                                         }
@@ -122,27 +108,9 @@ struct CanvasView: View {
                                     }
                             )
                     }
-                    
-                    // Highlighted drop zone
-                    if let dot = highlightedDot, coordinator.isDragging, coordinator.isOverCanvas {
-                        if isSnippetInBounds(for: coordinator.currentSnippet, at: dot) {
-                            Rectangle()
-                                .fill(Color.gray.opacity(0.3))
-                                .frame(width: calculateSnippetWidth(text: coordinator.currentSnippet), height: Constants.snippetHeight)
-                                .cornerRadius(8)
-                                .position(dot)
-                        } else {
-                            Rectangle()
-                                .fill(Color.red.opacity(0.3))
-                                .frame(width: calculateSnippetWidth(text: coordinator.currentSnippet), height: Constants.snippetHeight)
-                                .cornerRadius(8)
-                                .position(dot)
-                        }
-                    }
                 }
-                .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
+                .frame(width: geometry.size.width * 1.5, height: max(minCanvasHeight, canvasHeight))
                 .background(Color.clear.contentShape(Rectangle()))
-                .clipped()
                 .onChange(of: minCanvasHeight) { oldValue, newValue in
                     canvasHeight = max(canvasHeight, newValue)
                 }
@@ -158,14 +126,6 @@ struct CanvasView: View {
                             coordinator.isOverCanvas = true
                             coordinator.isOverSnippetList = false
                             highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                            // Make snippet consistent with highlighted dot
-                            if let dot = highlightedDot, coordinator.dragSource == .snippetList {
-                                let consistentGlobalPosition = CGPoint(
-                                    x: dot.x,
-                                    y: dot.y + scrollOffset
-                                )
-                                coordinator.updateDragPosition(consistentGlobalPosition)
-                            }
                             updateCanvasHeight(for: localPosition)
                         // Drag is over SnippetList
                         } else {
@@ -175,14 +135,9 @@ struct CanvasView: View {
                     }
                 }
             }
-            .clipped()
-            .overlay {
-                RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
-            }
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
-                self.scrollOffset = offset.y
+                scrollManager.updateScrollOffset(offset.y, isDragging: coordinator.isDragging)
                 self.isScrolling = true
                 
                 // Reset scrolling state after a brief delay
@@ -191,6 +146,11 @@ struct CanvasView: View {
                     self.isScrolling = false
                 }
             }
+        }
+        .clipped()
+        .overlay {
+            RoundedRectangle(cornerRadius: 12.0)
+                .stroke(Color.primary.opacity(1.0), lineWidth: 2)
         }
     }
     

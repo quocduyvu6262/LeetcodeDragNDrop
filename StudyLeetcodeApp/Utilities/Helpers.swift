@@ -11,8 +11,8 @@ import SwiftUI
 func calculateTextWidth(text: String, font: UIFont = Constants.snippetFont) -> CGFloat {
     let attributes: [NSAttributedString.Key: Any] = [.font: font]
     let size = (text as NSString).size(withAttributes: attributes)
-    let padding: CGFloat = 16
-    return ceil(size.width) + padding
+    let padding: CGFloat = 8
+    return floor(size.width) + padding
 }
 
 func calculateSnippetWidth(text: String, font: UIFont = Constants.snippetFont) -> CGFloat {

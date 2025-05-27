@@ -10,6 +10,7 @@ import SwiftUI
 struct CodeSnippet: View {
     let code: String
     let width: CGFloat
+    @Environment(\.colorScheme) var colorScheme
     
     init(code: String) {
         self.code = code
@@ -21,14 +22,16 @@ struct CodeSnippet: View {
             Text(code)
                 .font(Font(Constants.snippetFont))
                 .padding(.leading, 5.0)
-            Spacer()
         }
-        .frame(width: self.width, height: Constants.snippetHeight)
+        .frame(width: self.width, height: Constants.snippetHeight, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 8)
+                .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.white)
+        )
         .overlay {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.primary.opacity(0.45), lineWidth: 0.8)
         }
-
     }
 }
 
