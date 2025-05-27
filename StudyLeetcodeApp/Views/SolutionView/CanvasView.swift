@@ -53,12 +53,12 @@ struct CanvasView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ScrollView(.vertical, showsIndicators: true) {
+            ScrollView([.vertical, .horizontal], showsIndicators: true) {
                 ZStack(alignment: .topLeading) {
                     ScrollViewOffsetTracker()
                     // Grid of dots
                     ForEach(0..<Int(canvasHeight / dotSpacing), id: \.self) { row in
-                        ForEach(0..<Int(geometry.size.width / dotSpacing), id: \.self) { col in
+                        ForEach(0..<2 * Int(geometry.size.width / dotSpacing), id: \.self) { col in
                             Circle()
                                 .frame(width: 3, height: 3)
                                 .opacity(0.3)
@@ -123,9 +123,8 @@ struct CanvasView: View {
                             )
                     }
                 }
-                .frame(width: geometry.size.width, height: max(minCanvasHeight, canvasHeight))
+                .frame(width: geometry.size.width * 1.5, height: max(minCanvasHeight, canvasHeight))
                 .background(Color.clear.contentShape(Rectangle()))
-                .clipped()
                 .onChange(of: minCanvasHeight) { oldValue, newValue in
                     canvasHeight = max(canvasHeight, newValue)
                 }
@@ -158,11 +157,6 @@ struct CanvasView: View {
                     }
                 }
             }
-            .clipped()
-            .overlay {
-                RoundedRectangle(cornerRadius: 12.0)
-                    .stroke(Color.primary.opacity(1.0), lineWidth: 2)
-            }
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
                 self.scrollOffset = offset.y
@@ -174,6 +168,11 @@ struct CanvasView: View {
                     self.isScrolling = false
                 }
             }
+        }
+        .clipped()
+        .overlay {
+            RoundedRectangle(cornerRadius: 12.0)
+                .stroke(Color.primary.opacity(1.0), lineWidth: 2)
         }
     }
     
