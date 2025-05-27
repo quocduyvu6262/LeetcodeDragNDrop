@@ -10,11 +10,11 @@ import SwiftUI
 
 class DragDropCoordinator: ObservableObject {
     @Published var isDragging = false
-    @Published var currentSnippet: String = ""
     @Published var dragPosition: CGPoint?
-    @Published var dragSource: DragSource = .none
-    @Published var isOverCanvas = false
-    @Published var isOverSnippetList = false
+    var currentSnippet: String = ""
+    var dragSource: DragSource = .none
+    var isOverCanvas = false
+    var isOverSnippetList = false
     
     enum DragSource {
         case canvas

@@ -38,7 +38,6 @@ struct CanvasView: View {
     }
     
     var body: some View {
-        let _ = print("CanvasView rendered")
         GeometryReader { geometry in
             ScrollView([.vertical, .horizontal], showsIndicators: true) {
                 ZStack(alignment: .topLeading) {
