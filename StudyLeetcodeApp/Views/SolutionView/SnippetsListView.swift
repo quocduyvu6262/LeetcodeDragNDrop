@@ -19,6 +19,7 @@ struct SnippetsListView: View {
     // Parameters
     let availableSnippets: [String]
     @ObservedObject var coordinator: DragDropCoordinator
+    @ObservedObject var scrollManager: ScrollOffsetManager
     @Binding var highlightedDot: CGPoint?
     
     // Variables
@@ -32,7 +33,14 @@ struct SnippetsListView: View {
     let onDrop: (String) -> Void
     let onDragToCanvas: (String, CGPoint) -> Void
     
+    // Computed Property
+    private var scrollOffset: CGFloat {
+        return scrollManager.dragScrollOffset
+    }
+    
     var body: some View {
+        let _ = print("SnippetListView rendered")
+
         GeometryReader { geometry in
             ScrollView([.vertical], showsIndicators: true) {
                 FlowLayout {
@@ -61,10 +69,22 @@ struct SnippetsListView: View {
                                                 x: snippetFrame.midX + value.translation.width - 10,
                                                 y: snippetFrame.midY + value.translation.height
                                             )
-                                            /**
-                                             Drag on Canvas and SnippetList. Especially when dragging on Canvas, the onChange() also used coordinator.updateDragPosition with consistent dot so that the snippet stays consistent with highlighted dot.
-                                             */
-                                            coordinator.updateDragPosition(globalPosition)
+                                            if !coordinator.isOverCanvas {
+                                                coordinator.updateDragPosition(globalPosition)
+                                            }
+                                            else if coordinator.isOverCanvas {
+                                                let localPosition = CGPoint(
+                                                    x: globalPosition.x,
+                                                    y: globalPosition.y - scrollOffset
+                                                )
+                                                
+                                                let consistentLocalPosition = consistentDot(to: localPosition)
+                                                let consistentGlobalPosition = CGPoint(
+                                                    x: consistentLocalPosition.x,
+                                                    y: consistentLocalPosition.y + scrollOffset
+                                                )
+                                                coordinator.updateDragPosition(consistentGlobalPosition)
+                                            }
                                         }
                                     }
                                     .onEnded { value in
@@ -100,7 +120,7 @@ struct SnippetsListView: View {
         }
     }
     
-    private func consistentDot(to location: CGPoint) -> CGPoint? {
+    private func consistentDot(to location: CGPoint) -> CGPoint {
         let x = round(location.x / dotSpacing) * dotSpacing
         let y = round(location.y / dotSpacing) * dotSpacing
         

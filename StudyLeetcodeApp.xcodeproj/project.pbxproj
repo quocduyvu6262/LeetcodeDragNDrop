@@ -20,6 +20,7 @@
 		7D4616382D74561D00739617 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4616372D74561D00739617 /* Helpers.swift */; };
 		7D46163B2D74D6AD00739617 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D46163A2D74D6AD00739617 /* Constants.swift */; };
 		7D4AC1772DE514920051B2E2 /* JetBrainsMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D4AC1762DE514920051B2E2 /* JetBrainsMono-Regular.ttf */; };
+		7D4AC17A2DE620C60051B2E2 /* ScrollOffsetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D4AC1792DE620BF0051B2E2 /* ScrollOffsetManager.swift */; };
 		7D4F6AFE2DBC118200DCB647 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7D4F6AFD2DBC117E00DCB647 /* index.html */; };
 		7D52C6BB2D7CF37300CC732F /* CategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */; };
 		7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */; };
@@ -91,6 +92,7 @@
 		7D46163A2D74D6AD00739617 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		7D4AC1762DE514920051B2E2 /* JetBrainsMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Regular.ttf"; sourceTree = "<group>"; };
 		7D4AC1782DE514CB0051B2E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7D4AC1792DE620BF0051B2E2 /* ScrollOffsetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetManager.swift; sourceTree = "<group>"; };
 		7D4F6AFD2DBC117E00DCB647 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		7D52C6BA2D7CF37300CC732F /* CategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCard.swift; sourceTree = "<group>"; };
 		7D5BCF482D790B410097CEAC /* AnswerFeedbackModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFeedbackModal.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 		7D4616332D73DB2B00739617 /* SolutionView */ = {
 			isa = PBXGroup;
 			children = (
+				7D4AC1792DE620BF0051B2E2 /* ScrollOffsetManager.swift */,
 				7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */,
 				7DD23EEE2D710BAA00B3F1EA /* SolutionView.swift */,
 				7D4616342D74379100739617 /* SnippetsListView.swift */,
@@ -527,6 +530,7 @@
 				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
 				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
 				7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */,
+				7D4AC17A2DE620C60051B2E2 /* ScrollOffsetManager.swift in Sources */,
 				7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */,
 				7D12FC322DDBB5FE000BDE57 /* ScrollViewOffsetTracker.swift in Sources */,
 				7D12FC342DDC0EB5000BDE57 /* DragDropCoordinator.swift in Sources */,

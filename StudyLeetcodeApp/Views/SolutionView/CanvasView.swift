@@ -10,9 +10,10 @@ import SwiftUI
 struct CanvasView: View {
     // Parameters
     let minCanvasHeight: CGFloat
-    private var canvasFrameHeight: CGFloat
+    var canvasFrameHeight: CGFloat
     let droppedSnippets: [(snippet: String, position: CGPoint)]
     @ObservedObject var coordinator: DragDropCoordinator
+    @ObservedObject var scrollManager: ScrollOffsetManager
     @Binding var highlightedDot: CGPoint?
 
     // Variables
@@ -20,7 +21,6 @@ struct CanvasView: View {
     private let dotSpacing: CGFloat = Constants.dotSpacing
     @State private var canvasHeight: CGFloat = 0
     @State private var draggedSnippetWidth: CGFloat = 0
-    @State var scrollOffset: CGFloat = 0
     @State private var isScrolling = false
     @State private var scrollEndTimer: Timer?
 
@@ -28,30 +28,17 @@ struct CanvasView: View {
     let onDrop: (String, CGPoint) -> Void
     let onDragToList: (String) -> Void
 
-    // Add computed property for sorted snippets
+    // Computed Property
     private var sortedDroppedSnippets: [(snippet: String, position: CGPoint)] {
         droppedSnippets.sorted { $0.position.y < $1.position.y }
     }
-
-    init(minCanvasHeight: CGFloat,
-         canvasFrameHeight: CGFloat,
-         droppedSnippets: [(String, CGPoint)],
-         coordinator: DragDropCoordinator,
-         highlightedDot: Binding<CGPoint?>,
-         onDrop: @escaping (String, CGPoint) -> Void,
-         onDragToList: @escaping (String) -> Void
-    ) {
-        self.minCanvasHeight = minCanvasHeight
-        self._canvasHeight = State(initialValue: self.minCanvasHeight)
-        self.canvasFrameHeight = canvasFrameHeight
-        self.coordinator = coordinator
-        self._highlightedDot = highlightedDot
-        self.droppedSnippets = droppedSnippets
-        self.onDrop = onDrop
-        self.onDragToList = onDragToList
+    
+    private var scrollOffset: CGFloat {
+        return scrollManager.dragScrollOffset
     }
     
     var body: some View {
+        let _ = print("CanvasView rendered")
         GeometryReader { geometry in
             ScrollView([.vertical, .horizontal], showsIndicators: true) {
                 ZStack(alignment: .topLeading) {
@@ -89,7 +76,7 @@ struct CanvasView: View {
                                             if let dot = nearestDot(to: localPosition, in: geometry.size) {
                                                 coordinator.updateDragPosition(CGPoint(
                                                     x: dot.x,
-                                                    y: dot.y + self.scrollOffset
+                                                    y: dot.y + scrollOffset
                                                 ))
                                             }
                                         // Update Drag Position Over SnippetList
@@ -97,7 +84,7 @@ struct CanvasView: View {
                                         else if coordinator.isOverSnippetList {
                                             let globalPosition = CGPoint(
                                                 x: localPosition.x,
-                                                y: localPosition.y + self.scrollOffset
+                                                y: localPosition.y + scrollOffset
                                             )
                                             coordinator.updateDragPosition(globalPosition)
                                         }
@@ -140,14 +127,6 @@ struct CanvasView: View {
                             coordinator.isOverCanvas = true
                             coordinator.isOverSnippetList = false
                             highlightedDot = nearestDot(to: localPosition, in: geometry.size)
-                            // Make snippet consistent with highlighted dot
-                            if let dot = highlightedDot, coordinator.dragSource == .snippetList {
-                                let consistentGlobalPosition = CGPoint(
-                                    x: dot.x,
-                                    y: dot.y + scrollOffset
-                                )
-                                coordinator.updateDragPosition(consistentGlobalPosition)
-                            }
                             updateCanvasHeight(for: localPosition)
                         // Drag is over SnippetList
                         } else {
@@ -159,7 +138,7 @@ struct CanvasView: View {
             }
             .coordinateSpace(name: "scrollView")
             .onPreferenceChange(ScrollOffsetPreferenceKey.self) { offset in
-                self.scrollOffset = offset.y
+                scrollManager.updateScrollOffset(offset.y, isDragging: coordinator.isDragging)
                 self.isScrolling = true
                 
                 // Reset scrolling state after a brief delay

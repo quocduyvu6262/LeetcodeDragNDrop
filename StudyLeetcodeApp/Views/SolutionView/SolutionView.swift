@@ -33,6 +33,7 @@ struct SolutionView: View {
     // Shared Canvas and SnippetList Variables
     @StateObject var dragCoordinator: DragDropCoordinator = DragDropCoordinator()
     @State var highlightedDot: CGPoint? = nil
+    @StateObject private var scrollManager = ScrollOffsetManager()
     
     init(problem: Problem, nextStep: @escaping () -> Void) {
         self.problem = problem
@@ -52,6 +53,7 @@ struct SolutionView: View {
                         canvasFrameHeight: geometry.size.height * Constants.canvasHeightFactor,
                         droppedSnippets: droppedSnippets,
                         coordinator: dragCoordinator,
+                        scrollManager: scrollManager,
                         highlightedDot: $highlightedDot,
                         onDrop: { snippet, position in
                             dropOnCanvas(snippet: snippet, position: position)
@@ -67,6 +69,7 @@ struct SolutionView: View {
                     SnippetsListView(
                         availableSnippets: availableSnippets,
                         coordinator: dragCoordinator,
+                        scrollManager: scrollManager,
                         highlightedDot: $highlightedDot,
                         onDrop: { snippet in
                             dropOnList(snippet: snippet)
