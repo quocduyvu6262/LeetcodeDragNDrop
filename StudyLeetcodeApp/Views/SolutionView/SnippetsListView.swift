@@ -20,7 +20,6 @@ struct SnippetsListView: View {
     let availableSnippets: [String]
     @ObservedObject var coordinator: DragDropCoordinator
     @ObservedObject var scrollManager: ScrollOffsetManager
-    @Binding var highlightedDot: CGPoint?
     
     // Variables
     private let dotSpacing: CGFloat = Constants.dotSpacing
@@ -34,8 +33,12 @@ struct SnippetsListView: View {
     let onDragToCanvas: (String, CGPoint) -> Void
     
     // Computed Property
-    private var scrollOffset: CGFloat {
-        return scrollManager.dragScrollOffset
+    private var scrollXOffset: CGFloat {
+        return scrollManager.dragScrollOffset.x
+    }
+    
+    private var scrollYOffset: CGFloat {
+        return scrollManager.dragScrollOffset.y
     }
     
     var body: some View {
@@ -72,7 +75,7 @@ struct SnippetsListView: View {
                                         }
                                     }
                                     .onEnded { value in
-                                        if coordinator.isOverCanvas, let dot = highlightedDot {
+                                        if coordinator.isOverCanvas, let dot = getConsistentLocalPosition(snippet: snippet, value: value) {
                                             // Drop on Canvas. Otherwise do nothing
                                             onDragToCanvas(snippet, dot)
                                         }
@@ -104,6 +107,16 @@ struct SnippetsListView: View {
         }
     }
     
+    private func consistentDot(to location: CGPoint) -> CGPoint {
+        let x = round(location.x / dotSpacing) * dotSpacing
+        let y = round(location.y / dotSpacing) * dotSpacing
+        
+        return CGPoint(
+            x: max(0, x),
+            y: max(0, y)
+        )
+    }
+    
     private func getGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
         if let snippetFrame = snippetPositions[snippet] {
             let globalPosition = CGPoint(
@@ -115,29 +128,26 @@ struct SnippetsListView: View {
         return nil
     }
     
-    private func getConsistentGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
+    private func getConsistentLocalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
         if let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
             let localPosition = CGPoint(
-                x: globalPosition.x,
-                y: globalPosition.y - scrollOffset
+                x: globalPosition.x - scrollXOffset,
+                y: globalPosition.y - scrollYOffset
             )
             let consistentLocalPosition = consistentDot(to: localPosition)
-            let consistentGlobalPosition = CGPoint(
-                x: consistentLocalPosition.x,
-                y: consistentLocalPosition.y + scrollOffset
-            )
-            return consistentGlobalPosition
+            return consistentLocalPosition
         }
         return nil
     }
     
-    private func consistentDot(to location: CGPoint) -> CGPoint {
-        let x = round(location.x / dotSpacing) * dotSpacing
-        let y = round(location.y / dotSpacing) * dotSpacing
-        
-        return CGPoint(
-            x: max(0, x),
-            y: max(0, y)
-        )
+    private func getConsistentGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
+        if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet, value: value) {
+            let consistentGlobalPosition = CGPoint(
+                x: consistentLocalPosition.x + scrollXOffset,
+                y: consistentLocalPosition.y + scrollYOffset
+            )
+            return consistentGlobalPosition
+        }
+        return nil
     }
 }
