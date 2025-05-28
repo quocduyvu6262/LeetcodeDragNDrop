@@ -10,12 +10,13 @@ import SwiftUI
 
 public enum Constants {
     // Canvas
-    public static let dotSpacing: CGFloat = 14
+    public static let dotSpacing: CGFloat = 16
+    public static let snippetSpacing: CGFloat = dotSpacing * 2 - snippetHeight
     public static let indentDefault: Int = 2
     public static let canvasHeightFactor: CGFloat = 0.68
     public static let minCanvasHeightFactor: CGFloat = 1.1
     
     // Snippet
     public static let snippetFont: UIFont = UIFont(name: "JetBrainsMono-Regular", size: 12) ?? UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
-    public static let snippetHeight: CGFloat = 24
+    public static let snippetHeight: CGFloat = 26
 }

@@ -14,7 +14,7 @@ extension SolutionView {
         // Sort snippets by y position to process from top to bottom
         var sortedSnippets = snippets.sorted { $0.position.y < $1.position.y }
         let snippetHeight = Constants.snippetHeight
-        let snippetSpacing: CGFloat = 5 // Additional spacing between snippets
+        let snippetSpacing: CGFloat = Constants.snippetSpacing // Additional spacing between snippets
         
         // Process each snippet starting from the second one
         for i in 1..<sortedSnippets.count {

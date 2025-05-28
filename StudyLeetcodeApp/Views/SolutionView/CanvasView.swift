@@ -113,10 +113,6 @@ struct CanvasView: View {
                 .onChange(of: coordinator.dragPosition) { oldPosition, newPosition in
                     if let position = newPosition, coordinator.isDragging {
                         let globalY = position.y
-                        let localPosition = CGPoint(
-                            x: position.x - scrollXOffset,
-                            y: position.y - scrollYOffset
-                        )
                         
                         // Drag is over Canvas
                         if globalY >= 0 && globalY <= canvasFrameHeight {

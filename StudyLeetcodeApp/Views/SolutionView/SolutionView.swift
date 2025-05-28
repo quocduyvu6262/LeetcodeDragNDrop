@@ -46,7 +46,7 @@ struct SolutionView: View {
         ZStack {
             GeometryReader { geometry in
                 VStack(spacing: 10) {
-                    // 60% CanvasView
+                    // 68% CanvasView
                     CanvasView(
                         minCanvasHeight: calculatedCanvasHeight(for: geometry),
                         canvasFrameHeight: geometry.size.height * Constants.canvasHeightFactor,
