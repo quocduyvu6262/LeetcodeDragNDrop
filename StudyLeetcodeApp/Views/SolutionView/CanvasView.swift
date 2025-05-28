@@ -122,7 +122,6 @@ struct CanvasView: View {
                         if globalY >= 0 && globalY <= canvasFrameHeight {
                             coordinator.isOverCanvas = true
                             coordinator.isOverSnippetList = false
-                            updateCanvasHeight(for: localPosition)
                         // Drag is over SnippetList
                         } else {
                             coordinator.isOverCanvas = false
@@ -150,13 +149,6 @@ struct CanvasView: View {
         .overlay {
             RoundedRectangle(cornerRadius: 12.0)
                 .stroke(Color.primary.opacity(1.0), lineWidth: 2)
-        }
-    }
-    
-    private func updateCanvasHeight(for point: CGPoint) {
-        let requiredHeight = point.y + 100 // Add buffer for snippet height
-        if requiredHeight > canvasHeight {
-            canvasHeight = requiredHeight
         }
     }
     

@@ -13,7 +13,7 @@ public enum Constants {
     public static let dotSpacing: CGFloat = 14
     public static let indentDefault: Int = 2
     public static let canvasHeightFactor: CGFloat = 0.68
-    public static let minCanvasHeightFactor: CGFloat = 0.8
+    public static let minCanvasHeightFactor: CGFloat = 1.1
     
     // Snippet
     public static let snippetFont: UIFont = UIFont(name: "JetBrainsMono-Regular", size: 12) ?? UIFont.monospacedSystemFont(ofSize: 14, weight: .regular)
