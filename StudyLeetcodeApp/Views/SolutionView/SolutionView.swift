@@ -10,9 +10,11 @@ import SwiftData
 import WebKit
 
 struct SolutionView: View {
+    // Parameters
     let problem: Problem
     let nextStep: () -> Void
     
+    // Variables
     @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
     @Environment(\.modelContext) internal var modelContext
@@ -149,9 +151,10 @@ struct SolutionView: View {
                     }
                     Menu {
                         Button("Show Hint") {
+                            // TODO
                         }
                         Button("Show Solution") {
-                            
+                            // TODO
                         }
                         Divider()
                         Button("Reset All", role: .destructive, action: resetAll)
@@ -177,8 +180,8 @@ struct SolutionView: View {
         droppedSnippets = reflowedSnippets
         
         // Snippet on SnippetHistory
-        let snapshot = SnippetSnapshot(dropped: droppedSnippets)
-        snippetHistory.push(snapshot)
+        let currentSnapshot = SnippetSnapshot(dropped: droppedSnippets)
+        snippetHistory.push(currentSnapshot)
     }
     
     private func dropOnList(snippet: String) {

@@ -113,6 +113,11 @@ extension SolutionView {
         availableSnippets = problem.snippets.filter { snippet in
             !droppedSnippets.contains { $0.snippet == snippet }
         }
+        
+        // Add current SnippetSnapshot to SnippetHistory
+        if snippetHistory.currentSnapshot == nil {
+            snippetHistory.currentSnapshot = SnippetSnapshot(dropped: droppedSnippets)
+        }
     }
     
     func buildWrappedCode(code: String) -> String {
@@ -173,15 +178,13 @@ assert result == \(expectedOutput)
 
     
     func undo() {
-        let current = SnippetSnapshot(dropped: droppedSnippets)
-        if let previous = snippetHistory.undo(current: current) {
-            restoreFrom(snapshot: previous)
+        if let current = snippetHistory.undo() {
+            restoreFrom(snapshot: current)
         }
     }
 
     func redo() {
-        let current = SnippetSnapshot(dropped: droppedSnippets)
-        if let next = snippetHistory.redo(current: current) {
+        if let next = snippetHistory.redo() {
             restoreFrom(snapshot: next)
         }
     }
