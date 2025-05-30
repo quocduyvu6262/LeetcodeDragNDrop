@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Maximum Depth of Binary Tree",
+    "difficulty": "Easy",
+    "description": "Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\nExample\n Input: root = [3, 9, 20, null, null, 15, 7]\n Output: 3 (longest path is 3 -> 20 -> 15 or 3 -> 20 -> 7).\n\nApproaches\n1. Recursive DFS: Recursively compute the depth of left and right subtrees and return the maximum plus one. Time: O(n), Space: O(h) where h is the height of the tree.\n2. Iterative BFS: Use a queue to process nodes level by level. Time: O(n), Space: O(w) where w is the maximum width of the tree.\n\nConstraints\n The number of nodes in the tree is in the range [0, 10⁴].\n -100 ≤ Node.val ≤ 100\n\nCan you find the maximum depth for root = [3, 9, 20, null, null, 15, 7]?",
+    "snippets": [
+      "def maxDepth(root):",
+      "if not root:",
+      "return 0",
+      "left_depth = maxDepth(root.left)",
+      "right_depth = maxDepth(root.right)",
+      "return max(left_depth, right_depth) + 1"
+    ],
+    "function": "def twoSum(array, target):",
+    "inputs": ["[2,7,11,15,19]"],
+    "outputs": ["[7,2]"],
+    "complexity_options": ["O(n²), O(1)", "O(n), O(h)", "O(n log n), O(1)", "O(1), O(n)"],
+    "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+    "space_complexity_options": ["O(1)", "O(n)", "O(h)", "O(n log n)"],
+    "correct_time_complexity": "O(n)",
+    "correct_space_complexity": "O(h)"
+  },
+  {
+    "name": "Lowest Common Ancestor of a Binary Tree",
+    "difficulty": "Medium",
+    "description": "Given a binary tree, find the lowest common ancestor (LCA) of two given nodes p and q. The LCA is the lowest node in the tree that has both p and q as descendants (a node can be a descendant of itself).\n\nExample\n Input: root = [3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], p = 5, q = 1\n Output: 3 (3 is the lowest node that has both 5 and 1 as descendants).\n Input: root = [3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], p = 5, q = 4\n Output: 5 (5 is the lowest node that has both 5 and 4 as descendants).\n\nApproaches\n1. Recursive DFS: Traverse the tree, if the current node is p or q, or if it has p in one subtree and q in the other, it is the LCA. Time: O(n), Space: O(h).\n2. Parent Pointers: Build a parent map and trace ancestors of p and q to find the first common one. Time: O(n), Space: O(n).\n\nConstraints\n The number of nodes in the tree is in the range [2, 10⁵].\n All Node.val are unique.\n p != q\n p and q exist in the tree.\n\nCan you find the LCA for root = [3, 5, 1, 6, 2, 0, 8, null, null, 7, 4], p = 5, q = 4?",
+    "snippets": [
+      "def lowestCommonAncestor(root, p, q):",
+      "if not root or root == p or root == q:",
+      "return root ",
+      "left = lowestCommonAncestor(root.left, p, q)",
+      "right = lowestCommonAncestor(root.right, p, q)",
+      "if left and right:",
+      "return root",
+      "return left if left else right"
+    ],
+    "function": "def twoSum(array, target):",
+    "inputs": ["[2,7,11,15,19]"],
+    "outputs": ["[7,2]"],
+    "complexity_options": ["O(n²), O(1)", "O(n), O(h)", "O(n log n), O(1)", "O(1), O(n)"],
+    "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+    "space_complexity_options": ["O(1)", "O(n)", "O(h)", "O(n log n)"],
+    "correct_time_complexity": "O(n)",
+    "correct_space_complexity": "O(h)"
+  }
+]

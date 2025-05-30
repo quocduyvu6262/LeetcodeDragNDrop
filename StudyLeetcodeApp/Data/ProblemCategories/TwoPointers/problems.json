@@ -1,0 +1,73 @@
+[
+  {
+    "name": "Two Sum",
+    "difficulty": "Easy",
+    "description": "Given an array of integers nums and an integer target, find two numbers that add up to the target and return their indices. Each input has exactly one solution, and you cannot use the same element twice. Order of indices doesn't matter.\n\nExample\n nums = [2, 7, 11, 15], target = 9\n 2 + 7 = 9, so return [0, 1]\n\nApproaches\n1. Brute Force: Check all pairs. Time: O(n²), Space: O(1)\n2. Hash Table: Use a map for O(n) time, O(n) space.\n\nConstraints\n 2 ≤ nums.length ≤ 10⁴\n -10⁹ ≤ nums[i], target ≤ 10⁹\n\nCan you find the pair for [2, 7, 11, 15] and target 9?",
+    "snippets": [
+      "hashmap = {}",
+      "for num in array:",
+      "if target - num in hashmap:",
+      "return [num, hashmap[target - num]]",
+      "hashmap[num] = num"
+    ],
+    "function": "def twoSum(array, target):",
+    "inputs": ["[2,7,11,15,19], 9"],
+    "outputs": ["[7, 2]"],
+    "correct_order": [0, 1, 2, 3, 4],
+    "correct_indentation": [0, 0, 1, 2, 1],
+    "complexity_options": ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
+    "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+    "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+    "correct_time_complexity": "O(n)",
+    "correct_space_complexity": "O(n)"
+  },
+  {
+    "name": "Container With Most Water",
+    "difficulty": "Medium",
+    "description": "Given an array of non-negative integers height, where each integer represents the height of a vertical line at index i, find two lines that together with the x-axis form a container that holds the most water. Return the maximum amount of water the container can store. Assume the width of the container is the distance between the indices of the chosen lines.\n\nExample\n height = [1, 8, 6, 2, 5, 4, 8, 3, 7]\n Maximum water is 49 (between indices 1 and 8, height 7 and 8, width 7).\n\nApproaches\n1. Brute Force: Check all pairs of lines. Time: O(n²), Space: O(1)\n2. Two Pointer: Start with pointers at both ends, move the pointer at the shorter line inward. Time: O(n), Space: O(1).\n\nConstraints\n 2 ≤ height.length ≤ 10⁵\n 0 ≤ height[i] ≤ 10⁴\n\nCan you find the maximum water for height = [1, 8, 6, 2, 5, 4, 8, 3, 7]?",
+    "snippets": [
+      "left = 0",
+      "right = len(height) - 1",
+      "max_area = 0",
+      "while left < right:",
+      "area = min(height[left], height[right]) * (right - left)",
+      "max_area = max(max_area, area)",
+      "if height[left] < height[right]:",
+      "left += 1",
+      "else:",
+      "right -= 1",
+      "return max_area"
+    ],
+    "function": "def twoSum(array, target):",
+    "inputs": ["[2,7,11,15,19], 9"],
+    "outputs": ["[7,2]"],
+    "complexity_options": ["O(n²), O(1)", "O(n), O(1)", "O(n log n), O(1)", "O(1), O(n)"],
+    "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+    "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+    "correct_time_complexity": "O(n)",
+    "correct_space_complexity": "O(1)"
+  },
+  {
+    "name": "Remove Duplicates from Sorted Array",
+    "difficulty": "Easy",
+    "description": "Given a sorted array of integers nums, remove duplicates in-place such that each unique element appears exactly once. Return the new length of the array after removing duplicates. Do not allocate extra space for another array; modify nums in-place with O(1) extra memory.\n\nExample\n nums = [1, 1, 2]\n After modification, nums = [1, 2, _], return 2.\n nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]\n After modification, nums = [0, 1, 2, 3, 4, _, _, _, _, _], return 5.\n\nApproaches\n1. Two Pointer: Use one pointer to track the position of the next unique element and another to scan the array. Time: O(n), Space: O(1).\n\nConstraints\n 1 ≤ nums.length ≤ 3 * 10⁴\n -100 ≤ nums[i] ≤ 100\n nums is sorted in non-decreasing order.\n\nCan you find the new length for nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]?",
+    "snippets": [
+      "if not nums:",
+      "return 0",
+      "write_pointer = 1",
+      "for read_pointer in range(1, len(nums)):",
+      "if nums[read_pointer] != nums[read_pointer - 1]:",
+      "nums[write_pointer] = nums[read_pointer]",
+      "write_pointer += 1",
+      "return write_pointer"
+    ],
+    "function": "def twoSum(array, target):",
+    "inputs": ["[2,7,11,15,19]"],
+    "outputs": ["[7,2]"],
+    "complexity_options": ["O(n²), O(1)", "O(n), O(1)", "O(n log n), O(1)", "O(1), O(n)"],
+    "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+    "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+    "correct_time_complexity": "O(n)",
+    "correct_space_complexity": "O(1)"
+  }
+]
