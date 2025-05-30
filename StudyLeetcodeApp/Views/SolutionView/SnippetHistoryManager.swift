@@ -8,7 +8,7 @@
 import Foundation
 
 class SnippetHistoryManager: ObservableObject {
-    @Published var histories: [String: SnippetHistory] = [:]
+    var histories: [String: SnippetHistory] = [:]
 
     func history(for problem: Problem) -> SnippetHistory {
         let key = problem.name

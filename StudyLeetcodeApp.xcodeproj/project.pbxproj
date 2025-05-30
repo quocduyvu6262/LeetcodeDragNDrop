@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,15 +56,7 @@
 		7DDCBAE72DC940DC00137D33 /* SnippetHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */; };
 		7DDCBAE92DC9438200137D33 /* SnippetHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */; };
 		7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */; };
-		7DED96682DE92B9500A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96672DE92B8B00A821CD /* problems.json */; };
-		7DED966A2DE92B9C00A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96692DE92B9C00A821CD /* problems.json */; };
-		7DED966C2DE92B9D00A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED966B2DE92B9D00A821CD /* problems.json */; };
-		7DED966E2DE92B9E00A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED966D2DE92B9E00A821CD /* problems.json */; };
-		7DED96702DE92B9E00A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED966F2DE92B9E00A821CD /* problems.json */; };
-		7DED96722DE92B9F00A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96712DE92B9F00A821CD /* problems.json */; };
-		7DED96742DE92BA000A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96732DE92BA000A821CD /* problems.json */; };
-		7DED96762DE92BA100A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96752DE92BA100A821CD /* problems.json */; };
-		7DED96782DE92BA100A821CD /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96772DE92BA100A821CD /* problems.json */; };
+		7DED96972DEA024600A821CD /* ProblemCategories in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96962DEA024600A821CD /* ProblemCategories */; };
 		7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF573322DC31E3E003E68CD /* LCSearch.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,17 +133,40 @@
 		7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistory.swift; sourceTree = "<group>"; };
 		7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistoryManager.swift; sourceTree = "<group>"; };
 		7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolutionView+Logic.swift"; sourceTree = "<group>"; };
-		7DED96672DE92B8B00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED96692DE92B9C00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED966B2DE92B9D00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED966D2DE92B9E00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED966F2DE92B9E00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED96712DE92B9F00A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED96732DE92BA000A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED96752DE92BA100A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
-		7DED96772DE92BA100A821CD /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
+		7DED96962DEA024600A821CD /* ProblemCategories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProblemCategories; path = StudyLeetcodeApp/Data/ProblemCategories; sourceTree = "<group>"; };
 		7DF573322DC31E3E003E68CD /* LCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSearch.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7DED96952DEA01BF00A821CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ArraysHashing/problems.json,
+				Graphs/problems.json,
+				Heap/problems.json,
+				LinkedList/problems.json,
+				SlidingWindow/problems.json,
+				Stack/problems.json,
+				Tries/problems.json,
+				TwoPointers/TwoSums.json,
+			);
+			target = 7DD23EAA2D70560D00B3F1EA /* StudyLeetcodeApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		7DED969A2DEA4FD400A821CD /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 7DD23EA72D70560D00B3F1EA /* Sources */;
+			membershipExceptions = (
+				TwoPointers/TwoSums.json,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7DED968B2DEA016900A821CD /* ProblemCategories */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7DED96952DEA01BF00A821CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7DED969A2DEA4FD400A821CD /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ProblemCategories; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7DD23EA82D70560D00B3F1EA /* Frameworks */ = {
@@ -189,6 +204,7 @@
 		7D4616332D73DB2B00739617 /* SolutionView */ = {
 			isa = PBXGroup;
 			children = (
+				7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */,
 				7D4AC1792DE620BF0051B2E2 /* ScrollOffsetManager.swift */,
 				7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */,
 				7DD23EEE2D710BAA00B3F1EA /* SolutionView.swift */,
@@ -247,6 +263,7 @@
 		7DD23EA22D70560D00B3F1EA = {
 			isa = PBXGroup;
 			children = (
+				7DED96962DEA024600A821CD /* ProblemCategories */,
 				7D0DF84E2DC17B6300520360 /* .gitignore */,
 				7DD23EAD2D70560D00B3F1EA /* StudyLeetcodeApp */,
 				7DD23EBE2D70561000B3F1EA /* StudyLeetcodeAppTests */,
@@ -318,6 +335,7 @@
 				7D4616332D73DB2B00739617 /* SolutionView */,
 				7DD23EEA2D710B9300B3F1EA /* DescriptionView.swift */,
 				7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */,
+				7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */,
 				7DD25BF22D8BAC45002CDC8E /* ProblemsListView */,
 				7DD23EDB2D70589300B3F1EA /* HomeView.swift */,
 			);
@@ -337,7 +355,7 @@
 		7DD23EDA2D7057D100B3F1EA /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				7DED965D2DE8EFFB00A821CD /* ProblemCategories */,
+				7DED968B2DEA016900A821CD /* ProblemCategories */,
 				7DD23EE42D70599900B3F1EA /* DataManager.swift */,
 			);
 			path = Data;
@@ -379,98 +397,8 @@
 		7DE6B0212D779A5A005D3AE8 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */,
-				7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		7DED965D2DE8EFFB00A821CD /* ProblemCategories */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96662DE8F31D00A821CD /* Graphs */,
-				7DED96652DE8F31300A821CD /* Tries */,
-				7DED96642DE8F30600A821CD /* Heap */,
-				7DED96632DE8F2D600A821CD /* Stack */,
-				7DED96622DE8F2C600A821CD /* SlidingWindow */,
-				7DED96612DE8F2B000A821CD /* ArraysHashing */,
-				7DED96602DE8F29300A821CD /* LinkedList */,
-				7DED965F2DE8F28B00A821CD /* BinarySearch */,
-				7DED965E2DE8F01C00A821CD /* TwoPointers */,
-			);
-			path = ProblemCategories;
-			sourceTree = "<group>";
-		};
-		7DED965E2DE8F01C00A821CD /* TwoPointers */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96672DE92B8B00A821CD /* problems.json */,
-			);
-			path = TwoPointers;
-			sourceTree = "<group>";
-		};
-		7DED965F2DE8F28B00A821CD /* BinarySearch */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96692DE92B9C00A821CD /* problems.json */,
-			);
-			path = BinarySearch;
-			sourceTree = "<group>";
-		};
-		7DED96602DE8F29300A821CD /* LinkedList */ = {
-			isa = PBXGroup;
-			children = (
-				7DED966B2DE92B9D00A821CD /* problems.json */,
-			);
-			path = LinkedList;
-			sourceTree = "<group>";
-		};
-		7DED96612DE8F2B000A821CD /* ArraysHashing */ = {
-			isa = PBXGroup;
-			children = (
-				7DED966D2DE92B9E00A821CD /* problems.json */,
-			);
-			path = ArraysHashing;
-			sourceTree = "<group>";
-		};
-		7DED96622DE8F2C600A821CD /* SlidingWindow */ = {
-			isa = PBXGroup;
-			children = (
-				7DED966F2DE92B9E00A821CD /* problems.json */,
-			);
-			path = SlidingWindow;
-			sourceTree = "<group>";
-		};
-		7DED96632DE8F2D600A821CD /* Stack */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96712DE92B9F00A821CD /* problems.json */,
-			);
-			path = Stack;
-			sourceTree = "<group>";
-		};
-		7DED96642DE8F30600A821CD /* Heap */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96732DE92BA000A821CD /* problems.json */,
-			);
-			path = Heap;
-			sourceTree = "<group>";
-		};
-		7DED96652DE8F31300A821CD /* Tries */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96752DE92BA100A821CD /* problems.json */,
-			);
-			path = Tries;
-			sourceTree = "<group>";
-		};
-		7DED96662DE8F31D00A821CD /* Graphs */ = {
-			isa = PBXGroup;
-			children = (
-				7DED96772DE92BA100A821CD /* problems.json */,
-			);
-			path = Graphs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -487,6 +415,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7DED968B2DEA016900A821CD /* ProblemCategories */,
 			);
 			name = StudyLeetcodeApp;
 			productName = StudyLeetcodeApp;
@@ -553,7 +484,6 @@
 				};
 			};
 			buildConfigurationList = 7DD23EA62D70560D00B3F1EA /* Build configuration list for PBXProject "StudyLeetcodeApp" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -561,6 +491,7 @@
 				Base,
 			);
 			mainGroup = 7DD23EA22D70560D00B3F1EA;
+			preferredProjectObjectVersion = 56;
 			productRefGroup = 7DD23EAC2D70560D00B3F1EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -577,27 +508,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DED96972DEA024600A821CD /* ProblemCategories in Resources */,
 				7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */,
-				7DED96742DE92BA000A821CD /* problems.json in Resources */,
-				7DED966E2DE92B9E00A821CD /* problems.json in Resources */,
 				7DA64EFC2DD374C200911C4A /* python_stdlib.zip in Resources */,
 				7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */,
-				7DED96782DE92BA100A821CD /* problems.json in Resources */,
-				7DED96682DE92B9500A821CD /* problems.json in Resources */,
 				7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */,
 				7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */,
 				7D0DF84F2DC17B6300520360 /* .gitignore in Resources */,
 				7D689C112DBC4CFB00476393 /* package.json in Resources */,
 				7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */,
-				7DED966C2DE92B9D00A821CD /* problems.json in Resources */,
-				7DED96722DE92B9F00A821CD /* problems.json in Resources */,
 				7DD23EB62D70560F00B3F1EA /* Preview Assets.xcassets in Resources */,
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
-				7DED966A2DE92B9C00A821CD /* problems.json in Resources */,
 				7D4F6AFE2DBC118200DCB647 /* index.html in Resources */,
-				7DED96762DE92BA100A821CD /* problems.json in Resources */,
 				7D4AC1772DE514920051B2E2 /* JetBrainsMono-Regular.ttf in Resources */,
-				7DED96702DE92B9E00A821CD /* problems.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,8 @@ class DataManager {
 
     private static let problemsKey = "cached_problems"
 
-    static func loadProblems() -> [Category] {
+    static func loadCategories() -> [Category] {
+        let fileManager = FileManager.default
         
         guard let categoriesURL = Bundle.main.url(forResource: "ProblemCategories", withExtension: nil) else {
             print("Failed to find ProblemCategories directory")
@@ -22,42 +23,51 @@ class DataManager {
         
         do {
             // Get all category directories
-//            let categoryDirectories = try fileManager.contentsOfDirectory(at: categoriesURL, includingPropertiesForKeys: nil)
-//            
-//            for categoryURL in categoryDirectories {
-//                // Skip if not a directory
-//                guard categoryURL.hasDirectoryPath else { continue }
-//                
-//                // Get category name from directory name
-//                let categoryName = categoryURL.lastPathComponent
-//                
-//                // Try to load problems.json from this category
-//                let problemsURL = categoryURL.appendingPathComponent("problems.json")
-//                guard let data = try? Data(contentsOf: problemsURL) else {
-//                    print("Failed to load problems.json for category: \(categoryName)")
-//                    continue
-//                }
-//                
-//                do {
-//                    let decoder = JSONDecoder()
-//                    let problems = try decoder.decode([Problem].self, from: data)
-//                    
-//                    // Create category with standardized name
-//                    var category = Category(name: categoryName, problems: problems)
-//                    categories.append(category)
-//                    
-//                    // Load cached problems if any
-//                    if let cachedProblems = loadProblems(for: categoryName) {
-//                        category.problems = cachedProblems
-//                    }
-//                } catch {
-//                    print("Decoding error for category \(categoryName): \(error)")
-//                }
-//            }
-//            
+            let categoryDirectories = try fileManager.contentsOfDirectory(at: categoriesURL, includingPropertiesForKeys: nil)
+            
+            for categoryURL in categoryDirectories {
+                // Skip if not a directory
+                guard categoryURL.hasDirectoryPath else { continue }
+                
+                // Get category name from directory name
+                let categoryName = categoryURL.lastPathComponent
+                
+                // Get all problem JSON files in this category
+                let problemFiles = try fileManager.contentsOfDirectory(at: categoryURL, includingPropertiesForKeys: nil)
+                    .filter { $0.pathExtension == "json" }
+                
+                var problems: [Problem] = []
+                // Load each problem file
+                for problemURL in problemFiles {
+                    guard let data = try? Data(contentsOf: problemURL) else {
+                        print("Failed to load problem file: \(problemURL.lastPathComponent)")
+                        continue
+                    }
+                    
+                    do {
+                        let decoder = JSONDecoder()
+                        let problem = try decoder.decode(Problem.self, from: data)
+                        problems.append(problem)
+                    } catch {
+                        print("Decoding error for problem \(problemURL.lastPathComponent)")
+                    }
+                }
+                
+                if problems.isEmpty { continue }
+                
+                // Create category with all its problems
+                var category = Category(name: categoryName, problems: problems)
+                
+                // Load cached problems if any
+                if let cachedProblems = loadProblems(for: categoryName) {
+                    category.problems = cachedProblems
+                }
+                
+                categories.append(category)
+            }
             return categories
         } catch {
-            print("Error reading categories directory: \(error)")
+            print("Error reading categories directory")
             return []
         }
     }
