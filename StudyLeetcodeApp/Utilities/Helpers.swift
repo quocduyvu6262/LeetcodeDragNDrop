@@ -89,6 +89,16 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoi
     }.joined(separator: "\n")
 }
 
+func consistentDot(to location: CGPoint) -> CGPoint {
+    let x = round(location.x / Constants.dotSpacing) * Constants.dotSpacing
+    let y = round(location.y / Constants.dotSpacing) * Constants.dotSpacing
+    
+    return CGPoint(
+        x: max(0, x),
+        y: max(0, y)
+    )
+}
+
 extension String {
     func indented(by spaces: Int) -> String {
         let prefix = String(repeating: " ", count: spaces)

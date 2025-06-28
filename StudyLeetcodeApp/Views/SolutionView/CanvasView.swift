@@ -148,16 +148,6 @@ struct CanvasView: View {
         }
     }
     
-    private func consistentDot(to location: CGPoint) -> CGPoint {
-        let x = round(location.x / dotSpacing) * dotSpacing
-        let y = round(location.y / dotSpacing) * dotSpacing
-        
-        return CGPoint(
-            x: max(0, x),
-            y: max(0, y)
-        )
-    }
-    
     private func getGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
         if let snippetFrame = snippetPositions[snippet] {
             let globalPosition = CGPoint(
