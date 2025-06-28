@@ -84,7 +84,10 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoi
         let snippetWidth = calculateSnippetWidth(text: snippet)
         let leftPosition = position.x - snippetWidth / 2        
         let indentLevel = Int(ceil(leftPosition / Constants.dotSpacing))
-        let indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
+        var indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
+        if snippet.hasPrefix("def ") { // no indent for function declaration
+            indent = ""
+        }
         return indent + snippet
     }.joined(separator: "\n")
 }
