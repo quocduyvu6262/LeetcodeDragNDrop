@@ -11,7 +11,7 @@ import SwiftUI
 class DragDropCoordinator: ObservableObject {
     @Published var isDragging = false
     @Published var dragPosition: CGPoint?
-    var currentSnippet: String = ""
+    var currentSnippet: CodeSnippetType?
     var dragSource: DragSource = .none
     var isOverCanvas = false
     var isOverSnippetList = false
@@ -22,7 +22,7 @@ class DragDropCoordinator: ObservableObject {
         case none
     }
     
-    func startDrag(snippet: String, source: DragSource) {
+    func startDrag(snippet: CodeSnippetType, source: DragSource) {
         currentSnippet = snippet
         isDragging = true
         dragSource = source
@@ -42,7 +42,7 @@ class DragDropCoordinator: ObservableObject {
     
     func endDrag() {
         isDragging = false
-        currentSnippet = ""
+        currentSnippet = nil
         dragPosition = nil
         dragSource = .none
         isOverCanvas = false

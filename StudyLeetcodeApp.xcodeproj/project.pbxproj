@@ -58,6 +58,7 @@
 		7DED96972DEA024600A821CD /* ProblemCategories in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96962DEA024600A821CD /* ProblemCategories */; };
 		7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF573322DC31E3E003E68CD /* LCSearch.swift */; };
 		931FBC932E102F3000843629 /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 931FBC922E102F3000843629 /* python_stdlib.zip */; };
+		933AB04D2E10D8020016E358 /* CodeSnippetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB04C2E10D8020016E358 /* CodeSnippetType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		7DED96962DEA024600A821CD /* ProblemCategories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProblemCategories; path = StudyLeetcodeApp/Data/ProblemCategories; sourceTree = "<group>"; };
 		7DF573322DC31E3E003E68CD /* LCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSearch.swift; sourceTree = "<group>"; };
 		931FBC922E102F3000843629 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
+		933AB04C2E10D8020016E358 /* CodeSnippetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSnippetType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -349,6 +351,7 @@
 				7DD23EE62D7059D200B3F1EA /* Category.swift */,
 				7DD23EE82D7059DB00B3F1EA /* Problem.swift */,
 				7D2FEDD42D7C340100466B12 /* DroppedSnippet.swift */,
+				933AB04C2E10D8020016E358 /* CodeSnippetType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -557,6 +560,7 @@
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,
 				7DD23EEF2D710BAA00B3F1EA /* SolutionView.swift in Sources */,
 				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
+				933AB04D2E10D8020016E358 /* CodeSnippetType.swift in Sources */,
 				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
 				7D32BC4A2D7E5BF20026F628 /* ProblemCard.swift in Sources */,
 				7D4AC17A2DE620C60051B2E2 /* ScrollOffsetManager.swift in Sources */,

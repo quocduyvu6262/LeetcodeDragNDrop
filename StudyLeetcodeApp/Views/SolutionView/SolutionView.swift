@@ -15,10 +15,10 @@ struct SolutionView: View {
     let nextStep: () -> Void
     
     // Variables
-    @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
-    @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
+    @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
+    @Environment(\.modelContext) internal var modelContext
     @State private var webView: WKWebView? = nil
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false
@@ -26,12 +26,12 @@ struct SolutionView: View {
     @State var pythonExecutorCode: String = ""
     @State var runPython: Bool = false
     
-    // Canvas Variables
-    @State var droppedSnippets: [(snippet: String, position: CGPoint)] = []
-    
-    // SnippetList Variables
-    @State var availableSnippets: [String]
-    
+    // CanvasView Variables
+    @State var droppedSnippets: [(snippet: CodeSnippetType, position: CGPoint)] = []
+
+    // SnippetListView Variables
+    @State var availableSnippets: [CodeSnippetType]
+
     // Shared Canvas and SnippetList Variables
     @StateObject var dragCoordinator: DragDropCoordinator = DragDropCoordinator()
     @StateObject private var scrollManager = ScrollOffsetManager()
@@ -70,9 +70,6 @@ struct SolutionView: View {
                         availableSnippets: availableSnippets,
                         coordinator: dragCoordinator,
                         scrollManager: scrollManager,
-                        onDrop: { snippet in
-                            dropOnList(snippet: snippet)
-                        },
                         onDragToCanvas: { snippet, position in
                             dropOnCanvas(snippet: snippet, position: position)
                         }
@@ -92,7 +89,7 @@ struct SolutionView: View {
                 
                 if dragCoordinator.isDragging {
                    DraggedSnippetOverlay(
-                       snippet: dragCoordinator.currentSnippet,
+                    snippet: dragCoordinator.currentSnippet!.text,
                        position: CGPoint(
                         x: dragCoordinator.dragPosition?.x ?? 0,
                         y: (dragCoordinator.dragPosition?.y ?? 0) + geometry.safeAreaInsets.top
@@ -167,14 +164,14 @@ struct SolutionView: View {
         }
     }
     
-    private func dropOnCanvas(snippet: String, position: CGPoint) {
+    private func dropOnCanvas(snippet: CodeSnippetType, position: CGPoint) {
         if !isSnippetInBounds(for: snippet, at: position) {
             return
         }
         
         // Update SwiftData
         updateDroppedSnippets(snippet: snippet, position: position)
-        
+
         // Update dropped snippets with reflowing
         let reflowedSnippets = reflowSnippets(droppedSnippets)
         droppedSnippets = reflowedSnippets
@@ -184,7 +181,7 @@ struct SolutionView: View {
         snippetHistory.push(currentSnapshot)
     }
     
-    private func dropOnList(snippet: String) {
+    private func dropOnList(snippet: CodeSnippetType) {
         // Snippet on SwiftData
         returnSnippetToAvailable(snippet: snippet)
         
@@ -199,32 +196,32 @@ struct SolutionView: View {
     }
 }
 
-#Preview {
-    let sampleProblem = Problem(
-        name: "Two Sum",
-        difficulty: "Easy",
-        description: "Given [2, 7, 11, 15] and target 9, find two numbers that add up.",
-        snippets: [
-            "hashmap = {}",
-            "for num in array:",
-            "if target - num in hashmap:",
-            "return [num, hashmap[target - num]]",
-            "hashmap[num] = num",
-            "for i in array: for j in array:",
-            "sort(array)"
-        ],
-        function: "def twoSum(array, target)",
-        inputs: ["[2,7,11,15,19], 9"],
-        outputs: ["[7, 2]"],
-        timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
-        spaceComplexityOptions: ["O(1)", "O(n)", "O(2ⁿ)", "O(n!)"],
-        correctTimeComplexity: "O(n)",
-        correctSpaceComplexity: "O(n)"
-    )
-
-    return NavigationStack {
-        SolutionView(problem: sampleProblem, nextStep: {})
-            .environmentObject(SnippetHistoryManager()) // provide required environment objects
-    }
-}
+//#Preview {
+//    let sampleProblem = Problem(
+//        name: "Two Sum",
+//        difficulty: "Easy",
+//        description: "Given [2, 7, 11, 15] and target 9, find two numbers that add up.",
+//        snippets: [
+//            "hashmap = {}",
+//            "for num in array:",
+//            "if target - num in hashmap:",
+//            "return [num, hashmap[target - num]]",
+//            "hashmap[num] = num",
+//            "for i in array: for j in array:",
+//            "sort(array)"
+//        ],
+//        function: "def twoSum(array, target)",
+//        inputs: ["[2,7,11,15,19], 9"],
+//        outputs: ["[7, 2]"],
+//        timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+//        spaceComplexityOptions: ["O(1)", "O(n)", "O(2ⁿ)", "O(n!)"],
+//        correctTimeComplexity: "O(n)",
+//        correctSpaceComplexity: "O(n)"
+//    )
+//
+//    return NavigationStack {
+//        SolutionView(problem: sampleProblem, nextStep: {})
+//            .environmentObject(SnippetHistoryManager()) // provide required environment objects
+//    }
+//}
 
