@@ -10,7 +10,7 @@ import SwiftData
 
 extension SolutionView {
     
-    func reflowSnippets(_ snippets: [(snippet: String, position: CGPoint)]) -> [(snippet: String, position: CGPoint)] {
+    func reflowSnippets(_ snippets: [(snippet: CodeSnippetType, position: CGPoint)]) -> [(snippet: CodeSnippetType, position: CGPoint)] {
         // Sort snippets by y position to process from top to bottom
         var sortedSnippets = snippets.sorted { $0.position.y < $1.position.y }
         let snippetHeight = Constants.snippetHeight
@@ -56,7 +56,7 @@ extension SolutionView {
         // Then insert all current dropped snippets with their new positions
         for (snippet, position) in droppedSnippets {
             let newSnippet = DroppedSnippet(
-                snippetText: snippet,
+                snippet: snippet,
                 x: position.x,
                 y: position.y,
                 problemName: problem.name
@@ -68,17 +68,17 @@ extension SolutionView {
         try? modelContext.save()
     }
     
-    func updateDroppedSnippets(snippet: String, position: CGPoint) {
+    func updateDroppedSnippets(snippet: CodeSnippetType, position: CGPoint) {
         if let index = droppedSnippets.firstIndex(where: { $0.snippet == snippet }) {
             droppedSnippets.remove(at: index)
-            if let savedIndex = savedSnippets.firstIndex(where: { $0.snippetText == snippet }) {
+            if let savedIndex = savedSnippets.firstIndex(where: { $0.snippet == snippet }) {
                 modelContext.delete(savedSnippets[savedIndex])
             }
         }
         
         droppedSnippets.append((snippet, position))
         let newSnippet = DroppedSnippet(
-            snippetText: snippet,
+            snippet: snippet,
             x: position.x,
             y: position.y,
             problemName: problem.name
@@ -93,7 +93,7 @@ extension SolutionView {
     }
     
     
-    func returnSnippetToAvailable(snippet: String) {
+    func returnSnippetToAvailable(snippet: CodeSnippetType) {
         if let index = availableSnippets.firstIndex(of: snippet) {
             availableSnippets.remove(at: index)
         }
@@ -101,7 +101,7 @@ extension SolutionView {
         
         if let index = droppedSnippets.firstIndex(where: {$0.snippet == snippet} ) {
             droppedSnippets.remove(at: index)
-            if let savedIndex = savedSnippets.firstIndex(where: {$0.snippetText == snippet}) {
+            if let savedIndex = savedSnippets.firstIndex(where: {$0.snippet == snippet}) {
                 modelContext.delete(savedSnippets[savedIndex])
                 try? modelContext.save()
             }
@@ -110,17 +110,21 @@ extension SolutionView {
     
     func loadDroppedSnippets() {
         let function = problem.function
-        droppedSnippets = savedSnippets.map { (snippet: $0.snippetText, position: CGPoint(x: $0.x, y: $0.y)) }
+        droppedSnippets = savedSnippets.map { (snippet: $0.snippet, position: CGPoint(x: $0.x, y: $0.y)) }
         availableSnippets = problem.snippets.filter { snippet in
             !droppedSnippets.contains { $0.snippet == snippet }
         }
         
         // Default add function def to droppedSnippets
-        if !droppedSnippets.contains(where: { $0.snippet == function }) {
+        if !droppedSnippets.contains(where: { $0.snippet.text == function }) {
             let snippetWidth = calculateSnippetWidth(text: function)
             let snippetPosition = CGPoint(x: snippetWidth / 2 + Constants.dotSpacing, y: Constants.snippetHeight * 2)
             let consistentSnippetPosition = consistentDot(to: snippetPosition)
-            droppedSnippets.append((function, consistentSnippetPosition))
+            let functionSnippet = CodeSnippetType(
+                id: "\(problem.name)_function",
+                text: function
+            )
+            droppedSnippets.append((functionSnippet, consistentSnippetPosition))
         }
         
         // Add current SnippetSnapshot to SnippetHistory

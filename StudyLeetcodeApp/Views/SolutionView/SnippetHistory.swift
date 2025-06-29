@@ -8,7 +8,7 @@
 import Foundation
 
 struct SnippetSnapshot {
-    let dropped: [(String, CGPoint)]
+    let dropped: [(CodeSnippetType, CGPoint)]
 }
 
 class SnippetHistory: ObservableObject {

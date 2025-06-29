@@ -10,13 +10,13 @@ import SwiftData
 
 @Model
 class DroppedSnippet {
-    var snippetText: String
+    var snippet: CodeSnippetType
     var x: Double
     var y: Double
     var problemName: String
     
-    init(snippetText: String, x: Double, y: Double, problemName: String) {
-        self.snippetText = snippetText
+    init(snippet: CodeSnippetType, x: Double, y: Double, problemName: String) {
+        self.snippet = snippet
         self.x = x
         self.y = y
         self.problemName = problemName

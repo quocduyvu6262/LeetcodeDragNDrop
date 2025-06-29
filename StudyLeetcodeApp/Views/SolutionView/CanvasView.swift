@@ -11,7 +11,7 @@ struct CanvasView: View {
     // Parameters
     let minCanvasHeight: CGFloat
     var canvasFrameHeight: CGFloat
-    let droppedSnippets: [(snippet: String, position: CGPoint)]
+    let droppedSnippets: [(snippet: CodeSnippetType, position: CGPoint)]
     @ObservedObject var coordinator: DragDropCoordinator
     @ObservedObject var scrollManager: ScrollOffsetManager
 
@@ -22,17 +22,12 @@ struct CanvasView: View {
     @State private var draggedSnippetWidth: CGFloat = 0
     @State private var isScrolling = false
     @State private var scrollEndTimer: Timer?
-    @State private var snippetPositions: [String: CGRect] = [:]
+    @State private var snippetPositions: [CodeSnippetType: CGRect] = [:]
 
 
     // Closures
-    let onDrop: (String, CGPoint) -> Void
-    let onDragToList: (String) -> Void
-
-    // Computed Properties
-    private var sortedDroppedSnippets: [(snippet: String, position: CGPoint)] {
-        droppedSnippets.sorted { $0.position.y < $1.position.y }
-    }
+    let onDrop: (CodeSnippetType, CGPoint) -> Void
+    let onDragToList: (CodeSnippetType) -> Void
     
     private var scrollXOffset: CGFloat {
         return scrollManager.dragScrollOffset.x
@@ -59,44 +54,45 @@ struct CanvasView: View {
                     }
                     // Display dropped snippets
                     ForEach(droppedSnippets.indices, id: \.self) { index in
-                        let snippet = droppedSnippets[index]
-                        CodeSnippet(code: snippet.snippet)
+                        let snippet = droppedSnippets[index].snippet
+                        let snippetPosition = droppedSnippets[index].position
+                        CodeSnippet(code: snippet.text)
                             .background(
                                 GeometryReader { snippetGeometry in
                                     Color.clear
                                         .preference(key: SnippetPositionPreferenceKey.self, value: [
-                                            snippet.snippet: snippetGeometry.frame(in: .named("solutionView"))
+                                            snippet: snippetGeometry.frame(in: .named("solutionView"))
                                         ])
                                 }
                             )
-                            .position(snippet.position)
-                            .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet.snippet ? 0.5 : 1.0)
+                            .position(snippetPosition)
+                            .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet ? 0.5 : 1.0)
                             .gesture(
                                 DragGesture(minimumDistance: 0)
                                     .onChanged { value in
                                         guard !isScrolling else { return }
                                         
                                         if !coordinator.isDragging {
-                                            coordinator.startDrag(snippet: snippet.snippet, source: .canvas)
+                                            coordinator.startDrag(snippet: snippet, source: .canvas)
                                         }
                                         // Update Drag Position Over SnippetList
-                                        if !coordinator.isOverCanvas, let globalPosition = getGlobalPosition(snippet: snippet.snippet, value: value) {
+                                        if !coordinator.isOverCanvas, let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
                                             coordinator.updateDragPosition(globalPosition)
                                         }
                                         // Update Drag Position Over Canvas
-                                        else if coordinator.isOverCanvas, let consistentGlobalPosition = getConsistentGlobalPosition(snippet: snippet.snippet, value: value) {
+                                        else if coordinator.isOverCanvas, let consistentGlobalPosition = getConsistentGlobalPosition(snippet: snippet, value: value) {
                                             coordinator.updateDragPosition(consistentGlobalPosition)
                                         }
                                     }
                                     .onEnded { value in
-                                        if let globalPosition = getGlobalPosition(snippet: snippet.snippet, value: value) {
+                                        if let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
                                             // Drop On Snippet List
                                             if globalPosition.y > self.canvasFrameHeight {
-                                                onDragToList(snippet.snippet)
+                                                onDragToList(snippet)
                                             }
                                             // Drop On Canvas
-                                            else if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet.snippet, value: value) {
-                                                onDrop(snippet.snippet, consistentLocalPosition)
+                                            else if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet, value: value) {
+                                                onDrop(snippet, consistentLocalPosition)
                                             }
                                         }
                                         coordinator.endDrag()
@@ -148,7 +144,7 @@ struct CanvasView: View {
         }
     }
     
-    private func getGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
+    private func getGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
         if let snippetFrame = snippetPositions[snippet] {
             let globalPosition = CGPoint(
                 x: snippetFrame.midX + value.translation.width - 10,
@@ -159,7 +155,7 @@ struct CanvasView: View {
         return nil
     }
     
-    private func getConsistentLocalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
+    private func getConsistentLocalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
         if let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
             let localPosition = CGPoint(
                 x: globalPosition.x - scrollXOffset,
@@ -171,7 +167,7 @@ struct CanvasView: View {
         return nil
     }
     
-    private func getConsistentGlobalPosition(snippet: String, value: DragGesture.Value) -> CGPoint? {
+    private func getConsistentGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
         if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet, value: value) {
             let consistentGlobalPosition = CGPoint(
                 x: consistentLocalPosition.x + scrollXOffset,

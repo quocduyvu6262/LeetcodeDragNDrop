@@ -62,7 +62,8 @@ func isDroppable(for text: String, at location: CGPoint, with droppedSnippets: [
     return true
 }
 
-func isSnippetInBounds(for text: String, at location: CGPoint) -> Bool {
+func isSnippetInBounds(for snippet: CodeSnippetType, at location: CGPoint) -> Bool {
+    let text = snippet.text
     let snippetWidth = calculateSnippetWidth(text: text)
     let snippetHeight = Constants.snippetHeight
     
@@ -77,18 +78,18 @@ func isSnippetInBounds(for text: String, at location: CGPoint) -> Bool {
     return isLeftInBounds && isTopInBounds
 }
 
-func buildCodeFromDroppedSnippets(_ snippets: [(snippet: String, position: CGPoint)]) -> String {
+func buildCodeFromDroppedSnippets(_ snippets: [(snippet: CodeSnippetType, position: CGPoint)]) -> String {
     let sorted = snippets.sorted(by: { $0.position.y < $1.position.y })
 
     return sorted.map { snippet, position in
-        let snippetWidth = calculateSnippetWidth(text: snippet)
-        let leftPosition = position.x - snippetWidth / 2        
+        let snippetWidth = calculateSnippetWidth(text: snippet.text)
+        let leftPosition = position.x - snippetWidth / 2
         let indentLevel = Int(ceil(leftPosition / Constants.dotSpacing))
         var indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
-        if snippet.hasPrefix("def ") { // no indent for function declaration
+        if snippet.text.hasPrefix("def ") { // no indent for function declaration
             indent = ""
         }
-        return indent + snippet
+        return indent + snippet.text
     }.joined(separator: "\n")
 }
 
