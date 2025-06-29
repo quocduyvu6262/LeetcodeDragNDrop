@@ -148,7 +148,8 @@
 				SlidingWindow/problems.json,
 				Stack/problems.json,
 				Tries/problems.json,
-				TwoPointers/TwoSums.json,
+				TwoPointers/ThreeSum.json,
+				TwoPointers/TwoSum.json,
 			);
 			target = 7DD23EAA2D70560D00B3F1EA /* StudyLeetcodeApp */;
 		};
@@ -159,7 +160,8 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 7DD23EA72D70560D00B3F1EA /* Sources */;
 			membershipExceptions = (
-				TwoPointers/TwoSums.json,
+				TwoPointers/ThreeSum.json,
+				TwoPointers/TwoSum.json,
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */

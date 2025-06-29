@@ -1,7 +1,7 @@
 {
   "name": "Container With Most Water",
   "difficulty": "Medium",
-  "description": "Given an array of non-negative integers height, where each integer represents the height of a vertical line at index i, find two lines that together with the x-axis form a container that holds the most water. Return the maximum amount of water the container can store. Assume the width of the container is the distance between the indices of the chosen lines.\n\nExample\n height = [1, 8, 6, 2, 5, 4, 8, 3, 7]\n Maximum water is 49 (between indices 1 and 8, height 7 and 8, width 7).\n\nApproaches\n1. Brute Force: Check all pairs of lines. Time: O(n²), Space: O(1)\n2. Two Pointer: Start with pointers at both ends, move the pointer at the shorter line inward. Time: O(n), Space: O(1).",
+  "description": "Given an array of non-negative integers height, where each integer represents the height of a vertical line at index i, find two lines that together with the x-axis form a container that holds the most water. Return the maximum amount of water the container can store. Assume the width of the container is the distance between the indices of the chosen lines.\n\nExample\n height = [1, 8, 6, 2, 5, 4, 8, 3, 7]\n Maximum water is 49 (between indices 1 and 8, height 7 and 8, width 7).",
   "snippets": [
     "left = 0",
     "right = len(height) - 1",

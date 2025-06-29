@@ -81,6 +81,13 @@ struct DescriptionView: View {
 
 #Preview {
     @State var step: Int = 0
+
+    let categories = DataManager.loadCategories()
+    let twoPointerCategory = categories.first(where: { $0.name == "TwoPointers" })!
+    let problem = twoPointerCategory.problems.first(where: { $0.name == "Three Sum" })!
+
+
+
     let sampleProblem = Problem(
         name: "Two Sum",
         difficulty: "Easy",
@@ -104,6 +111,6 @@ struct DescriptionView: View {
     )
     
     return NavigationStack {
-        DescriptionView(problem: sampleProblem, nextStep: { })
+        DescriptionView(problem: problem, nextStep: { })
     }
 }

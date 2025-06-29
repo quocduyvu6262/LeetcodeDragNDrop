@@ -1,7 +1,7 @@
 {
   "name": "Remove Duplicates from Sorted Array",
   "difficulty": "Easy",
-  "description": "Given a sorted array of integers nums, remove duplicates in-place such that each unique element appears exactly once. Return the new length of the array after removing duplicates. Do not allocate extra space for another array; modify nums in-place with O(1) extra memory.\n\nExample\n nums = [1, 1, 2]\n After modification, nums = [1, 2, _], return 2.\n nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]\n After modification, nums = [0, 1, 2, 3, 4, _, _, _, _, _], return 5.\n\nApproaches\n1. Two Pointer: Use one pointer to track the position of the next unique element and another to scan the array. Time: O(n), Space: O(1).\n\nConstraints\n 1 ≤ nums.length ≤ 3 * 10⁴\n -100 ≤ nums[i] ≤ 100\n nums is sorted in non-decreasing order.\n\nCan you find the new length for nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]?",
+  "description": "Given a sorted array of integers nums, remove duplicates in-place such that each unique element appears exactly once. Return the new length of the array after removing duplicates. Do not allocate extra space for another array; modify nums in-place with O(1) extra memory.\n\nExample\n nums = [1, 1, 2]\n After modification, nums = [1, 2, _], return 2.\n nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]\n After modification, nums = [0, 1, 2, 3, 4, _, _, _, _, _], return 5.",
   "snippets": [
     "if not nums:",
     "return 0",
