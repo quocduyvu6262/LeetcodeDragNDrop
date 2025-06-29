@@ -55,32 +55,32 @@ struct SnippetsListView: View {
                                         ])
                                 }
                             )
-//                            .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet ? 0.5 : 1.0)
-//                            .gesture(
-//                                DragGesture(minimumDistance: 0)
-//                                    .onChanged { value in
-//                                        guard !isScrolling else { return }
-//                                        
-//                                        if !coordinator.isDragging {
-//                                            coordinator.startDrag(snippet: snippet, source: .snippetList)
-//                                        }
-//                                        // Update Drag Position Over SnippetList
-//                                        if !coordinator.isOverCanvas, let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
-//                                            coordinator.updateDragPosition(globalPosition)
-//                                        }
-//                                        // Update Drag Position Over Canvas
-//                                        else if coordinator.isOverCanvas, let consistentGlobalPosition = getConsistentGlobalPosition(snippet: snippet, value: value) {
-//                                            coordinator.updateDragPosition(consistentGlobalPosition)
-//                                        }
-//                                    }
-//                                    .onEnded { value in
-//                                        if coordinator.isOverCanvas, let dot = getConsistentLocalPosition(snippet: snippet, value: value) {
-//                                            // Drop on Canvas. Otherwise do nothing
-//                                            onDragToCanvas(snippet, dot)
-//                                        }
-//                                        coordinator.endDrag()
-//                                    }
-//                            )
+                            .opacity(coordinator.isDragging && coordinator.currentSnippet == snippet ? 0.5 : 1.0)
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        guard !isScrolling else { return }
+                                        
+                                        if !coordinator.isDragging {
+                                            coordinator.startDrag(snippet: snippet, source: .snippetList)
+                                        }
+                                        // Update Drag Position Over SnippetList
+                                        if !coordinator.isOverCanvas, let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
+                                            coordinator.updateDragPosition(globalPosition)
+                                        }
+                                        // Update Drag Position Over Canvas
+                                        else if coordinator.isOverCanvas, let consistentGlobalPosition = getConsistentGlobalPosition(snippet: snippet, value: value) {
+                                            coordinator.updateDragPosition(consistentGlobalPosition)
+                                        }
+                                    }
+                                    .onEnded { value in
+                                        if coordinator.isOverCanvas, let dot = getConsistentLocalPosition(snippet: snippet, value: value) {
+                                            // Drop on Canvas. Otherwise do nothing
+                                            onDragToCanvas(snippet, dot)
+                                        }
+                                        coordinator.endDrag()
+                                    }
+                            )
                     }
                 }
                 .padding(10)
@@ -106,37 +106,37 @@ struct SnippetsListView: View {
         }
     }
     
-//    private func getGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
-//        if let snippetFrame = snippetPositions[snippet] {
-//            let globalPosition = CGPoint(
-//                x: snippetFrame.midX + value.translation.width - 10,
-//                y: snippetFrame.midY + value.translation.height
-//            )
-//            return globalPosition
-//        }
-//        return nil
-//    }
-//    
-//    private func getConsistentLocalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
-//        if let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
-//            let localPosition = CGPoint(
-//                x: globalPosition.x - scrollXOffset,
-//                y: globalPosition.y - scrollYOffset
-//            )
-//            let consistentLocalPosition = consistentDot(to: localPosition)
-//            return consistentLocalPosition
-//        }
-//        return nil
-//    }
-//    
-//    private func getConsistentGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
-//        if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet, value: value) {
-//            let consistentGlobalPosition = CGPoint(
-//                x: consistentLocalPosition.x + scrollXOffset,
-//                y: consistentLocalPosition.y + scrollYOffset
-//            )
-//            return consistentGlobalPosition
-//        }
-//        return nil
-//    }
+    private func getGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
+        if let snippetFrame = snippetPositions[snippet] {
+            let globalPosition = CGPoint(
+                x: snippetFrame.midX + value.translation.width - 10,
+                y: snippetFrame.midY + value.translation.height
+            )
+            return globalPosition
+        }
+        return nil
+    }
+    
+    private func getConsistentLocalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
+        if let globalPosition = getGlobalPosition(snippet: snippet, value: value) {
+            let localPosition = CGPoint(
+                x: globalPosition.x - scrollXOffset,
+                y: globalPosition.y - scrollYOffset
+            )
+            let consistentLocalPosition = consistentDot(to: localPosition)
+            return consistentLocalPosition
+        }
+        return nil
+    }
+    
+    private func getConsistentGlobalPosition(snippet: CodeSnippetType, value: DragGesture.Value) -> CGPoint? {
+        if let consistentLocalPosition = getConsistentLocalPosition(snippet: snippet, value: value) {
+            let consistentGlobalPosition = CGPoint(
+                x: consistentLocalPosition.x + scrollXOffset,
+                y: consistentLocalPosition.y + scrollYOffset
+            )
+            return consistentGlobalPosition
+        }
+        return nil
+    }
 }

@@ -15,10 +15,10 @@ struct SolutionView: View {
     let nextStep: () -> Void
     
     // Variables
-    @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
     var snippetHistory: SnippetHistory {snippetHistoryManger.history(for: problem)}
-    @Environment(\.modelContext) internal var modelContext
     @Query var savedSnippets: [DroppedSnippet]
+    @EnvironmentObject var snippetHistoryManger: SnippetHistoryManager
+    @Environment(\.modelContext) internal var modelContext
     @State private var webView: WKWebView? = nil
     @State private var showModal: Bool = false
     @State private var isCorrect: Bool = false

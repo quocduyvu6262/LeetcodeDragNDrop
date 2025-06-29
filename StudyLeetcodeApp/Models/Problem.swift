@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct Problem: Codable, Identifiable {
     let id = UUID()
     let name: String

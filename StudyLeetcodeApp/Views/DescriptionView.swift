@@ -79,38 +79,14 @@ struct DescriptionView: View {
     }
 }
 
-//#Preview {
-//    @State var step: Int = 0
-//
-//    let categories = DataManager.loadCategories()
-//    let twoPointerCategory = categories.first(where: { $0.name == "TwoPointers" })!
-//    let problem = twoPointerCategory.problems.first(where: { $0.name == "Three Sum" })!
-//
-//
-//
-//    let sampleProblem = Problem(
-//        name: "Two Sum",
-//        difficulty: "Easy",
-//        description: "Given [2, 7, 11, 15] and target 9, find two numbers that add up.",
-//        snippets: [
-//            "hashmap = {}",
-//            "for num in array:",
-//            "if target - num in hashmap:",
-//            "return [num, hashmap[target - num]]",
-//            "hashmap[num] = num",
-//            "for i in array: for j in array:",
-//            "sort(array)"
-//          ],
-//        function: "def twoSum(array, target)",
-//        inputs: ["[2,7,11,15,19], 9"],
-//        outputs: ["[7, 2]"],
-//        timeComplexityOptions: ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
-//        spaceComplexityOptions: ["O(1)", "O(n)", "O(2\u{207F})", "O(n!)"],
-//        correctTimeComplexity: "O(n)",
-//        correctSpaceComplexity: "O(n)"
-//    )
-//    
-//    return NavigationStack {
-//        DescriptionView(problem: problem, nextStep: { })
-//    }
-//}
+#Preview {
+    @State var step: Int = 0
+
+    let categories = DataManager.loadCategories()
+    let twoPointerCategory = categories.first(where: { $0.name == "TwoPointers" })!
+    let problem = twoPointerCategory.problems.first(where: { $0.name == "Three Sum" })!
+    
+    NavigationStack {
+        DescriptionView(problem: problem, nextStep: { })
+    }
+}

@@ -56,7 +56,8 @@ extension SolutionView {
         // Then insert all current dropped snippets with their new positions
         for (snippet, position) in droppedSnippets {
             let newSnippet = DroppedSnippet(
-                snippet: snippet,
+                snippetId: snippet.id,
+                snippetText: snippet.text,
                 x: position.x,
                 y: position.y,
                 problemName: problem.name
@@ -71,14 +72,15 @@ extension SolutionView {
     func updateDroppedSnippets(snippet: CodeSnippetType, position: CGPoint) {
         if let index = droppedSnippets.firstIndex(where: { $0.snippet == snippet }) {
             droppedSnippets.remove(at: index)
-            if let savedIndex = savedSnippets.firstIndex(where: { $0.snippet == snippet }) {
+            if let savedIndex = savedSnippets.firstIndex(where: { $0.snippetId == snippet.id }) {
                 modelContext.delete(savedSnippets[savedIndex])
             }
         }
         
         droppedSnippets.append((snippet, position))
         let newSnippet = DroppedSnippet(
-            snippet: snippet,
+            snippetId: snippet.id,
+            snippetText: snippet.text,
             x: position.x,
             y: position.y,
             problemName: problem.name
@@ -101,7 +103,7 @@ extension SolutionView {
         
         if let index = droppedSnippets.firstIndex(where: {$0.snippet == snippet} ) {
             droppedSnippets.remove(at: index)
-            if let savedIndex = savedSnippets.firstIndex(where: {$0.snippet == snippet}) {
+            if let savedIndex = savedSnippets.firstIndex(where: {$0.snippetId == snippet.id}) {
                 modelContext.delete(savedSnippets[savedIndex])
                 try? modelContext.save()
             }
@@ -110,7 +112,13 @@ extension SolutionView {
     
     func loadDroppedSnippets() {
         let function = problem.function
-        droppedSnippets = savedSnippets.map { (snippet: $0.snippet, position: CGPoint(x: $0.x, y: $0.y)) }
+        droppedSnippets = savedSnippets.map {
+            let snippet = CodeSnippetType(
+                id: $0.snippetId,
+                text: $0.snippetText
+            )
+            return (snippet: snippet, position: CGPoint(x: $0.x, y: $0.y))
+        }
         availableSnippets = problem.snippets.filter { snippet in
             !droppedSnippets.contains { $0.snippet == snippet }
         }
