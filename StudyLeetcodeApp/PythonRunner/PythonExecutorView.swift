@@ -18,8 +18,6 @@ struct PythonExecutorView: UIViewRepresentable {
         let cfg = WKWebViewConfiguration()
         cfg.userContentController.add(context.coordinator as WKScriptMessageHandler, name: "pyResult")
         cfg.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
-
-//        cfg.preferences.setValue(true, forKey: "allowUniversalAccessFromFileURLs")
         
         let webView = WKWebView(frame: .zero, configuration: cfg)
         webView.navigationDelegate = context.coordinator

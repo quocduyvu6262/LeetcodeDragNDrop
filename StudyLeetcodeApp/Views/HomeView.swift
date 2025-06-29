@@ -15,7 +15,7 @@ struct HomeView: View {
     
     init() {
         _searchText = State(initialValue: "")
-        _categories = State(initialValue: DataManager.loadProblems())
+        _categories = State(initialValue: DataManager.loadCategories())
         _problemCounts = State(initialValue: [:])
     }
     

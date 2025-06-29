@@ -11,23 +11,63 @@ class DataManager {
 
     private static let problemsKey = "cached_problems"
 
-    static func loadProblems() -> [Category] {
-        guard let url = Bundle.main.url(forResource: "problems", withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
-            print("Failed to load JSON")
+    static func loadCategories() -> [Category] {
+        let fileManager = FileManager.default
+        
+        guard let categoriesURL = Bundle.main.url(forResource: "ProblemCategories", withExtension: nil) else {
+            print("Failed to find ProblemCategories directory")
             return []
         }
+        
+        var categories: [Category] = []
+        
         do {
-            let decoder = JSONDecoder()
-            var result = try decoder.decode([Category].self, from: data)
-            for index in 0..<result.count {
-                if let cachedProblems = loadProblems(for: result[index].name) {
-                    result[index].problems = cachedProblems
+            // Get all category directories
+            let categoryDirectories = try fileManager.contentsOfDirectory(at: categoriesURL, includingPropertiesForKeys: nil)
+            
+            for categoryURL in categoryDirectories {
+                // Skip if not a directory
+                guard categoryURL.hasDirectoryPath else { continue }
+                
+                // Get category name from directory name
+                let categoryName = categoryURL.lastPathComponent
+                
+                // Get all problem JSON files in this category
+                let problemFiles = try fileManager.contentsOfDirectory(at: categoryURL, includingPropertiesForKeys: nil)
+                    .filter { $0.pathExtension == "json" }
+                
+                var problems: [Problem] = []
+                // Load each problem file
+                for problemURL in problemFiles {
+                    guard let data = try? Data(contentsOf: problemURL) else {
+                        print("Failed to load problem file: \(problemURL.lastPathComponent)")
+                        continue
+                    }
+                    
+                    do {
+                        let decoder = JSONDecoder()
+                        let problem = try decoder.decode(Problem.self, from: data)
+                        problems.append(problem)
+                    } catch {
+                        print("Decoding error for problem \(problemURL.lastPathComponent)")
+                    }
                 }
+                
+                if problems.isEmpty { continue }
+                
+                // Create category with all its problems
+                var category = Category(name: categoryName, problems: problems)
+                
+                // Load cached problems if any
+                if let cachedProblems = loadProblems(for: categoryName) {
+                    category.problems = cachedProblems
+                }
+                
+                categories.append(category)
             }
-            return result
+            return categories
         } catch {
-            print("Decoding error: \(error)")
+            print("Error reading categories directory")
             return []
         }
     }

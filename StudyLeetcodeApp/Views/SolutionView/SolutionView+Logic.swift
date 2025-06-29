@@ -109,29 +109,24 @@ extension SolutionView {
     }
     
     func loadDroppedSnippets() {
+        let function = problem.function
         droppedSnippets = savedSnippets.map { (snippet: $0.snippetText, position: CGPoint(x: $0.x, y: $0.y)) }
         availableSnippets = problem.snippets.filter { snippet in
             !droppedSnippets.contains { $0.snippet == snippet }
+        }
+        
+        // Default add function def to droppedSnippets
+        if !droppedSnippets.contains(where: { $0.snippet == function }) {
+            let snippetWidth = calculateSnippetWidth(text: function)
+            let snippetPosition = CGPoint(x: snippetWidth / 2 + Constants.dotSpacing, y: Constants.snippetHeight * 2)
+            let consistentSnippetPosition = consistentDot(to: snippetPosition)
+            droppedSnippets.append((function, consistentSnippetPosition))
         }
         
         // Add current SnippetSnapshot to SnippetHistory
         if snippetHistory.currentSnapshot == nil {
             snippetHistory.currentSnapshot = SnippetSnapshot(dropped: droppedSnippets)
         }
-    }
-    
-    func buildWrappedCode(code: String) -> String {
-        let wrappedCode =
-"""
-def user_function(array, target):
-\(code)
-
-array = [2, 7, 11, 15]
-target = 9
-result = user_function(array, target)
-assert result == [7, 2]
-"""
-        return wrappedCode
     }
     
     func submit() {
@@ -150,14 +145,13 @@ assert result == [7, 2]
         
         let wrappedCode =
 """
-\(fullFunction)
 \(userCode)
 
 result = \(functionName)(\(args))
 
 assert result == \(expectedOutput)
 """
-        
+        print(wrappedCode)
         DispatchQueue.main.async {
             pythonExecutorCode = wrappedCode
             runPython = true

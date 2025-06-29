@@ -1,0 +1,20 @@
+{
+  "name": "Two Sum",
+  "difficulty": "Easy",
+  "description": "Given an array of integers nums and an integer target, find two numbers that add up to the target and return their indices. Each input has exactly one solution, and you cannot use the same element twice. Order of indices doesn't matter.\n\nExample\n nums = [2, 7, 11, 15], target = 9\n 2 + 7 = 9, so return [0, 1]",
+  "snippets": [
+    "hashmap = {}",
+    "for num in array:",
+    "if target - num in hashmap:",
+    "return [num, hashmap[target - num]]",
+    "hashmap[num] = num"
+  ],
+  "function": "def twoSum(array, target):",
+  "inputs": ["[2,7,11,15,19], 9"],
+  "outputs": ["[7, 2]"],
+  "complexity_options": ["O(n²), O(1)", "O(n), O(n)", "O(n log n), O(1)", "O(1), O(n)"],
+  "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+  "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+  "correct_time_complexity": "O(n)",
+  "correct_space_complexity": "O(n)"
+}

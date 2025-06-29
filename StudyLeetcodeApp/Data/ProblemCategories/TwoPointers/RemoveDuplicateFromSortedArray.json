@@ -1,0 +1,23 @@
+{
+  "name": "Remove Duplicates from Sorted Array",
+  "difficulty": "Easy",
+  "description": "Given a sorted array of integers nums, remove duplicates in-place such that each unique element appears exactly once. Return the new length of the array after removing duplicates. Do not allocate extra space for another array; modify nums in-place with O(1) extra memory.\n\nExample\n nums = [1, 1, 2]\n After modification, nums = [1, 2, _], return 2.\n nums = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]\n After modification, nums = [0, 1, 2, 3, 4, _, _, _, _, _], return 5.",
+  "snippets": [
+    "if not nums:",
+    "return 0",
+    "write_pointer = 1",
+    "for read_pointer in range(1, len(nums)):",
+    "if nums[read_pointer] != nums[read_pointer - 1]:",
+    "nums[write_pointer] = nums[read_pointer]",
+    "write_pointer += 1",
+    "return write_pointer"
+  ],
+  "function": "def twoSum(array, target):",
+  "inputs": ["[2,7,11,15,19]"],
+  "outputs": ["[7,2]"],
+  "complexity_options": ["O(n²), O(1)", "O(n), O(1)", "O(n log n), O(1)", "O(1), O(n)"],
+  "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+  "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+  "correct_time_complexity": "O(n)",
+  "correct_space_complexity": "O(1)"
+}

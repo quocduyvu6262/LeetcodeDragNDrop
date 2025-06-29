@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -31,7 +31,6 @@
 		7D689C112DBC4CFB00476393 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C032DBC4CFB00476393 /* package.json */; };
 		7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
-		7DA64EFC2DD374C200911C4A /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7DA64EFB2DD374C200911C4A /* python_stdlib.zip */; };
 		7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
 		7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EB02D70560D00B3F1EA /* ContentView.swift */; };
@@ -42,7 +41,6 @@
 		7DD23ECC2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23ECB2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift */; };
 		7DD23EDC2D70589300B3F1EA /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EDB2D70589300B3F1EA /* HomeView.swift */; };
 		7DD23EDE2D7058C000B3F1EA /* ProblemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */; };
-		7DD23EE32D70595F00B3F1EA /* problems.json in Resources */ = {isa = PBXBuildFile; fileRef = 7DD23EE22D70595F00B3F1EA /* problems.json */; };
 		7DD23EE52D70599900B3F1EA /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE42D70599900B3F1EA /* DataManager.swift */; };
 		7DD23EE72D7059D200B3F1EA /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE62D7059D200B3F1EA /* Category.swift */; };
 		7DD23EE92D7059DB00B3F1EA /* Problem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EE82D7059DB00B3F1EA /* Problem.swift */; };
@@ -57,7 +55,9 @@
 		7DDCBAE72DC940DC00137D33 /* SnippetHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */; };
 		7DDCBAE92DC9438200137D33 /* SnippetHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */; };
 		7DE6B0252D77A9C2005D3AE8 /* SolutionView+Logic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */; };
+		7DED96972DEA024600A821CD /* ProblemCategories in Resources */ = {isa = PBXBuildFile; fileRef = 7DED96962DEA024600A821CD /* ProblemCategories */; };
 		7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF573322DC31E3E003E68CD /* LCSearch.swift */; };
+		931FBC932E102F3000843629 /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 931FBC922E102F3000843629 /* python_stdlib.zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,7 +105,6 @@
 		7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; path = pyodide.asm.wasm; sourceTree = "<group>"; };
 		7D689C092DBC4CFB00476393 /* pyodide.d.ts */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.typescript; path = pyodide.d.ts; sourceTree = "<group>"; };
 		7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		7DA64EFB2DD374C200911C4A /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 		7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingModal.swift; sourceTree = "<group>"; };
 		7DD23EAB2D70560D00B3F1EA /* StudyLeetcodeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudyLeetcodeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeApp.swift; sourceTree = "<group>"; };
@@ -119,7 +118,6 @@
 		7DD23ECB2D70561000B3F1EA /* StudyLeetcodeAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyLeetcodeAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7DD23EDB2D70589300B3F1EA /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		7DD23EDD2D7058C000B3F1EA /* ProblemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProblemsListView.swift; sourceTree = "<group>"; };
-		7DD23EE22D70595F00B3F1EA /* problems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = problems.json; sourceTree = "<group>"; };
 		7DD23EE42D70599900B3F1EA /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		7DD23EE62D7059D200B3F1EA /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		7DD23EE82D7059DB00B3F1EA /* Problem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Problem.swift; sourceTree = "<group>"; };
@@ -134,8 +132,43 @@
 		7DDCBAE62DC940DC00137D33 /* SnippetHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistory.swift; sourceTree = "<group>"; };
 		7DDCBAE82DC9438200137D33 /* SnippetHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnippetHistoryManager.swift; sourceTree = "<group>"; };
 		7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolutionView+Logic.swift"; sourceTree = "<group>"; };
+		7DED96962DEA024600A821CD /* ProblemCategories */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ProblemCategories; path = StudyLeetcodeApp/Data/ProblemCategories; sourceTree = "<group>"; };
 		7DF573322DC31E3E003E68CD /* LCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSearch.swift; sourceTree = "<group>"; };
+		931FBC922E102F3000843629 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7DED96952DEA01BF00A821CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				ArraysHashing/problems.json,
+				Graphs/problems.json,
+				Heap/problems.json,
+				LinkedList/problems.json,
+				SlidingWindow/problems.json,
+				Stack/problems.json,
+				Tries/problems.json,
+				TwoPointers/ThreeSum.json,
+				TwoPointers/TwoSum.json,
+			);
+			target = 7DD23EAA2D70560D00B3F1EA /* StudyLeetcodeApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		7DED969A2DEA4FD400A821CD /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 7DD23EA72D70560D00B3F1EA /* Sources */;
+			membershipExceptions = (
+				TwoPointers/ThreeSum.json,
+				TwoPointers/TwoSum.json,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		7DED968B2DEA016900A821CD /* ProblemCategories */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (7DED96952DEA01BF00A821CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */, 7DED969A2DEA4FD400A821CD /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ProblemCategories; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7DD23EA82D70560D00B3F1EA /* Frameworks */ = {
@@ -173,6 +206,7 @@
 		7D4616332D73DB2B00739617 /* SolutionView */ = {
 			isa = PBXGroup;
 			children = (
+				7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */,
 				7D4AC1792DE620BF0051B2E2 /* ScrollOffsetManager.swift */,
 				7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */,
 				7DD23EEE2D710BAA00B3F1EA /* SolutionView.swift */,
@@ -215,7 +249,6 @@
 		7D689C0B2DBC4CFB00476393 /* pyodide */ = {
 			isa = PBXGroup;
 			children = (
-				7DA64EFB2DD374C200911C4A /* python_stdlib.zip */,
 				7D689C022DBC4CFB00476393 /* ffi.d.ts */,
 				7D689C032DBC4CFB00476393 /* package.json */,
 				7D689C042DBC4CFB00476393 /* pyodide.js */,
@@ -224,6 +257,7 @@
 				7D689C072DBC4CFB00476393 /* pyodide.asm.js */,
 				7D689C082DBC4CFB00476393 /* pyodide.asm.wasm */,
 				7D689C092DBC4CFB00476393 /* pyodide.d.ts */,
+				931FBC922E102F3000843629 /* python_stdlib.zip */,
 			);
 			path = pyodide;
 			sourceTree = "<group>";
@@ -231,6 +265,7 @@
 		7DD23EA22D70560D00B3F1EA = {
 			isa = PBXGroup;
 			children = (
+				7DED96962DEA024600A821CD /* ProblemCategories */,
 				7D0DF84E2DC17B6300520360 /* .gitignore */,
 				7DD23EAD2D70560D00B3F1EA /* StudyLeetcodeApp */,
 				7DD23EBE2D70561000B3F1EA /* StudyLeetcodeAppTests */,
@@ -255,7 +290,6 @@
 				7D4AC1782DE514CB0051B2E2 /* Info.plist */,
 				7D5DF2AC2DBBFA82003E79A5 /* Resources */,
 				7D113EC32DA6F19900AC078B /* PythonRunner */,
-				7DE6B0212D779A5A005D3AE8 /* Extensions */,
 				7D4616392D74D69400739617 /* Constants */,
 				7D4616362D74560400739617 /* Utilities */,
 				7DD23EF52D71487A00B3F1EA /* Layouts */,
@@ -302,6 +336,7 @@
 				7D4616332D73DB2B00739617 /* SolutionView */,
 				7DD23EEA2D710B9300B3F1EA /* DescriptionView.swift */,
 				7DD23EF02D710E3400B3F1EA /* ComplexityView.swift */,
+				7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */,
 				7DD25BF22D8BAC45002CDC8E /* ProblemsListView */,
 				7DD23EDB2D70589300B3F1EA /* HomeView.swift */,
 			);
@@ -321,7 +356,7 @@
 		7DD23EDA2D7057D100B3F1EA /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				7DD23EE22D70595F00B3F1EA /* problems.json */,
+				7DED968B2DEA016900A821CD /* ProblemCategories */,
 				7DD23EE42D70599900B3F1EA /* DataManager.swift */,
 			);
 			path = Data;
@@ -360,15 +395,6 @@
 			path = ProblemsListView;
 			sourceTree = "<group>";
 		};
-		7DE6B0212D779A5A005D3AE8 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				7DE6B0242D77A9C2005D3AE8 /* SolutionView+Logic.swift */,
-				7DD6AF242D78244D00AB1940 /* ComplexityView+Logic.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -383,6 +409,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				7DED968B2DEA016900A821CD /* ProblemCategories */,
 			);
 			name = StudyLeetcodeApp;
 			productName = StudyLeetcodeApp;
@@ -449,7 +478,6 @@
 				};
 			};
 			buildConfigurationList = 7DD23EA62D70560D00B3F1EA /* Build configuration list for PBXProject "StudyLeetcodeApp" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -457,6 +485,7 @@
 				Base,
 			);
 			mainGroup = 7DD23EA22D70560D00B3F1EA;
+			preferredProjectObjectVersion = 56;
 			productRefGroup = 7DD23EAC2D70560D00B3F1EA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -473,10 +502,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7DED96972DEA024600A821CD /* ProblemCategories in Resources */,
 				7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */,
-				7DA64EFC2DD374C200911C4A /* python_stdlib.zip in Resources */,
 				7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */,
 				7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */,
+				931FBC932E102F3000843629 /* python_stdlib.zip in Resources */,
 				7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */,
 				7D0DF84F2DC17B6300520360 /* .gitignore in Resources */,
 				7D689C112DBC4CFB00476393 /* package.json in Resources */,
@@ -485,7 +515,6 @@
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
 				7D4F6AFE2DBC118200DCB647 /* index.html in Resources */,
 				7D4AC1772DE514920051B2E2 /* JetBrainsMono-Regular.ttf in Resources */,
-				7DD23EE32D70595F00B3F1EA /* problems.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
