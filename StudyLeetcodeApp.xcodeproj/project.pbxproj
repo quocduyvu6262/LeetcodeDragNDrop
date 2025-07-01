@@ -59,6 +59,9 @@
 		7DF573332DC31E42003E68CD /* LCSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DF573322DC31E3E003E68CD /* LCSearch.swift */; };
 		931FBC932E102F3000843629 /* python_stdlib.zip in Resources */ = {isa = PBXBuildFile; fileRef = 931FBC922E102F3000843629 /* python_stdlib.zip */; };
 		933AB04D2E10D8020016E358 /* CodeSnippetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB04C2E10D8020016E358 /* CodeSnippetType.swift */; };
+		933AB0992E120DA90016E358 /* PathConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB0982E120DA50016E358 /* PathConnectView.swift */; };
+		933AB09B2E1216C20016E358 /* ConnectSnippetPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB09A2E1216C20016E358 /* ConnectSnippetPath.swift */; };
+		933AB09D2E123B0D0016E358 /* MergedRec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB09C2E123B090016E358 /* MergedRec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,9 @@
 		7DF573322DC31E3E003E68CD /* LCSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LCSearch.swift; sourceTree = "<group>"; };
 		931FBC922E102F3000843629 /* python_stdlib.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = python_stdlib.zip; sourceTree = "<group>"; };
 		933AB04C2E10D8020016E358 /* CodeSnippetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeSnippetType.swift; sourceTree = "<group>"; };
+		933AB0982E120DA50016E358 /* PathConnectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathConnectView.swift; sourceTree = "<group>"; };
+		933AB09A2E1216C20016E358 /* ConnectSnippetPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectSnippetPath.swift; sourceTree = "<group>"; };
+		933AB09C2E123B090016E358 /* MergedRec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergedRec.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -310,6 +316,8 @@
 		7DD23EB42D70560F00B3F1EA /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				933AB09C2E123B090016E358 /* MergedRec.swift */,
+				933AB0982E120DA50016E358 /* PathConnectView.swift */,
 				7DD23EB52D70560F00B3F1EA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -377,6 +385,7 @@
 				7D32BC492D7E5BF20026F628 /* ProblemCard.swift */,
 				7D407FDB2D8BEAD900CDE976 /* AlertItem.swift */,
 				7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */,
+				933AB09A2E1216C20016E358 /* ConnectSnippetPath.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -547,6 +556,7 @@
 				7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */,
 				7DD23EE52D70599900B3F1EA /* DataManager.swift in Sources */,
 				7DD23EEB2D710B9300B3F1EA /* DescriptionView.swift in Sources */,
+				933AB09B2E1216C20016E358 /* ConnectSnippetPath.swift in Sources */,
 				7DD25BF42D8BAC62002CDC8E /* ProblemsListViewModel.swift in Sources */,
 				7DD23EB12D70560D00B3F1EA /* ContentView.swift in Sources */,
 				7DD23EDE2D7058C000B3F1EA /* ProblemsListView.swift in Sources */,
@@ -555,10 +565,12 @@
 				7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */,
 				7D2FEDD52D7C340100466B12 /* DroppedSnippet.swift in Sources */,
 				7D113EC72DA6FBB100AC078B /* PythonExecutorView.swift in Sources */,
+				933AB0992E120DA90016E358 /* PathConnectView.swift in Sources */,
 				7D407FDC2D8BEAD900CDE976 /* AlertItem.swift in Sources */,
 				7DD23EF82D71489100B3F1EA /* FlowLayout.swift in Sources */,
 				7D4616382D74561D00739617 /* Helpers.swift in Sources */,
 				7DD23EEF2D710BAA00B3F1EA /* SolutionView.swift in Sources */,
+				933AB09D2E123B0D0016E358 /* MergedRec.swift in Sources */,
 				7D5BCF492D790B410097CEAC /* AnswerFeedbackModal.swift in Sources */,
 				933AB04D2E10D8020016E358 /* CodeSnippetType.swift in Sources */,
 				7D407FDE2D8BEBFC00CDE976 /* LCError.swift in Sources */,
@@ -741,7 +753,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyLeetcodeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudyLeetcodeApp/Info.plist;
@@ -771,7 +783,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"StudyLeetcodeApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StudyLeetcodeApp/Info.plist;
@@ -800,7 +812,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -820,7 +832,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
 				MARKETING_VERSION = 1.0;
@@ -839,7 +851,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = swiftstudent.StudyLeetcodeAppUITests;
@@ -857,7 +869,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6MWVZRAKAP;
+				DEVELOPMENT_TEAM = THD57A4JM7;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = swiftstudent.StudyLeetcodeAppUITests;
