@@ -41,6 +41,13 @@ struct CodeSnippet: View {
             singleLineView(lines[0])
         } else {
             ZStack(alignment: .topLeading) {
+                IndentedCodeBlockShape(lineRects: lineRects, cornerRadius: 8)
+                    .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.gray)
+                    .overlay(
+                        IndentedCodeBlockShape(lineRects: lineRects, cornerRadius: 8)
+                            .stroke(Color.red)
+                    )
+
                 VStack(alignment: .leading, spacing: Constants.snippetSpacing) {
                     ForEach(lines.indices, id: \.self) { index in
                         let line = lines[index]
@@ -58,14 +65,6 @@ struct CodeSnippet: View {
                                 .lineLimit(1)
                                 .frame(width: contentWidth, height: Constants.snippetHeight, alignment: .leading)
                                 .padding(.leading, 5)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.white)
-                                )
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .stroke(Color.primary.opacity(0.45), lineWidth: 0.8)
-                                }
                                 .background(GeometryReader { geo in
                                     Color.clear.preference(key: LineRectsPreferenceKey.self, value: [index: geo.frame(in: .named(Self.coordinateSpaceName))])
                                 })
