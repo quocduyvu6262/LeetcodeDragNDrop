@@ -17,22 +17,21 @@ struct IndentedCodeBlockShape: Shape {
         guard lineRects.count >= 2 else { return path }
         let count = self.lineRects.count
         let sortedRects = lineRects.sorted { $0.key < $1.key }.map { $0.value }
-        path.move(to: CGPoint(x: sortedRects[0].maxX, y: sortedRects[0].minY))
+        path.move(to: CGPoint(x: sortedRects[0].maxX, y: sortedRects[0].minY + cornerRadius))
         let distance = (sortedRects[1].minY - sortedRects[0].maxY) / 2
-        let diff = distance / 2
 
         // Draw right side
         for i in 0..<sortedRects.count {
             let currentRect = sortedRects[i]
             let nextRect: CGRect? = (i + 1 < sortedRects.count) ? sortedRects[i+1] : nil
             if i == 0 {
-                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY + cornerRadius))
+//                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY + cornerRadius))
                 path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY + distance - cornerRadius) )
             } else if i < count - 1 {
-                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY - distance + cornerRadius))
+//                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY - distance + cornerRadius))
                 path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY + distance - cornerRadius) )
             } else {
-                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY - distance + cornerRadius))
+//                path.move(to: CGPoint(x: currentRect.maxX, y: currentRect.minY - distance + cornerRadius))
                 path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY - cornerRadius) )
             }
 
@@ -63,39 +62,54 @@ struct IndentedCodeBlockShape: Shape {
         var centerPoint = CGPoint(x: lastRec.maxX - cornerRadius, y: lastRec.maxY - cornerRadius)
         path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 90), clockwise: false)
         path.addLine(to: CGPoint(x: lastRec.minX + cornerRadius, y: lastRec.maxY))
+        centerPoint = CGPoint(x: lastRec.minX + cornerRadius, y: lastRec.maxY - cornerRadius)
+        path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
 //
 //        // Draw left side (bottom up)
-//        for i in (0..<sortedRects.count).reversed() {
-//            let currentRect = sortedRects[i]
-//            let nextRect: CGRect? = (i > 0) ? sortedRects[i - 1] : nil
-//            path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.minY) )
-//            if let nextRect = nextRect {
-//                let startX = currentRect.minX
-//                if nextRect.minX > currentRect.minX {
-//                    var centerPoint = CGPoint(x: startX + diff, y: currentRect.minY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 180), endAngle: Angle(degrees: -90), clockwise: false)
-//                    path.addLine(to: CGPoint(x: nextRect.minX - diff, y: nextRect.maxY + diff))
-//                    centerPoint = CGPoint(x: nextRect.minX - diff, y: nextRect.maxY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 0), clockwise: true)
-//                }
-//                else if nextRect.minX < currentRect.minX {
-//                    var centerPoint = CGPoint(x: startX - diff, y: currentRect.minY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: -90), clockwise: true)
-//                    path.addLine(to: CGPoint(x: nextRect.minX + diff, y: nextRect.maxY + diff))
-//                    centerPoint = CGPoint(x: nextRect.minX + diff, y: nextRect.maxY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
-//                }
-//                else { // currentRect.minX == nextRect.minX
-//                    path.addLine(to: CGPoint(x: nextRect.minX, y: nextRect.minY))
-//                }
-//            }
-//        }
+        for i in (0..<sortedRects.count).reversed() {
+            let currentRect = sortedRects[i]
+            let nextRect: CGRect? = (i > 0) ? sortedRects[i - 1] : nil
+            if i == count - 1 {
+//                path.move(to: CGPoint(x: currentRect.minX, y: currentRect.maxY - cornerRadius))
+                path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.minY - distance + cornerRadius) )
+            } else if i > 0 {
+//                path.move(to: CGPoint(x: currentRect.minX, y: currentRect.maxY + distance - cornerRadius))
+                path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.minY - distance + cornerRadius) )
+            } else {
+//                path.move(to: CGPoint(x: currentRect.minX, y: currentRect.maxY + distance - cornerRadius))
+                path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.minY + cornerRadius) )
+            }
+            if let nextRect = nextRect {
+                let startX = currentRect.minX
+                if nextRect.minX > currentRect.minX {
+                    var centerPoint = CGPoint(x: startX + cornerRadius, y: currentRect.minY - distance + cornerRadius)
+                    path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 180), endAngle: Angle(degrees: -90), clockwise: false)
+                    path.addLine(to: CGPoint(x: nextRect.minX - cornerRadius, y: nextRect.maxY + distance))
+                    centerPoint = CGPoint(x: nextRect.minX - cornerRadius, y: nextRect.maxY + distance - cornerRadius)
+                    path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 0), clockwise: true)
+                }
+                else if nextRect.minX < currentRect.minX {
+                    var centerPoint = CGPoint(x: startX - cornerRadius, y: currentRect.minY - distance + cornerRadius)
+                    path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: -90), clockwise: true)
+                    path.addLine(to: CGPoint(x: nextRect.minX + cornerRadius, y: nextRect.maxY + distance))
+                    centerPoint = CGPoint(x: nextRect.minX + cornerRadius, y: nextRect.maxY + distance - cornerRadius)
+                    path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
+                }
+                else { // currentRect.minX == nextRect.minX
+                    path.addLine(to: CGPoint(x: nextRect.minX, y: nextRect.maxY))
+                }
+            }
+        }
 
-//        // Draw top line
-//        let firstRec = sortedRects[0]
-//        path.addLine(to: CGPoint(x: firstRec.maxX, y: firstRec.minY))
-//
-//        path.closeSubpath()
+        // Draw top line
+        let firstRec = sortedRects[0]
+        centerPoint = CGPoint(x: firstRec.minX + cornerRadius, y: firstRec.minY + cornerRadius)
+        path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: 180), endAngle: Angle(degrees: -90), clockwise: false)
+        path.addLine(to: CGPoint(x: firstRec.maxX - cornerRadius, y: firstRec.minY))
+        centerPoint = CGPoint(x: firstRec.maxX - cornerRadius, y: firstRec.minY + cornerRadius)
+        path.addArc(center: centerPoint, radius: cornerRadius, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 0), clockwise: false)
+
+        path.closeSubpath()
         return path
     }
 }
