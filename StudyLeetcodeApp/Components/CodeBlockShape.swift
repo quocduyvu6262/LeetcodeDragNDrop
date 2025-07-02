@@ -14,20 +14,24 @@ struct IndentedCodeBlockShape: Shape {
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        guard !lineRects.isEmpty else { return path }
-
+        guard lineRects.count >= 2 else { return path }
+        let count = self.lineRects.count
         let sortedRects = lineRects.sorted { $0.key < $1.key }.map { $0.value }
-
         path.move(to: CGPoint(x: sortedRects[0].maxX, y: sortedRects[0].minY))
+        let distance = sortedRects[1].minY - sortedRects[0].maxY
+        let diff = cornerRadius + distance / 2
 
         // Draw right side
         for i in 0..<sortedRects.count {
             let currentRect = sortedRects[i]
             let nextRect: CGRect? = (i + 1 < sortedRects.count) ? sortedRects[i+1] : nil
-            path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY) )
+            if i != count - 1 {
+                path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY - diff) )
+            } else {
+                path.addLine(to: CGPoint(x: currentRect.maxX, y: currentRect.maxY - cornerRadius) )
+            }
             if let nextRect = nextRect {
                 let midY = currentRect.maxY + (nextRect.minY - currentRect.maxY) / 2
-                let diff = midY - currentRect.maxY
                 let startX = currentRect.maxX
                 if nextRect.maxX > currentRect.maxX {
                     var centerPoint = CGPoint(x: startX + diff, y: currentRect.maxY)
@@ -49,38 +53,7 @@ struct IndentedCodeBlockShape: Shape {
             }
         }
 
-        // Draw left side
-//        for i in 0..<sortedRects.count {
-//            let currentRect = sortedRects[i]
-//            path.move(to: CGPoint(x: currentRect.minX, y: currentRect.minY))
-//            let nextRect: CGRect? = (i + 1 < sortedRects.count) ? sortedRects[i+1] : nil
-//            path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.maxY) )
-//            if let nextRect = nextRect {
-//                let midY = currentRect.maxY + (nextRect.minY - currentRect.maxY) / 2
-//                let diff = midY - currentRect.maxY
-//                let startX = currentRect.minX
-//                if nextRect.minX > currentRect.minX {
-//                    var centerPoint = CGPoint(x: startX + diff, y: currentRect.maxY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 180), endAngle: Angle(degrees: 90), clockwise: true)
-//                    path.addLine(to: CGPoint(x: nextRect.minX - diff, y: nextRect.minY - diff))
-//                    centerPoint = CGPoint(x: nextRect.minX - diff, y: nextRect.minY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 0), clockwise: false)
-//                }
-//                else if nextRect.minX < currentRect.minX {
-//                    var centerPoint = CGPoint(x: startX - diff, y: currentRect.maxY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 90), clockwise: false)
-//                    path.addLine(to: CGPoint(x: nextRect.minX + diff, y: nextRect.minY - diff))
-//                    centerPoint = CGPoint(x: nextRect.minX + diff, y: nextRect.minY)
-//                    path.addArc(center: centerPoint, radius: diff, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 180), clockwise: true)
-//                }
-//                else { // currentRect.minX == nextRect.minX
-//                    path.addLine(to: CGPoint(x: nextRect.minX, y: nextRect.minY))
-//                }
-//            }
-//        }
-
         // Draw bottom line
-        let count = sortedRects.count
         let lastRec = sortedRects[count-1]
         path.addLine(to: CGPoint(x: lastRec.minX, y: lastRec.maxY))
 
@@ -91,7 +64,6 @@ struct IndentedCodeBlockShape: Shape {
             path.addLine(to: CGPoint(x: currentRect.minX, y: currentRect.minY) )
             if let nextRect = nextRect {
                 let midY = currentRect.minY - (currentRect.minY - nextRect.maxY) / 2
-                let diff = midY - nextRect.maxY
                 let startX = currentRect.minX
                 if nextRect.minX > currentRect.minX {
                     var centerPoint = CGPoint(x: startX + diff, y: currentRect.minY)
