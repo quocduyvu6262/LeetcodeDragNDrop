@@ -42,10 +42,10 @@ struct CodeSnippet: View {
         } else {
             ZStack(alignment: .topLeading) {
                 IndentedCodeBlockShape(lineRects: lineRects, cornerRadius: 8)
-                    .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.gray)
+                    .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.white)
                     .overlay(
                         IndentedCodeBlockShape(lineRects: lineRects, cornerRadius: 8)
-                            .stroke(Color.red)
+                            .stroke(Color.primary.opacity(0.45), lineWidth: 0.8)
                     )
 
                 VStack(alignment: .leading, spacing: Constants.snippetSpacing) {
@@ -131,5 +131,11 @@ extension CodeSnippet {
 
 
 #Preview {
-    CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], nums[right]])\n    while left < right and nums[left] == nums[left+1]:\n        left += 1\n    while left < right and nums[right] == nums[right-1]:\n        right -= 1\n    left += 1\n    right -= 1")
+    VStack{
+//        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n    while left < right and nums[lef\n        left += 1\n    while left < right and nums[right] == nu\n        right -= 1\n    left += 1\n    right -= 1")
+        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
+//        CodeSnippet(code: "    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
+    }
+    .padding(.horizontal, 10)
+
 }
