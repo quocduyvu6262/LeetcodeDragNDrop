@@ -95,11 +95,10 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: CodeSnippetType, positi
         let leftPosition = position.x - snippetWidth / 2
         let indentLevel = Int(ceil(leftPosition / Constants.dotSpacing))
         if snippet.text.hasPrefix("def ") { // no indent for function declaration
-            print(snippet.text)
             return snippet.text
         }
-        // Handle multi-line snippets by indenting each line
 
+        // Handle multi-line snippets by indenting each line
         let lines = snippet.text.split(separator: "\n")
         return lines.map { line in
             let indentation = line.prefix(while: { $0 == " " })
