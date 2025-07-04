@@ -45,7 +45,7 @@ struct CodeSnippet: View {
                     .fill(colorScheme == .dark ? Color(red: 0.11, green: 0.11, blue: 0.12) : Color.white)
                     .overlay(
                         IndentedCodeBlockShape(lineRects: lineRects, cornerRadius: 8)
-                            .stroke(Color.primary.opacity(0.45), lineWidth: 0.8)
+                            .stroke(Color.primary.opacity(0.45), lineWidth: 0.3)
                     )
 
                 VStack(alignment: .leading, spacing: Constants.snippetSpacing) {
@@ -132,8 +132,8 @@ extension CodeSnippet {
 
 #Preview {
     VStack{
-//        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n    while left < right and nums[lef\n        left += 1\n    while left < right and nums[right] == nu\n        right -= 1\n    left += 1\n    right -= 1")
-        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
+        CodeSnippet(code: "if current_sum == 0:\n  result.append([nums[i], nums[left],n\n  while left < right and nums[lef\n    left += 1\n  while left < right and nums[right] == nu\n    right -= 1\n  left += 1\n  right -= 1")
+//        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
 //        CodeSnippet(code: "    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
     }
     .padding(.horizontal, 10)
