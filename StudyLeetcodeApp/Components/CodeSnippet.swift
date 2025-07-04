@@ -121,7 +121,7 @@ extension CodeSnippet {
         let content = line.dropFirst(indentation.count)
 
         // Use a fixed width for each space character
-        let spaceWidth: CGFloat = 12 // Adjust this value to match your font
+        let spaceWidth: CGFloat = Constants.dotSpacing // Adjust this value to match your font
         let indentationWidth = CGFloat(indentation.count) * spaceWidth
         let contentWidth = calculateSnippetWidth(text: String(content))
 
@@ -132,7 +132,7 @@ extension CodeSnippet {
 
 #Preview {
     VStack{
-        CodeSnippet(code: "if current_sum == 0:\n  result.append([nums[i], nums[left],n\n  while left < right and nums[lef\n    left += 1\n  while left < right and nums[right] == nu\n    right -= 1\n  left += 1\n  right -= 1")
+        CodeSnippet(code: "if current_sum == 0:\n  result.append([nums[i], nums[left],n\n  while left < right and nums[lef\n left += 1\n  while left < right and nums[right] == nu\n    right -= 1\n  left += 1\n  right -= 1")
 //        CodeSnippet(code: "if current_sum == 0:\n    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
 //        CodeSnippet(code: "    result.append([nums[i], nums[left], n\n  while left < right and nums[lef]")
     }
