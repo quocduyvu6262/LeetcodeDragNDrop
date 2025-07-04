@@ -1,0 +1,21 @@
+{
+  "name": "Maximum Depth of Binary Tree",
+  "difficulty": "Easy",
+  "description": "Given the root of a binary tree, return its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\nExample\n Input: root = [3, 9, 20, null, null, 15, 7]\n Output: 3 (longest path is 3 -> 20 -> 15 or 3 -> 20 -> 7).\n\nApproaches\n1. Recursive DFS: Recursively compute the depth of left and right subtrees and return the maximum plus one. Time: O(n), Space: O(h) where h is the height of the tree.\n2. Iterative BFS: Use a queue to process nodes level by level. Time: O(n), Space: O(w) where w is the maximum width of the tree.\n\nConstraints\n The number of nodes in the tree is in the range [0, 10⁴].\n -100 ≤ Node.val ≤ 100\n\nCan you find the maximum depth for root = [3, 9, 20, null, null, 15, 7]?",
+  "snippets": [
+    "def maxDepth(root):",
+    "if not root:",
+    "return 0",
+    "left_depth = maxDepth(root.left)",
+    "right_depth = maxDepth(root.right)",
+    "return max(left_depth, right_depth) + 1"
+  ],
+  "function": "def twoSum(array, target):",
+  "inputs": ["[2,7,11,15,19]"],
+  "outputs": ["[7,2]"],
+  "complexity_options": ["O(n²), O(1)", "O(n), O(h)", "O(n log n), O(1)", "O(1), O(n)"],
+  "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+  "space_complexity_options": ["O(1)", "O(n)", "O(h)", "O(n log n)"],
+  "correct_time_complexity": "O(n)",
+  "correct_space_complexity": "O(h)"
+}

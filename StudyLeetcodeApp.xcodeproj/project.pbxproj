@@ -29,7 +29,6 @@
 		7D689C0E2DBC4CFB00476393 /* pyodide.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C042DBC4CFB00476393 /* pyodide.js */; };
 		7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C072DBC4CFB00476393 /* pyodide.asm.js */; };
 		7D689C112DBC4CFB00476393 /* package.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C032DBC4CFB00476393 /* package.json */; };
-		7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
 		7D9EE60E2D726BE300A7BA32 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D9EE60D2D726BE300A7BA32 /* CanvasView.swift */; };
 		7DCBC44B2DC54E69006AF025 /* LoadingModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DCBC44A2DC54E69006AF025 /* LoadingModal.swift */; };
 		7DD23EAF2D70560D00B3F1EA /* StudyLeetcodeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD23EAE2D70560D00B3F1EA /* StudyLeetcodeApp.swift */; };
@@ -62,6 +61,9 @@
 		933AB0992E120DA90016E358 /* PathConnectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB0982E120DA50016E358 /* PathConnectView.swift */; };
 		933AB09B2E1216C20016E358 /* CodeBlockShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB09A2E1216C20016E358 /* CodeBlockShape.swift */; };
 		933AB09D2E123B0D0016E358 /* MergedRec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933AB09C2E123B090016E358 /* MergedRec.swift */; };
+		933E48292E1850B700D841F1 /* ffi.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C022DBC4CFB00476393 /* ffi.d.ts */; };
+		933E482A2E1850B700D841F1 /* pyodide-lock.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C062DBC4CFB00476393 /* pyodide-lock.json */; };
+		933E482B2E1850B700D841F1 /* pyodide.d.ts in Resources */ = {isa = PBXBuildFile; fileRef = 7D689C092DBC4CFB00476393 /* pyodide.d.ts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,13 +151,24 @@
 		7DED96952DEA01BF00A821CD /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				ArraysHashing/problems.json,
-				Graphs/problems.json,
-				Heap/problems.json,
-				LinkedList/problems.json,
-				SlidingWindow/problems.json,
-				Stack/problems.json,
-				Tries/problems.json,
+				ArraysHashing/LowestCommonAncestor.json,
+				ArraysHashing/MaxDepthBinaryTree.json,
+				BinarySearch/LowestCommonAncestor.json,
+				BinarySearch/MaxDepthBinaryTree.json,
+				Graphs/LowestCommonAncestor.json,
+				Graphs/MaxDepthBinaryTree.json,
+				Heap/LowestCommonAncestor.json,
+				Heap/MaxDepthBinaryTree.json,
+				LinkedList/LowestCommonAncestor.json,
+				LinkedList/MaxDepthBinaryTree.json,
+				SlidingWindow/LowestCommonAncestor.json,
+				SlidingWindow/MaxDepthBinaryTree.json,
+				Stack/LowestCommonAncestor.json,
+				Stack/MaxDepthBinaryTree.json,
+				Tries/LowestCommonAncestor.json,
+				Tries/MaxDepthBinaryTree.json,
+				TwoPointers/ContainerWithMostWater.json,
+				TwoPointers/RemoveDuplicateFromSortedArray.json,
 				TwoPointers/ThreeSum.json,
 				TwoPointers/TwoSum.json,
 			);
@@ -514,6 +527,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933E48292E1850B700D841F1 /* ffi.d.ts in Resources */,
+				933E482A2E1850B700D841F1 /* pyodide-lock.json in Resources */,
+				933E482B2E1850B700D841F1 /* pyodide.d.ts in Resources */,
 				7DED96972DEA024600A821CD /* ProblemCategories in Resources */,
 				7D689C0C2DBC4CFB00476393 /* pyodide.mjs in Resources */,
 				7D689C0D2DBC4CFB00476393 /* pyodide.asm.wasm in Resources */,
@@ -522,7 +538,6 @@
 				7D689C0F2DBC4CFB00476393 /* pyodide.asm.js in Resources */,
 				7D0DF84F2DC17B6300520360 /* .gitignore in Resources */,
 				7D689C112DBC4CFB00476393 /* package.json in Resources */,
-				7D689C122DBC4CFB00476393 /* pyodide-lock.json in Resources */,
 				7DD23EB62D70560F00B3F1EA /* Preview Assets.xcassets in Resources */,
 				7DD23EB32D70560F00B3F1EA /* Assets.xcassets in Resources */,
 				7D4F6AFE2DBC118200DCB647 /* index.html in Resources */,

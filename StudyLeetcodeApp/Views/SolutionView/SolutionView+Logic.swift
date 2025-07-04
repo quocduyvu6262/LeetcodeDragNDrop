@@ -163,7 +163,7 @@ result = \(functionName)(\(args))
 
 assert result == \(expectedOutput)
 """
-        print(wrappedCode)
+//        print(wrappedCode)
         DispatchQueue.main.async {
             pythonExecutorCode = wrappedCode
             runPython = true

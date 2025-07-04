@@ -9,26 +9,37 @@ import Foundation
 
 class ProblemsListViewModel: ObservableObject {
     @Published var problems: [Problem] = []
-    
+
     @Published var alertItem: AlertItem?
     @Published var searchText: String = ""
     @Published var isLoading: Bool = false
     
     private var category: Category
-    
+    private let difficultyOrder: [String: Int] = ["Easy": 0, "Medium": 1, "Hard": 2]
+
     init(category: Category) {
         self.category = category
         loadCachedProblems()
     }
     
     var filteredProblems: [Problem] {
+        let sortedProblems: [Problem] = problems.sorted { p1, p2 in
+            let order1 = difficultyOrder[p1.difficulty] ?? Int.max // Default to end of list if difficulty is unknown
+            let order2 = difficultyOrder[p2.difficulty] ?? Int.max
+            return order1 < order2
+        }
+        var filteredProblems: [Problem] = sortedProblems
+
         if searchText.isEmpty {
-            return problems
+            return sortedProblems
         } else {
-            return problems.filter { problem in
+            filteredProblems = problems.filter { problem in
                 problem.name.lowercased().contains(searchText.lowercased().trimmingCharacters(in: .whitespaces))
             }
         }
+
+        // Sort the filtered problems by difficulty
+        return filteredProblems
     }
     
     private func loadCachedProblems() {
@@ -99,6 +110,18 @@ class ProblemsListViewModel: ObservableObject {
             return try decoder.decode([Problem].self, from: data)
         } catch {
             throw LCError.invalidData
+        }
+    }
+
+    private func sortProblems() {
+        // Define the desired order of difficulties
+        let difficultyOrder: [String: Int] = ["Easy": 0, "Medium": 1, "Hard": 2]
+
+        // Sort the main problems array in place
+        problems.sort { p1, p2 in
+            let order1 = difficultyOrder[p1.difficulty] ?? Int.max
+            let order2 = difficultyOrder[p2.difficulty] ?? Int.max
+            return order1 < order2
         }
     }
 }

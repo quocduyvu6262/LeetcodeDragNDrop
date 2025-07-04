@@ -16,8 +16,17 @@ func calculateTextWidth(text: String, font: UIFont = Constants.snippetFont) -> C
 }
 
 func calculateSnippetWidth(text: String, font: UIFont = Constants.snippetFont) -> CGFloat {
-    let textWidth = calculateTextWidth(text: text)
-    let numberOfDotSpacing = ceil(textWidth / Constants.dotSpacing)
+    let lines = text.components(separatedBy: .newlines)
+    var maxWidth: CGFloat = 0.0
+
+    // Calculate the width for each line and find the maximum
+    for line in lines {
+        let lineTextWidth = calculateTextWidth(text: line)
+        maxWidth = max(maxWidth, lineTextWidth)
+    }
+
+    // Apply your original logic to the maximum width found
+    let numberOfDotSpacing = ceil(maxWidth / Constants.dotSpacing)
     let evenNumberOfDotSpacing = numberOfDotSpacing.truncatingRemainder(dividingBy: 2) == 0 ? numberOfDotSpacing : numberOfDotSpacing + 1
     let width = evenNumberOfDotSpacing * Constants.dotSpacing
     return width
@@ -85,11 +94,20 @@ func buildCodeFromDroppedSnippets(_ snippets: [(snippet: CodeSnippetType, positi
         let snippetWidth = calculateSnippetWidth(text: snippet.text)
         let leftPosition = position.x - snippetWidth / 2
         let indentLevel = Int(ceil(leftPosition / Constants.dotSpacing))
-        var indent = String(repeating: " ", count: indentLevel * Constants.indentDefault)
         if snippet.text.hasPrefix("def ") { // no indent for function declaration
-            indent = ""
+            print(snippet.text)
+            return snippet.text
         }
-        return indent + snippet.text
+        // Handle multi-line snippets by indenting each line
+
+        let lines = snippet.text.split(separator: "\n")
+        return lines.map { line in
+            let indentation = line.prefix(while: { $0 == " " })
+            let lineContent = line.dropFirst(indentation.count)
+            let resultIndent = String(repeating: " ", count: indentLevel + indentation.count)
+            return resultIndent + lineContent
+        }.joined(separator: "\n")
+        
     }.joined(separator: "\n")
 }
 
