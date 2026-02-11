@@ -1,0 +1,68 @@
+disabled_rules:
+  # Identifier naming rules (too strict for your codebase)
+  - identifier_name
+  - variable_name
+  
+  # Code structure rules
+  - nesting
+  - function_parameter_count
+  - function_body_length
+  - type_body_length
+  - cyclomatic_complexity
+  
+  # Line length rules (too restrictive)
+  - line_length
+  
+  # Closure rules
+  - multiple_closures_with_trailing_closure
+  
+  # Trailing comma rules
+  - trailing_comma
+  
+  # Force cast rules (needed for your drag & drop implementation)
+  - force_cast
+  
+  # Static vs class rules
+  - static_over_final_class
+  
+  # TODO rules
+  - todo
+  - indentation_width
+
+opt_in_rules:
+  # Keep some useful rules
+  - control_statement
+  - empty_count
+  - trailing_newline
+  - colon
+  - comma
+  - indentation_width
+
+included:
+  - StudyLeetcodeApp
+  - StudyLeetcodeAppTests
+
+excluded:
+  - Pods
+  - StudyLeetcodeApp/R.generated.swift
+
+# Indentation configuration
+indentation_width:
+  warning: 2
+  error: 2
+
+# File length (more reasonable limits)
+file_length:
+  warning: 500
+  error: 800
+
+# Type name rules
+type_name:
+  min_length: 4
+  max_length:
+    warning: 30
+    error: 35
+  excluded: iPhone
+
+# Reporter
+reporter: "xcode"

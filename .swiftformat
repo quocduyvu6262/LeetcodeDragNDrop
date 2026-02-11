@@ -1,0 +1,6 @@
+--indent 2
+--trimwhitespace always
+--insertlines enabled
+--wraparguments before-first
+--wrapparameters before-first
+--commas always

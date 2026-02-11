@@ -1,0 +1,26 @@
+{
+  "name": "Container With Most Water",
+  "difficulty": "Medium",
+  "description": "Given an array of non-negative integers height, where each integer represents the height of a vertical line at index i, find two lines that together with the x-axis form a container that holds the most water. Return the maximum amount of water the container can store. Assume the width of the container is the distance between the indices of the chosen lines.\n\nExample\n height = [1, 8, 6, 2, 5, 4, 8, 3, 7]\n Maximum water is 49 (between indices 1 and 8, height 7 and 8, width 7).",
+  "snippets": [
+    "left = 0",
+    "right = len(height) - 1",
+    "max_area = 0",
+    "while left < right:",
+    "area = min(height[left], height[right]) * (right - left)",
+    "max_area = max(max_area, area)",
+    "if height[left] < height[right]:",
+    "left += 1",
+    "else:",
+    "right -= 1",
+    "return max_area",
+  ],
+  "function": "def maxArea(height):",
+  "inputs": ["[1,7,2,5,4,7,3,6]"],
+  "outputs": ["36"],
+  "complexity_options": ["O(n²), O(1)", "O(n), O(1)", "O(n log n), O(1)", "O(1), O(n)"],
+  "time_complexity_options": ["O(n²)", "O(n)", "O(n log n)", "O(1)"],
+  "space_complexity_options": ["O(1)", "O(n)", "O(n!)", "O(n log n)"],
+  "correct_time_complexity": "O(n)",
+  "correct_space_complexity": "O(1)"
+}
