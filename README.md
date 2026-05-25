@@ -8,4 +8,7 @@ An interactive iOS application that revolutionizes how you practice LeetCode pro
 
 ## 🎥 Demo
 
-https://github.com/user-attachments/assets/9848eccb-ac39-4120-87ba-9b1cedfd87e5
+
+https://github.com/user-attachments/assets/c8541096-c1c1-4ad7-9d47-73965cbd2c17
+
+
